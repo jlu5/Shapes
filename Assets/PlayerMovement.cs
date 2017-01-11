@@ -25,6 +25,9 @@ public class PlayerMovement : MonoBehaviour {
             // Add the colliding gameObject and its normal (perpendicular) vector to our list of
             // colliding objects.
             colliding_objects[col.gameObject] = col.contacts[0].normal;
+            
+            Debug.Log("can_jump set to true");
+            can_jump = true;
         }
     }
 
@@ -33,6 +36,14 @@ public class PlayerMovement : MonoBehaviour {
         if (col.gameObject.tag == "Environment")
         {
             colliding_objects.Remove(col.gameObject);
+
+        }
+
+        if (colliding_objects.Count == 0)
+        {
+            // Disable jump when leaving all collisions, so that we can't magically gain momentum in mid air.
+            Debug.Log("can_jump set to false");
+            can_jump = false;
         }
     }
 
@@ -54,11 +65,6 @@ public class PlayerMovement : MonoBehaviour {
             {
                 normal_sum += vector;
             }
-            
-            // Re-enable jump
-            Debug.Log("can_jump set to true");
-            can_jump = true;
-
             next_jump_vector = normal_sum;
         }
     }
