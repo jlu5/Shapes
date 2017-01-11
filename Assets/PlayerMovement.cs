@@ -10,12 +10,30 @@ public class PlayerMovement : MonoBehaviour {
 
     private Rigidbody2D rb;
     private bool can_jump = false;
-
     private Vector2 next_jump_vector;
+    private Dictionary<GameObject, Vector2> colliding_objects = new Dictionary<GameObject, Vector2>();
 
     // Use this for initialization
     void Start () {
         rb = GetComponent<Rigidbody2D> ();
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.tag == "Environment")
+        {
+            // Add the colliding gameObject and its normal (perpendicular) vector to our list of
+            // colliding objects.
+            colliding_objects[col.gameObject] = col.contacts[0].normal;
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D col)
+    {
+        if (col.gameObject.tag == "Environment")
+        {
+            colliding_objects.Remove(col.gameObject);
+        }
     }
 
     void OnCollisionStay2D(Collision2D col)
@@ -30,10 +48,11 @@ public class PlayerMovement : MonoBehaviour {
              * Since forces are expressed as a vector, we can sum all the collision normal
              * vectors if the player is touching multiple points at once (e.g. corner jump).
              */
-            Vector2 normal_sum = new Vector2(); // Initialize an empty vector
-            foreach (ContactPoint2D contactpoint in col.contacts)
+            Vector2 normal_sum = Vector2.zero;
+
+            foreach (Vector2 vector in colliding_objects.Values)
             {
-                normal_sum += contactpoint.normal;
+                normal_sum += vector;
             }
             
             // Re-enable jump
