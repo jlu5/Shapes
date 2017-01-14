@@ -22,24 +22,15 @@ public class PlayerMovement : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.tag == "Environment")
-        {
-            // Add the colliding gameObject and its normal (perpendicular) vector to our list of
-            // colliding objects.
-            colliding_objects[col.gameObject] = col.contacts[0].normal;
+       colliding_objects[col.gameObject] = col.contacts[0].normal;
             
-            Debug.Log("can_jump set to true");
-            can_jump = true;
-        }
+       Debug.Log("can_jump set to true");
+       can_jump = true;
     }
 
     void OnCollisionExit2D(Collision2D col)
     {
-        if (col.gameObject.tag == "Environment")
-        {
-            colliding_objects.Remove(col.gameObject);
-
-        }
+        colliding_objects.Remove(col.gameObject);
 
         if (colliding_objects.Count == 0)
         {
@@ -51,23 +42,20 @@ public class PlayerMovement : MonoBehaviour {
 
     void OnCollisionStay2D(Collision2D col)
     {
-        if (col.gameObject.tag == "Environment")
-        {
-            /* Make jump realistic: whenever the player collides with the environment, set the
-             * jump direction perpendicular to the surface(s) the player is touching.
-             * This is in contrast to making jump always point upwards, which is completely wrong
-             * when colliding with slanted or floating platforms.
-             * Since forces are expressed as a vector, we can sum all the collision normal
-             * vectors if the player is touching multiple points at once (e.g. corner jump).
-             */
-            Vector2 normal_sum = Vector2.zero;
+        /* Make jump realistic: whenever the player collides with the environment, set the
+            * jump direction perpendicular to the surface(s) the player is touching.
+            * This is in contrast to making jump always point upwards, which is completely wrong
+            * when colliding with slanted or floating platforms.
+            * Since forces are expressed as a vector, we can sum all the collision normal
+            * vectors if the player is touching multiple points at once (e.g. corner jump).
+            */
+        Vector2 normal_sum = Vector2.zero;
 
-            foreach (Vector2 vector in colliding_objects.Values)
-            {
-                normal_sum += vector;
-            }
-            next_jump_vector = normal_sum;
+        foreach (Vector2 vector in colliding_objects.Values)
+        {
+            normal_sum += vector;
         }
+        next_jump_vector = normal_sum;
     }
 
     // Update is called once per frame
