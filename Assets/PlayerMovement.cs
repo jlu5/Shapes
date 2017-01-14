@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour {
     // Use this for initialization
     void Start () {
         rb = GetComponent<Rigidbody2D> ();
+
     }
 
     void OnCollisionEnter2D(Collision2D col)
@@ -49,7 +50,6 @@ public class PlayerMovement : MonoBehaviour {
 
     void OnCollisionStay2D(Collision2D col)
     {
-        Debug.Log("Player collided with object");
         if (col.gameObject.tag == "Environment")
         {
             /* Make jump realistic: whenever the player collides with the environment, set the
