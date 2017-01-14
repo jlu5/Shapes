@@ -2,14 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/*
-public class GameStateCore {
-
-
-}
-*/
-
-// Singleton method from https://msdn.microsoft.com/en-us/library/ff650316.aspx
+// Singleton method adapted from https://msdn.microsoft.com/en-us/library/ff650316.aspx
 public sealed class GameState : MonoBehaviour
 {
     private static GameState instance;
@@ -25,8 +18,8 @@ public sealed class GameState : MonoBehaviour
     }
 
     // TODO: make player settings configurable in via level data
-    public int current_player = 1;
-    public int player_count = 2;
+    public int currentPlayer = 1;
+    public int playerCount = 2;
 
     void Awake()
     {
@@ -41,16 +34,16 @@ public sealed class GameState : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        for (int btn_num = 1; btn_num <= player_count; btn_num++)
+        for (int btnNum = 1; btnNum <= playerCount; btnNum++)
         {
-            string keyname = "Fire" + btn_num;
+            string keyName = "Fire" + btnNum;
 
             try
             {
-                if (Input.GetButtonDown(keyname))
+                if (Input.GetButtonDown(keyName))
                 {
-                    Debug.Log("Current player set to " + btn_num);
-                    current_player = btn_num;
+                    Debug.Log("Current player set to " + btnNum);
+                    currentPlayer = btnNum;
                 }
             }
             catch (System.ArgumentException)

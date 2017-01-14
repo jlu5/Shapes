@@ -322,10 +322,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 723c46198ffebc54882bad21442540f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  move_speed: 1
-  jump_strength: 80
-  rotation_speed: 0.1
-  player_id: 2
+  moveSpeed: 1
+  jumpStrength: 80
+  rotationSpeed: 0.1
+  jumpRecoilStrength: 0.2
+  playerID: 2
 --- !u!50 &594761723
 Rigidbody2D:
   serializedVersion: 4
@@ -388,7 +389,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 594761720}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.65, z: 0}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
@@ -985,10 +986,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 723c46198ffebc54882bad21442540f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  move_speed: 1
-  jump_strength: 80
-  rotation_speed: 0.1
-  player_id: 1
+  moveSpeed: 1
+  jumpStrength: 80
+  rotationSpeed: 0.1
+  jumpRecoilStrength: 0.2
+  playerID: 1
 --- !u!1 &1614557361
 GameObject:
   m_ObjectHideFlags: 0
@@ -1016,8 +1018,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94d0d498db8d00042b22337da138c9a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  current_player: 1
-  player_count: 2
+  currentPlayer: 1
+  playerCount: 2
 --- !u!4 &1614557363
 Transform:
   m_ObjectHideFlags: 0
