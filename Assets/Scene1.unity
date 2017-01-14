@@ -325,7 +325,7 @@ MonoBehaviour:
   moveSpeed: 1
   jumpStrength: 80
   rotationSpeed: 0.1
-  jumpRecoilStrength: 0.2
+  jumpRecoilStrength: 20
   playerID: 2
 --- !u!50 &594761723
 Rigidbody2D:
@@ -989,7 +989,7 @@ MonoBehaviour:
   moveSpeed: 1
   jumpStrength: 80
   rotationSpeed: 0.1
-  jumpRecoilStrength: 0.2
+  jumpRecoilStrength: 20
   playerID: 1
 --- !u!1 &1614557361
 GameObject:
