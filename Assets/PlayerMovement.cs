@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour {
     public float move_speed;
     public float jump_strength;
     public float rotation_speed;
+    public int player_id = 0;
 
     private Rigidbody2D rb;
     private bool can_jump = false;
@@ -72,22 +73,27 @@ public class PlayerMovement : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         // Get horizontal and vertical (rotation) movement
-        float x_move = Input.GetAxis("Horizontal");
-        float r_move = Input.GetAxis("Vertical");
 
-        if (Input.GetButtonDown("Jump") && can_jump)
+        if (GameState.Instance.current_player == player_id)
         {
-            rb.AddForce(next_jump_vector * jump_strength);
+            float x_move = Input.GetAxis("Horizontal");
+            float r_move = Input.GetAxis("Vertical");
 
-            // Disable jump while we're in mid-air (this is reset in OnCollisionStay2D).
-            can_jump = false;
-            Debug.Log("can_jump set to false");
+            if (Input.GetButtonDown("Jump") && can_jump)
+            {
+                rb.AddForce(next_jump_vector * jump_strength);
+
+                // Disable jump while we're in mid-air (this is reset in OnCollisionStay2D).
+                can_jump = false;
+                Debug.Log("can_jump set to false");
+            }
+
+            Vector2 vector_move = new Vector2(x_move, 0.0F);
+
+            rb.AddForce(vector_move * move_speed);
+            // Up rotates clockwise, down rotates counterclockwise
+            rb.AddTorque(-r_move * rotation_speed);
         }
 
-        Vector2 vector_move = new Vector2(x_move, 0.0F);
-
-        rb.AddForce(vector_move * move_speed);
-        // Up rotates clockwise, down rotates counterclockwise
-        rb.AddTorque(-r_move * rotation_speed);
     }
 }

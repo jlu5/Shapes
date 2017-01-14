@@ -325,6 +325,7 @@ MonoBehaviour:
   move_speed: 1
   jump_strength: 80
   rotation_speed: 0.1
+  player_id: 2
 --- !u!50 &594761723
 Rigidbody2D:
   serializedVersion: 4
@@ -987,6 +988,7 @@ MonoBehaviour:
   move_speed: 1
   jump_strength: 80
   rotation_speed: 0.1
+  player_id: 1
 --- !u!1 &1614557361
 GameObject:
   m_ObjectHideFlags: 0
