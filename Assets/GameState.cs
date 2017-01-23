@@ -21,6 +21,7 @@ public sealed class GameState : MonoBehaviour
     // TODO: make player settings configurable in via level data
     public int currentPlayer = 1;
     public int playerCount = 2;
+    private Dictionary<int, Player> players;
 
     private GameObject playerOverlay;
     private GameObject canvasTemplate;
@@ -39,15 +40,23 @@ public sealed class GameState : MonoBehaviour
         playerListLabel.GetComponent<Text>().text = "Character list: ";
         playerListLabel.transform.SetParent(canvas.transform);
 
-        for (int i = 0; i < playerCount; i++)
-        {
-            // For each player, create a new instance of our player overlay prefab and move it into the Canvas.
-           
-            GameObject newObj = Instantiate(playerOverlay);
-            newObj.name = "Player Overlay for Player " + i;
-            newObj.transform.SetParent(canvas.transform);
-        }
+    }
 
+    // Adds a player into the current scene.
+    public void addPlayer(int id, Player player)
+    {
+        // Create a new instance of our player overlay prefab - this uses the
+        // same sprite as the player but has no movement attached.
+        GameObject newObj = Instantiate(playerOverlay);
+        // Set the object name and sprite color
+        newObj.name = "Player Overlay for Player " + id;
+        newObj.GetComponent<Image>().color = player.getColor();
+        // Move the object into the Canvas.
+        newObj.transform.SetParent(canvas.transform);
+
+        // Finally, register the player into the player list. TODO: make sure
+        // the key doesn't already exist.
+        players[id] = player;
     }
 
     void Awake()
@@ -57,7 +66,6 @@ public sealed class GameState : MonoBehaviour
 
         // Keep the game state code alive, even as we load different levels.
         DontDestroyOnLoad(gameObject);
-
         MakeHUD();
     }
 

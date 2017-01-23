@@ -17,7 +17,11 @@ public class Player : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        // Find our Rigidbody2D object
         rb = GetComponent<Rigidbody2D> ();
+        // Add this player to our global game state.
+        GameState.Instance.addPlayer(playerID, this);
+
     }
 
     void OnCollisionEnter2D(Collision2D col)
@@ -95,6 +99,11 @@ public class Player : MonoBehaviour {
             // Up rotates clockwise, down rotates counterclockwise
             rb.AddTorque(-r_move * rotationSpeed);
         }
+    }
 
+    // Returns the color object of the player.
+    public Color getColor()
+    {
+        return GetComponent<SpriteRenderer>().color;
     }
 }
