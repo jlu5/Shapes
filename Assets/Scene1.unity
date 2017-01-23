@@ -323,7 +323,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  jumpStrength: 500
+  jumpStrength: 700
   rotationSpeed: 3
   jumpRecoilStrength: 100
   playerID: 2
@@ -987,7 +987,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  jumpStrength: 500
+  jumpStrength: 700
   rotationSpeed: 3
   jumpRecoilStrength: 100
   playerID: 1

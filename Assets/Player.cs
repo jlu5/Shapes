@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-    public float moveSpeed;
-    public float jumpStrength;
-    public float rotationSpeed;
-    public float jumpRecoilStrength;
+    public float moveSpeed = 10;
+    public float jumpStrength = 700;
+    public float rotationSpeed = 3;
+    public float jumpRecoilStrength = 100;
     public int playerID = 0;
 
     private Rigidbody2D rb;
