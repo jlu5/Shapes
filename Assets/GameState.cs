@@ -23,31 +23,28 @@ public sealed class GameState : MonoBehaviour
     public int playerCount = 2;
 
     private GameObject playerOverlay;
-   // private Sprite playerSprite = Resources.Load<Sprite>("Player");
-    private GameObject playerList;
     private GameObject canvasTemplate;
     private GameObject canvas;
+    private GameObject HUDTextLabelTemplate;
 
     // Draws on the canvas the current player & a list of players as sprites
     void MakeHUD()
     {
-        //Canvas canvas = FindObjectOfType<Canvas>();
         playerOverlay = Resources.Load<GameObject>("PlayerOverlay");
-        playerList = Resources.Load<GameObject>("PlayerList");
         canvasTemplate = Resources.Load<GameObject>("HUDCanvas");
+        HUDTextLabelTemplate = Resources.Load<GameObject>("HUDTextLabel");
 
         canvas = Instantiate(canvasTemplate);
-        // Clone the player list prefab (pre-defined object) and add it to the canvas.
-        // Canvases are essentially screens drawn over the UI, which can be used for menus, HUDs, etc.
-        //GameObject newPlayerList = Instantiate(playerList);
-        //newPlayerList.transform.SetParent(canvas.transform);
+        GameObject playerListLabel = Instantiate(HUDTextLabelTemplate);
+        playerListLabel.GetComponent<Text>().text = "Character list: ";
+        playerListLabel.transform.SetParent(canvas.transform);
+
         for (int i = 0; i < playerCount; i++)
         {
             // For each player, create a new instance of our player overlay prefab and move it into the Canvas.
            
             GameObject newObj = Instantiate(playerOverlay);
             newObj.name = "Player Overlay for Player " + i;
-            //float spriteSize = newObj.GetComponent<SpriteRenderer>().bounds.size.x;
             newObj.transform.SetParent(canvas.transform);
         }
 
