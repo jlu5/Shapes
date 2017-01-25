@@ -56,9 +56,13 @@ public class Player : MonoBehaviour {
 
         foreach (Vector2 vector in collidingObjects.Values)
         {
+            //Debug.Log(string.Format("Adding vector ({0}, {1}) from colliding object", vector.x, vector.y));
             normal_sum += vector;
         }
         nextJumpVector = normal_sum;
+        // Normalize the resulting vector so we don't get super jumps when colliding with multiple
+        // objects at the same time (e.g. when resting on the crack between two parallel platforms).
+        nextJumpVector.Normalize();
     }
 
     // Update is called once per frame
