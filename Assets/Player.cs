@@ -104,6 +104,12 @@ public class Player : MonoBehaviour {
         }
     }
 
+    // Handles mouse clicks on the player, which sets it to the current one.
+    void OnMouseUp()
+    {
+        GameState.Instance.currentPlayer = playerID;
+    }
+
     // Returns the color object of the player.
     public Color getColor()
     {
