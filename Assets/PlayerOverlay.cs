@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerOverlay : MonoBehaviour//, IPointerUpHandler
+public class PlayerOverlay : MonoBehaviour
 {
     public int playerID;
 
@@ -27,17 +25,4 @@ public class PlayerOverlay : MonoBehaviour//, IPointerUpHandler
             Debug.LogWarning("PlayerOverlay clicked but not bound to a player ID!");
         }
     }
-    /*
-    public void OnPointerUp(PointerEventData eventdata)
-    {
-        if (playerID != 0)
-        {
-            Debug.Log("Clicked player overlay of player ID " + playerID);
-            GameState.Instance.currentPlayer = playerID;
-        }
-        else
-        {
-            Debug.LogWarning("PlayerOverlay clicked but not bound to a player ID!");
-        }
-    }*/
 }
