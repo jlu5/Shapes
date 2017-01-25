@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 // Singleton method adapted from https://msdn.microsoft.com/en-us/library/ff650316.aspx
 public sealed class GameState : MonoBehaviour
@@ -21,9 +22,9 @@ public sealed class GameState : MonoBehaviour
     // TODO: make player settings configurable in via level data
     public int currentPlayer = 1;
     public int playerCount = 2;
-    private Dictionary<int, Player> players;
+    private Dictionary<int, Player> players = new Dictionary<int, Player>();
 
-    private GameObject playerOverlay;
+    private PlayerOverlay playerOverlay;
     private GameObject canvasTemplate;
     private GameObject canvas;
     private GameObject HUDTextLabelTemplate;
@@ -31,13 +32,13 @@ public sealed class GameState : MonoBehaviour
     // Draws on the canvas the current player & a list of players as sprites
     void MakeHUD()
     {
-        playerOverlay = Resources.Load<GameObject>("PlayerOverlay");
+        playerOverlay = Resources.Load<PlayerOverlay>("PlayerOverlay");
         canvasTemplate = Resources.Load<GameObject>("HUDCanvas");
         HUDTextLabelTemplate = Resources.Load<GameObject>("HUDTextLabel");
 
         canvas = Instantiate(canvasTemplate);
         GameObject playerListLabel = Instantiate(HUDTextLabelTemplate);
-        playerListLabel.GetComponent<Text>().text = "Character list: ";
+        playerListLabel.GetComponent<Text>().text = "Select character: ";
         playerListLabel.transform.SetParent(canvas.transform);
 
     }
@@ -47,12 +48,18 @@ public sealed class GameState : MonoBehaviour
     {
         // Create a new instance of our player overlay prefab - this uses the
         // same sprite as the player but has no movement attached.
-        GameObject newObj = Instantiate(playerOverlay);
+        PlayerOverlay newObj = Instantiate(playerOverlay);
         // Set the object name and sprite color
         newObj.name = "Player Overlay for Player " + id;
         newObj.GetComponent<Image>().color = player.getColor();
         // Move the object into the Canvas.
         newObj.transform.SetParent(canvas.transform);
+        // Fix the position of the sprite within the character list
+        // The index happens to equal the ID, since element 0 is the
+        // "Character list" description text.
+        newObj.transform.SetSiblingIndex(id);
+        // Bind the new object to the player ID.
+        newObj.playerID = id;
 
         // Finally, register the player into the player list. TODO: make sure
         // the key doesn't already exist.
@@ -66,6 +73,14 @@ public sealed class GameState : MonoBehaviour
 
         // Keep the game state code alive, even as we load different levels.
         DontDestroyOnLoad(gameObject);
+
+        // Requirement for UI elements: Create an EventSystem object with a default input module
+        GameObject eventSystem = new GameObject();
+        eventSystem.name = "EventSystem";
+        eventSystem.AddComponent<EventSystem>();
+        eventSystem.AddComponent<StandaloneInputModule>();
+
+        // Initialize the characters list HUD
         MakeHUD();
     }
 
