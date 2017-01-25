@@ -78,7 +78,9 @@ public sealed class GameState : MonoBehaviour
         GameObject eventSystem = new GameObject();
         eventSystem.name = "EventSystem";
         eventSystem.AddComponent<EventSystem>();
-        eventSystem.AddComponent<StandaloneInputModule>();
+        StandaloneInputModule sim = eventSystem.AddComponent<StandaloneInputModule>();
+        // Use a separate input key to not conflict with regular button handling.
+        sim.submitButton = "ClickOnly";
 
         // Initialize the characters list HUD
         MakeHUD();
