@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 114132183558522278}
   - component: {fileID: 114185415552263168}
   - component: {fileID: 222669822359875706}
-  - component: {fileID: 225741986087532870}
   - component: {fileID: 114221422576827194}
   m_Layer: 5
   m_Name: HUDCanvas
@@ -134,14 +133,3 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!225 &225741986087532870
-CanvasGroup:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1345933276433388}
-  m_Enabled: 0
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
