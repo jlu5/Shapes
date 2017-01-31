@@ -25,10 +25,18 @@ public class Player : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D col)
     {
-       collidingObjects[col.gameObject] = col.contacts[0].normal;
+        Collidable collidable = col.gameObject.GetComponent<Collidable>();
+        Debug.Log(string.Format("Collidable = {0}", collidable));
+        if (collidable != null)
+        {
+            collidable.PlayerHit(this);
+            return;
+        }
+
+        collidingObjects[col.gameObject] = col.contacts[0].normal;
             
-       Debug.Log("can_jump set to true");
-       canJump = true;
+        Debug.Log("can_jump set to true");
+        canJump = true;
     }
 
     void OnCollisionExit2D(Collision2D col)
