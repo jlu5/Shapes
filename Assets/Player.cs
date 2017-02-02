@@ -18,6 +18,10 @@ public class Player : MonoBehaviour {
     void Start () {
         // Find our Rigidbody2D object
         rb = GetComponent<Rigidbody2D> ();
+        if (playerID == 0)
+        {
+            Debug.LogWarning("Immovable player object with invalid ID!");
+        }
         // Add this player to our global game state.
         GameState.Instance.addPlayer(playerID, this);
 
