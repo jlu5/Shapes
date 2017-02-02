@@ -4,12 +4,19 @@ public class Finish : Collidable {
     private GameObject simpleTextMesh;
     public int playersNeeded = 0;
     private GameObject text;
+    private GameObject finishWrapper;
 
 	void Start () {
         // The finish object creates a wrapper around itself so it can place the text label
         // without scaling it as the finish graphic pulsates.
-        GameObject finishWrapper = new GameObject();
+        finishWrapper = new GameObject();
         finishWrapper.name = "FinishWrapper";
+
+        // Move the position attributes of the finish object into the wrapper, so that this
+        // applies to the text label as well.
+        finishWrapper.transform.position = transform.position;
+
+        // Move the finish object into the wrapper.
         transform.SetParent(finishWrapper.transform);
 
         // Then, we can add the text label
@@ -17,6 +24,7 @@ public class Finish : Collidable {
         text = Instantiate(simpleTextMesh);
         text.transform.SetParent(finishWrapper.transform);
         text.name = "FinishLabel";
+        text.transform.localPosition = Vector3.zero;
         textUpdate();
     }
 
@@ -36,7 +44,7 @@ public class Finish : Collidable {
         if (playersNeeded < 1)
         {
             // The finish has received all players needed, so destroy it.
-            Destroy(gameObject);
+            Destroy(finishWrapper);
             return;
         }
         textUpdate();
