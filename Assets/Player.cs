@@ -2,17 +2,29 @@
 using UnityEngine;
 
 public class Player : MonoBehaviour {
-
+    // Public (editor-exposed) variables
     public float moveSpeed = 10;
     public float jumpStrength = 700;
     public float rotationSpeed = 3;
     public float jumpRecoilStrength = 100;
     public int playerID = 0;
 
+    // Jump / Rigidbody basics tracking
     private Rigidbody2D rb;
     private bool canJump = false;
     private Vector2 nextJumpVector;
     private Dictionary<GameObject, Vector2> collidingObjects = new Dictionary<GameObject, Vector2>();
+
+    // Tracking for player attachments
+    private bool isAttached = false;
+    private List<GameObject> collidingPlayers = new List<GameObject>();
+
+    // Track player objects and the joints binding them to one another.
+    protected Dictionary<GameObject, RelativeJoint2D> playerBinds = new Dictionary<GameObject, RelativeJoint2D>();
+
+    // Tracks which player GameObject is leading the current player attachment (i.e. which player
+    // has the RelativeJoint2D component).
+    protected GameObject masterPlayer;
 
     // Use this for initialization
     void Start () {
@@ -27,16 +39,28 @@ public class Player : MonoBehaviour {
 
     }
 
+    // Collision handler
     void OnCollisionEnter2D(Collision2D col)
     {
+        // Objects with specific collision routines are (e.g. finishes) called here.
+        // These each have a script component deriving from the Collidable class,
+        // and override PlayerHit() to make this work.
         Collidable collidable = col.gameObject.GetComponent<Collidable>();
         Debug.Log(string.Format("Collidable = {0}", collidable));
         if (collidable != null)
         {
             collidable.PlayerHit(this);
-            return;
+            return; // XXX this is proabably not needed
         }
 
+        // Collision with other players are tracked separately; this is used to process player
+        // attachment.
+        if (col.gameObject.CompareTag("Player")) {
+            collidingPlayers.Add(col.gameObject);
+        }
+
+        // Track the objects we're currently colliding with along with the collision
+        // angle. This is used to process jump.
         collidingObjects[col.gameObject] = col.contacts[0].normal;
             
         Debug.Log("can_jump set to true");
@@ -52,6 +76,11 @@ public class Player : MonoBehaviour {
             // Disable jump when leaving all collisions, so that we can't magically gain momentum in mid air.
             Debug.Log("can_jump set to false");
             canJump = false;
+        }
+
+        if (col.gameObject.CompareTag("Player"))
+        {
+            collidingPlayers.Remove(col.gameObject);
         }
     }
 
@@ -106,6 +135,52 @@ public class Player : MonoBehaviour {
                 // Disable jump while we're in mid-air (this is reset in OnCollisionStay2D).
                 canJump = false;
                 Debug.Log("canJump set to false for player ID "+playerID);
+            } else if (Input.GetButtonDown("Attach"))
+            {
+                // Attach was called.
+                if (!isAttached)
+                {
+                    // If we're not already attached, create a relative joint binding
+                    // the current player with all players it is colliding with.
+                    isAttached = true;
+                    foreach (GameObject playerObject in collidingPlayers)
+                    {
+                        RelativeJoint2D joint = gameObject.AddComponent<RelativeJoint2D>();
+                        joint.connectedBody = playerObject.GetComponent<Rigidbody2D>();
+                        playerBinds[playerObject] = joint;
+
+                        // Don't track collisions between the player and other bounded ones;
+                        joint.enableCollision = false;
+
+                        // Track which player has the RelativeJoint2D, so that other players
+                        // can unbind themselves.
+                        Player otherPlayer = playerObject.GetComponent<Player>();
+                        otherPlayer.masterPlayer = gameObject;
+                        otherPlayer.isAttached = true;
+                    }
+                } else {
+                    // Otherwise, delete all joints.
+                    isAttached = false;
+                    if (masterPlayer != null)
+                    {
+                        // If we're not the master player in an attachment, the relative
+                        // joint we need to delete will be in another player object.
+                        Dictionary<GameObject, RelativeJoint2D> masterPlayerBinds = masterPlayer.GetComponent<Player>().playerBinds;
+                        Debug.Log(string.Format("Got masterPlayerBinds %s", masterPlayerBinds));
+                        RelativeJoint2D joint = masterPlayerBinds[gameObject];
+                        masterPlayerBinds.Remove(gameObject);
+                        Destroy(joint);
+                        masterPlayer = null;
+                    } else
+                    {
+                        foreach (RelativeJoint2D joint in GetComponents<RelativeJoint2D>())
+                        {
+                            // Remove the old player binds.
+                            playerBinds.Remove(joint.connectedBody.gameObject);
+                            Destroy(joint);
+                        }
+                    }
+                }
             }
 
             Vector2 vector_move = new Vector2(x_move, 0.0F);
