@@ -38,7 +38,7 @@ public class Player : MonoBehaviour {
         }
         // Add this player to our global game state.
         GameState.Instance.addPlayer(playerID, this);
-
+        GameState.Instance.playerCount++;
     }
 
     // Collision handler

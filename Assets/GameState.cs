@@ -20,7 +20,7 @@ public sealed class GameState : MonoBehaviour
 
     // TODO: make player settings configurable in via level data
     public int currentPlayer = 1;
-    public int playerCount = 2;
+    public int playerCount;
     private Dictionary<int, Player> players = new Dictionary<int, Player>();
 
     private PlayerOverlay playerOverlay;
