@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
@@ -24,7 +25,8 @@ public class Player : MonoBehaviour {
 
     // Tracks which player GameObject is leading the current player attachment (i.e. which player
     // has the RelativeJoint2D component).
-    protected GameObject masterPlayer;
+    protected List<GameObject> masterPlayers = new List<GameObject>();
+    protected int bindCount = 0;
 
     // Use this for initialization
     void Start () {
@@ -155,29 +157,38 @@ public class Player : MonoBehaviour {
                         // Track which player has the RelativeJoint2D, so that other players
                         // can unbind themselves.
                         Player otherPlayer = playerObject.GetComponent<Player>();
-                        otherPlayer.masterPlayer = gameObject;
+                        otherPlayer.masterPlayers.Add(gameObject);
                         otherPlayer.isAttached = true;
+
+                        // Make sure we're keeping track of the number of players bounded.
+                        bindCount++;
+                        otherPlayer.bindCount++;
                     }
                 } else {
                     // Otherwise, delete all joints.
                     isAttached = false;
-                    if (masterPlayer != null)
+                    // Clone the list since removing objects directly on iteration is invalid!
+                    foreach (GameObject masterObject in masterPlayers.ToList())
                     {
                         // If we're not the master player in an attachment, the relative
                         // joint we need to delete will be in another player object.
-                        Dictionary<GameObject, RelativeJoint2D> masterPlayerBinds = masterPlayer.GetComponent<Player>().playerBinds;
-                        Debug.Log(string.Format("Got masterPlayerBinds %s", masterPlayerBinds));
+                        Player masterPlayer = masterObject.GetComponent<Player>();
+                        Dictionary<GameObject, RelativeJoint2D> masterPlayerBinds = masterPlayer.playerBinds;
                         RelativeJoint2D joint = masterPlayerBinds[gameObject];
                         masterPlayerBinds.Remove(gameObject);
                         Destroy(joint);
-                        masterPlayer = null;
-                    } else
+                        masterPlayers.Remove(masterObject);
+                        masterPlayer.bindCount--;
+                    }
                     {
                         foreach (RelativeJoint2D joint in GetComponents<RelativeJoint2D>())
                         {
-                            // Remove the old player binds.
-                            playerBinds.Remove(joint.connectedBody.gameObject);
+                            // Remove any old player binds.
+                            GameObject otherObject = joint.connectedBody.gameObject;
+                            playerBinds.Remove(otherObject);
                             Destroy(joint);
+                            otherObject.GetComponent<Player>().bindCount--;
+
                         }
                     }
                 }
