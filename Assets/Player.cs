@@ -10,8 +10,12 @@ public class Player : MonoBehaviour {
     public float jumpRecoilStrength = 100;
     public int playerID = 0;
 
+    // Quick access to components
+    private Rigidbody2D rb; // "rb" for RigidBody
+    private LineRenderer lr; // "lr" for LineRenderer, etc.
+    private SpriteRenderer sr;
+
     // Jump / Rigidbody basics tracking
-    private Rigidbody2D rb;
     private bool canJump = false;
     private Vector2 nextJumpVector;
     private Dictionary<GameObject, Vector2> collidingObjects = new Dictionary<GameObject, Vector2>();
@@ -31,7 +35,15 @@ public class Player : MonoBehaviour {
     // Use this for initialization
     void Start () {
         // Find our Rigidbody2D object
-        rb = GetComponent<Rigidbody2D> ();
+        rb = GetComponent<Rigidbody2D>();
+
+        // Ditto with the renderers.
+        lr = GetComponent<LineRenderer>();
+
+        // Make lines draw over characters, so that they're actually visible.
+        lr.sortingLayerName = "Player";
+        lr.sortingOrder = 2;
+
         if (playerID == 0)
         {
             Debug.LogWarning("Immovable player object with invalid ID!");
@@ -48,7 +60,6 @@ public class Player : MonoBehaviour {
         // These each have a script component deriving from the Collidable class,
         // and override PlayerHit() to make this work.
         Collidable collidable = col.gameObject.GetComponent<Collidable>();
-        Debug.Log(string.Format("Collidable = {0}", collidable));
         if (collidable != null)
         {
             collidable.PlayerHit(this);
@@ -64,8 +75,6 @@ public class Player : MonoBehaviour {
         // Track the objects we're currently colliding with along with the collision
         // angle. This is used to process jump.
         collidingObjects[col.gameObject] = col.contacts[0].normal;
-            
-        Debug.Log("can_jump set to true");
         canJump = true;
     }
 
@@ -76,7 +85,6 @@ public class Player : MonoBehaviour {
         if (collidingObjects.Count == 0)
         {
             // Disable jump when leaving all collisions, so that we can't magically gain momentum in mid air.
-            Debug.Log("can_jump set to false");
             canJump = false;
         }
 
@@ -136,15 +144,16 @@ public class Player : MonoBehaviour {
 
                 // Disable jump while we're in mid-air (this is reset in OnCollisionStay2D).
                 canJump = false;
-                Debug.Log("canJump set to false for player ID "+playerID);
-            } else if (Input.GetButtonDown("Attach"))
+                Debug.Log("canJump set to false for player ID " + playerID);
+            }
+            else if (Input.GetButtonDown("Attach"))
             {
                 // Attach was called.
                 if (!isAttached)
                 {
                     // If we're not already attached, create a relative joint binding
                     // the current player with all players it is colliding with.
-                    isAttached = true;
+                    isAttached = lr.enabled = true;
                     foreach (GameObject playerObject in collidingPlayers)
                     {
                         RelativeJoint2D joint = gameObject.AddComponent<RelativeJoint2D>();
@@ -164,9 +173,11 @@ public class Player : MonoBehaviour {
                         bindCount++;
                         otherPlayer.bindCount++;
                     }
-                } else {
+                }
+                else
+                {
                     // Otherwise, delete all joints.
-                    isAttached = false;
+                    isAttached = lr.enabled = false;
                     // Clone the list since removing objects directly on iteration is invalid!
                     foreach (GameObject masterObject in masterPlayers.ToList())
                     {
@@ -174,9 +185,15 @@ public class Player : MonoBehaviour {
                         // joint we need to delete will be in another player object.
                         Player masterPlayer = masterObject.GetComponent<Player>();
                         Dictionary<GameObject, RelativeJoint2D> masterPlayerBinds = masterPlayer.playerBinds;
-                        RelativeJoint2D joint = masterPlayerBinds[gameObject];
+                        try
+                        {
+                            RelativeJoint2D joint = masterPlayerBinds[gameObject];
+                            Destroy(joint);
+                        } catch (KeyNotFoundException)
+                        {
+                            // The joint went missing, ignore
+                        }
                         masterPlayerBinds.Remove(gameObject);
-                        Destroy(joint);
                         masterPlayers.Remove(masterObject);
                         masterPlayer.bindCount--;
                     }
@@ -193,11 +210,30 @@ public class Player : MonoBehaviour {
             }
 
             Vector2 vector_move = new Vector2(x_move, 0.0F);
-
             rb.AddForce(vector_move * moveSpeed);
             // Up rotates clockwise, down rotates counterclockwise
             rb.AddTorque(-r_move * rotationSpeed);
         }
+
+        // Now, we draw connections between binded players for better visibility.
+        // Note: LineRenderer takes 3D vectors for positions, but 2D ones can 
+        // implicitly be converted (z is set to 0).
+
+        List<Vector3> positions = new List<Vector3> {transform.position, transform.position };
+        foreach (GameObject otherPlayer in playerBinds.Keys)
+        {
+            // Basically what this does is render a line with multiple points.
+            // By drawing a line from this character to each character and then back,
+            // we an achieve a hub-and-spoke sort of rendering.
+
+            // Add the position of each other player, and then our own.
+            positions.Add(otherPlayer.transform.position);
+            positions.Add(otherPlayer.transform.position);
+            positions.Add(transform.position);
+            positions.Add(transform.position);
+        }
+        lr.numPositions = positions.Count-1;
+        lr.SetPositions(positions.ToArray());
     }
 
     // Handles mouse clicks on the player, which sets it to the current one.
