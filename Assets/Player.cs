@@ -180,16 +180,14 @@ public class Player : MonoBehaviour {
                         masterPlayers.Remove(masterObject);
                         masterPlayer.bindCount--;
                     }
+                    foreach (RelativeJoint2D joint in GetComponents<RelativeJoint2D>())
                     {
-                        foreach (RelativeJoint2D joint in GetComponents<RelativeJoint2D>())
-                        {
-                            // Remove any old player binds.
-                            GameObject otherObject = joint.connectedBody.gameObject;
-                            playerBinds.Remove(otherObject);
-                            Destroy(joint);
-                            otherObject.GetComponent<Player>().bindCount--;
+                        // Remove any old player binds belonging to this character.
+                        GameObject otherObject = joint.connectedBody.gameObject;
+                        playerBinds.Remove(otherObject);
+                        Destroy(joint);
+                        otherObject.GetComponent<Player>().bindCount--;
 
-                        }
                     }
                 }
             }
