@@ -10,10 +10,9 @@ public class Player : MonoBehaviour {
     public float jumpRecoilStrength = 100;
     public int playerID = 0;
 
-    // Quick access to components
+    // Quick access to components & resources
     private Rigidbody2D rb; // "rb" for RigidBody
-    private LineRenderer lr; // "lr" for LineRenderer, etc.
-    private SpriteRenderer sr;
+    private GameObject bindDisplayTemplate; // BindDisplayObject template
 
     // Jump / Rigidbody basics tracking
     private bool canJump = false;
@@ -26,6 +25,8 @@ public class Player : MonoBehaviour {
 
     // Track player objects and the joints binding them to one another.
     protected Dictionary<GameObject, RelativeJoint2D> playerBinds = new Dictionary<GameObject, RelativeJoint2D>();
+    // Track an index of bind display lines.
+    protected Dictionary<int, GameObject> bindDisplays = new Dictionary<int, GameObject>();
 
     // Tracks which player GameObject is leading the current player attachment (i.e. which player
     // has the RelativeJoint2D component).
@@ -36,13 +37,7 @@ public class Player : MonoBehaviour {
     void Start () {
         // Find our Rigidbody2D object
         rb = GetComponent<Rigidbody2D>();
-
-        // Ditto with the renderers.
-        lr = GetComponent<LineRenderer>();
-
-        // Make lines draw over characters, so that they're actually visible.
-        lr.sortingLayerName = "Player";
-        lr.sortingOrder = 2;
+        bindDisplayTemplate = Resources.Load<GameObject>("BindDisplayObject");
 
         if (playerID == 0)
         {
@@ -153,7 +148,7 @@ public class Player : MonoBehaviour {
                 {
                     // If we're not already attached, create a relative joint binding
                     // the current player with all players it is colliding with.
-                    isAttached = lr.enabled = true;
+                    isAttached = true;
                     foreach (GameObject playerObject in collidingPlayers)
                     {
                         RelativeJoint2D joint = gameObject.AddComponent<RelativeJoint2D>();
@@ -172,14 +167,29 @@ public class Player : MonoBehaviour {
                         // Make sure we're keeping track of the number of players bounded.
                         bindCount++;
                         otherPlayer.bindCount++;
+
+                        // Create a new bind display object from our prefab, if one
+                        // doesn't exist already.
+                        if (!bindDisplays.ContainsKey(otherPlayer.playerID))
+                        {
+                            GameObject bdo = Instantiate(bindDisplayTemplate);
+                            // Show what player IDs this bind display object uses
+                            bdo.name += string.Format("{0}-{1}", playerID, otherPlayer.playerID);
+                            bdo.transform.SetParent(transform);
+                            BindDisplay bdoScript = bdo.GetComponent<BindDisplay>();
+                            bdoScript.object1 = gameObject;
+                            bdoScript.object2 = playerObject;
+
+                            bindDisplays[otherPlayer.playerID] = bdo;
+                        }
                     }
                 }
                 else
                 {
                     // Otherwise, delete all joints.
-                    isAttached = lr.enabled = false;
-                    // Clone the list since removing objects directly on iteration is invalid!
-                    foreach (GameObject masterObject in masterPlayers.ToList())
+                    isAttached = false;
+
+                    foreach (GameObject masterObject in masterPlayers)
                     {
                         // If we're not the master player in an attachment, the relative
                         // joint we need to delete will be in another player object.
@@ -194,9 +204,17 @@ public class Player : MonoBehaviour {
                             // The joint went missing, ignore
                         }
                         masterPlayerBinds.Remove(gameObject);
-                        masterPlayers.Remove(masterObject);
                         masterPlayer.bindCount--;
+
+                        // Remove any bind displays for us if they exist.
+                        if (masterPlayer.bindDisplays.ContainsKey(playerID))
+                        {
+                            Destroy(masterPlayer.bindDisplays[playerID]);
+                            masterPlayer.bindDisplays.Remove(playerID);
+                        }
                     }
+                    masterPlayers.Clear();
+
                     foreach (RelativeJoint2D joint in GetComponents<RelativeJoint2D>())
                     {
                         // Remove any old player binds belonging to this character.
@@ -204,8 +222,14 @@ public class Player : MonoBehaviour {
                         playerBinds.Remove(otherObject);
                         Destroy(joint);
                         otherObject.GetComponent<Player>().bindCount--;
-
                     }
+
+                    foreach (KeyValuePair<int, GameObject> kvp in bindDisplays)
+                    {
+                        // Destroy all bind displays under this object.
+                        Destroy(kvp.Value);
+                    }
+                    bindDisplays.Clear();
                 }
             }
 
@@ -214,26 +238,6 @@ public class Player : MonoBehaviour {
             // Up rotates clockwise, down rotates counterclockwise
             rb.AddTorque(-r_move * rotationSpeed);
         }
-
-        // Now, we draw connections between binded players for better visibility.
-        // Note: LineRenderer takes 3D vectors for positions, but 2D ones can 
-        // implicitly be converted (z is set to 0).
-
-        List<Vector3> positions = new List<Vector3> {transform.position, transform.position };
-        foreach (GameObject otherPlayer in playerBinds.Keys)
-        {
-            // Basically what this does is render a line with multiple points.
-            // By drawing a line from this character to each character and then back,
-            // we an achieve a hub-and-spoke sort of rendering.
-
-            // Add the position of each other player, and then our own.
-            positions.Add(otherPlayer.transform.position);
-            positions.Add(otherPlayer.transform.position);
-            positions.Add(transform.position);
-            positions.Add(transform.position);
-        }
-        lr.numPositions = positions.Count-1;
-        lr.SetPositions(positions.ToArray());
     }
 
     // Handles mouse clicks on the player, which sets it to the current one.
