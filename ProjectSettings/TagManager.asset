@@ -42,11 +42,11 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: PlayerForeground
-    uniqueID: 2505660761
-    locked: 0
   - name: Player
     uniqueID: 732913121
+    locked: 0
+  - name: PlayerForeground
+    uniqueID: 2505660761
     locked: 0
   - name: HUD
     uniqueID: 1252125145

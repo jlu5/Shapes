@@ -20,7 +20,6 @@ public class Player : MonoBehaviour {
     private Dictionary<GameObject, Vector2> collidingObjects = new Dictionary<GameObject, Vector2>();
 
     // Tracking for player attachments
-    private bool isAttached = false;
     private List<GameObject> collidingPlayers = new List<GameObject>();
 
     // Track player objects and the joints binding them to one another.
@@ -111,8 +110,93 @@ public class Player : MonoBehaviour {
         nextJumpVector.Normalize();
     }
 
+    // Attempts to attach to all colliding players.
+    void Attach()
+    {
+        foreach (GameObject playerObject in collidingPlayers)
+        {
+            RelativeJoint2D joint = gameObject.AddComponent<RelativeJoint2D>();
+            joint.connectedBody = playerObject.GetComponent<Rigidbody2D>();
+            playerBinds[playerObject] = joint;
+
+            // Don't track collisions between the player and other bounded ones;
+            joint.enableCollision = false;
+
+            // Track which player has the RelativeJoint2D, so that other players
+            // can unbind themselves.
+            Player otherPlayer = playerObject.GetComponent<Player>();
+            otherPlayer.masterPlayers.Add(gameObject);
+
+            // Make sure we're keeping track of the number of players bounded.
+            bindCount++;
+            otherPlayer.bindCount++;
+
+            // Create a new bind display object from our prefab, if one
+            // doesn't exist already.
+            if (!bindDisplays.ContainsKey(otherPlayer.playerID))
+            {
+                GameObject bdo = Instantiate(bindDisplayTemplate);
+                // Show what player IDs this bind display object uses
+                bdo.name += string.Format("{0}-{1}", playerID, otherPlayer.playerID);
+                bdo.transform.SetParent(transform);
+                BindDisplay bdoScript = bdo.GetComponent<BindDisplay>();
+                bdoScript.object1 = gameObject;
+                bdoScript.object2 = playerObject;
+
+                bindDisplays[otherPlayer.playerID] = bdo;
+            }
+        }
+    }
+
+    // Detaches from currently attached players.
+    void Detach()
+    {
+        foreach (GameObject masterObject in masterPlayers)
+        {
+            // If we're not the master player in an attachment, the relative
+            // joint we need to delete will be in another player object.
+            Player masterPlayer = masterObject.GetComponent<Player>();
+            Dictionary<GameObject, RelativeJoint2D> masterPlayerBinds = masterPlayer.playerBinds;
+            try
+            {
+                RelativeJoint2D joint = masterPlayerBinds[gameObject];
+                Destroy(joint);
+            }
+            catch (KeyNotFoundException)
+            {
+                // The joint went missing, ignore
+            }
+            masterPlayerBinds.Remove(gameObject);
+            masterPlayer.bindCount--;
+
+            // Remove any bind displays for us if they exist.
+            if (masterPlayer.bindDisplays.ContainsKey(playerID))
+            {
+                Destroy(masterPlayer.bindDisplays[playerID]);
+                masterPlayer.bindDisplays.Remove(playerID);
+            }
+        }
+        masterPlayers.Clear();
+
+        foreach (RelativeJoint2D joint in GetComponents<RelativeJoint2D>())
+        {
+            // Remove any old player binds belonging to this character.
+            GameObject otherObject = joint.connectedBody.gameObject;
+            playerBinds.Remove(otherObject);
+            Destroy(joint);
+            otherObject.GetComponent<Player>().bindCount--;
+        }
+
+        foreach (KeyValuePair<int, GameObject> kvp in bindDisplays)
+        {
+            // Destroy all bind displays under this object.
+            Destroy(kvp.Value);
+        }
+        bindDisplays.Clear();
+    }
+
     // Update is called once per frame
-    void Update () {
+    void Update() {
         // Get horizontal and vertical (rotation) movement
 
         if (GameState.Instance.currentPlayer == playerID)
@@ -143,94 +227,11 @@ public class Player : MonoBehaviour {
             }
             else if (Input.GetButtonDown("Attach"))
             {
-                // Attach was called.
-                if (!isAttached)
-                {
-                    // If we're not already attached, create a relative joint binding
-                    // the current player with all players it is colliding with.
-                    isAttached = true;
-                    foreach (GameObject playerObject in collidingPlayers)
-                    {
-                        RelativeJoint2D joint = gameObject.AddComponent<RelativeJoint2D>();
-                        joint.connectedBody = playerObject.GetComponent<Rigidbody2D>();
-                        playerBinds[playerObject] = joint;
-
-                        // Don't track collisions between the player and other bounded ones;
-                        joint.enableCollision = false;
-
-                        // Track which player has the RelativeJoint2D, so that other players
-                        // can unbind themselves.
-                        Player otherPlayer = playerObject.GetComponent<Player>();
-                        otherPlayer.masterPlayers.Add(gameObject);
-                        otherPlayer.isAttached = true;
-
-                        // Make sure we're keeping track of the number of players bounded.
-                        bindCount++;
-                        otherPlayer.bindCount++;
-
-                        // Create a new bind display object from our prefab, if one
-                        // doesn't exist already.
-                        if (!bindDisplays.ContainsKey(otherPlayer.playerID))
-                        {
-                            GameObject bdo = Instantiate(bindDisplayTemplate);
-                            // Show what player IDs this bind display object uses
-                            bdo.name += string.Format("{0}-{1}", playerID, otherPlayer.playerID);
-                            bdo.transform.SetParent(transform);
-                            BindDisplay bdoScript = bdo.GetComponent<BindDisplay>();
-                            bdoScript.object1 = gameObject;
-                            bdoScript.object2 = playerObject;
-
-                            bindDisplays[otherPlayer.playerID] = bdo;
-                        }
-                    }
-                }
-                else
-                {
-                    // Otherwise, delete all joints.
-                    isAttached = false;
-
-                    foreach (GameObject masterObject in masterPlayers)
-                    {
-                        // If we're not the master player in an attachment, the relative
-                        // joint we need to delete will be in another player object.
-                        Player masterPlayer = masterObject.GetComponent<Player>();
-                        Dictionary<GameObject, RelativeJoint2D> masterPlayerBinds = masterPlayer.playerBinds;
-                        try
-                        {
-                            RelativeJoint2D joint = masterPlayerBinds[gameObject];
-                            Destroy(joint);
-                        } catch (KeyNotFoundException)
-                        {
-                            // The joint went missing, ignore
-                        }
-                        masterPlayerBinds.Remove(gameObject);
-                        masterPlayer.bindCount--;
-
-                        // Remove any bind displays for us if they exist.
-                        if (masterPlayer.bindDisplays.ContainsKey(playerID))
-                        {
-                            Destroy(masterPlayer.bindDisplays[playerID]);
-                            masterPlayer.bindDisplays.Remove(playerID);
-                        }
-                    }
-                    masterPlayers.Clear();
-
-                    foreach (RelativeJoint2D joint in GetComponents<RelativeJoint2D>())
-                    {
-                        // Remove any old player binds belonging to this character.
-                        GameObject otherObject = joint.connectedBody.gameObject;
-                        playerBinds.Remove(otherObject);
-                        Destroy(joint);
-                        otherObject.GetComponent<Player>().bindCount--;
-                    }
-
-                    foreach (KeyValuePair<int, GameObject> kvp in bindDisplays)
-                    {
-                        // Destroy all bind displays under this object.
-                        Destroy(kvp.Value);
-                    }
-                    bindDisplays.Clear();
-                }
+                Attach();
+            }
+            else if (Input.GetButtonDown("Detach"))
+            {
+                Detach();
             }
 
             Vector2 vector_move = new Vector2(x_move, 0.0F);
