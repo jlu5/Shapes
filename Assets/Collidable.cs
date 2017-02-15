@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public abstract class Collidable : MonoBehaviour {
     // This will be overriden by inheriting classes.
