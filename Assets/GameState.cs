@@ -50,6 +50,9 @@ public sealed class GameState : MonoBehaviour
         text.text = "You win!";
         text.fontSize *= 4;  // Make the text bigger
 
+        // Add a fade out image.
+        Instantiate(fadeToColourTemplate).transform.SetParent(levelEndCanvas.transform, false);
+
         // Add the "game over" text, but make sure to keep the right world space position.
         // This can be done by setting the worldPositionStays option (second argument) in
         // setParent to false.
@@ -114,6 +117,7 @@ public sealed class GameState : MonoBehaviour
         simpleCanvasTemplate = Resources.Load<GameObject>("SimpleHUDCanvas");
         HUDTextLabelTemplate = Resources.Load<GameObject>("HUDTextLabel");
         stretchedTextLabelTemplate = Resources.Load<GameObject>("StretchedTextLabel");
+        fadeToColourTemplate = Resources.Load<GameObject>("FadeToColour");
 
         // Initialize the characters list HUD
         MakeHUD();
