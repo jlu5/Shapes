@@ -5,12 +5,12 @@ public class FadeToColour : MonoBehaviour {
     Image image;
     Color color;
     public float fadeAmountPerFrame = 0.005F;
-    
+
 	void Start () {
         image = GetComponent<Image>();
         color = image.color;
 	}
-	
+
 	void Update () {
         // Every frame, add to the image's alpha (transparency) value until it becomes
         // completely opaque. In the context of alpha values, 0 = completely transparent
