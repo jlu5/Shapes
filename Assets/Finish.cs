@@ -43,6 +43,7 @@ public class Finish : Collidable {
 
         if (playersNeeded < 1)
         {
+            GameState.Instance.LevelEnd();
             // The finish has received all players needed, so destroy it.
             Destroy(finishWrapper);
             return;

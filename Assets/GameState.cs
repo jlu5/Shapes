@@ -23,23 +23,37 @@ public sealed class GameState : MonoBehaviour
     public int playerCount;
     private Dictionary<int, Player> players = new Dictionary<int, Player>();
 
+    // Resource templates, used by Instantiate()
     private PlayerOverlay playerOverlay;
     private GameObject canvasTemplate;
-    private GameObject canvas;
+    private GameObject simpleCanvasTemplate;
     private GameObject HUDTextLabelTemplate;
+    private GameObject stretchedTextLabelTemplate;
+    private GameObject fadeToColourTemplate;
+
+    private GameObject canvas;
 
     // Draws on the canvas the current player & a list of players as sprites
     void MakeHUD()
     {
-        playerOverlay = Resources.Load<PlayerOverlay>("PlayerOverlay");
-        canvasTemplate = Resources.Load<GameObject>("HUDCanvas");
-        HUDTextLabelTemplate = Resources.Load<GameObject>("HUDTextLabel");
-
         canvas = Instantiate(canvasTemplate);
         GameObject playerListLabel = Instantiate(HUDTextLabelTemplate);
         playerListLabel.GetComponent<Text>().text = "Select character: ";
         playerListLabel.transform.SetParent(canvas.transform);
+    }
 
+    public void LevelEnd(bool win=true)
+    {
+        GameObject levelEndCanvas = Instantiate(simpleCanvasTemplate);
+        GameObject levelEndText = Instantiate(stretchedTextLabelTemplate);
+        Text text = levelEndText.GetComponent<Text>();
+        text.text = "You win!";
+        text.fontSize *= 4;  // Make the text bigger
+
+        // Add the "game over" text, but make sure to keep the right world space position.
+        // This can be done by setting the worldPositionStays option (second argument) in
+        // setParent to false.
+        levelEndText.transform.SetParent(levelEndCanvas.transform, false);
     }
 
     // Adds a player into the current scene.
@@ -93,6 +107,13 @@ public sealed class GameState : MonoBehaviour
 
         // Use a separate input key for overlay buttons to not override keys like Enter and Space
         sim.submitButton = "ClickOnly";
+
+        // Load our relevant resources
+        playerOverlay = Resources.Load<PlayerOverlay>("PlayerOverlay");
+        canvasTemplate = Resources.Load<GameObject>("HUDCanvas");
+        simpleCanvasTemplate = Resources.Load<GameObject>("SimpleHUDCanvas");
+        HUDTextLabelTemplate = Resources.Load<GameObject>("HUDTextLabel");
+        stretchedTextLabelTemplate = Resources.Load<GameObject>("StretchedTextLabel");
 
         // Initialize the characters list HUD
         MakeHUD();
