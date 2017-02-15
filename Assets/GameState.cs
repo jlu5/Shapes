@@ -73,12 +73,25 @@ public sealed class GameState : MonoBehaviour
         // Keep the game state code alive, even as we load different levels.
         DontDestroyOnLoad(gameObject);
 
-        // Requirement for UI elements: Create an EventSystem object with a default input module
-        GameObject eventSystem = new GameObject();
-        eventSystem.name = "EventSystem";
-        eventSystem.AddComponent<EventSystem>();
-        StandaloneInputModule sim = eventSystem.AddComponent<StandaloneInputModule>();
-        // Use a separate input key to not conflict with regular button handling.
+        // Requirement for UI elements: Create an EventSystem object with a default input module,
+        // if one doesn't already exist.
+        EventSystem eventSystem;
+        StandaloneInputModule sim;
+        if (EventSystem.current)
+        {
+            Debug.Log("GameState: Using existing EventSystem");
+            eventSystem = EventSystem.current;
+            sim = eventSystem.gameObject.GetComponent<StandaloneInputModule>();
+        } else
+        {
+            Debug.Log("GameState: No EventSystem found; creating a new one");
+            GameObject eventSystemObject = new GameObject();
+            eventSystemObject.name = "ShapesEventSystem";
+            eventSystem = eventSystemObject.AddComponent<EventSystem>();
+            sim = eventSystemObject.AddComponent<StandaloneInputModule>();
+        }
+
+        // Use a separate input key for overlay buttons to not override keys like Enter and Space
         sim.submitButton = "ClickOnly";
 
         // Initialize the characters list HUD
