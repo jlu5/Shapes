@@ -95,11 +95,11 @@ public sealed class GameState : MonoBehaviour
 
     void Awake()
     {
-        // TODO: make this thread safe
-        instance = this;
-
-        // Keep the game state code alive, even as we load different levels.
-        DontDestroyOnLoad(gameObject);
+        // TODO: make this thread safe?
+        if (instance == null)
+        {
+            instance = this;
+        }
 
         // Requirement for UI elements: Create an EventSystem object with a default input module,
         // if one doesn't already exist.
