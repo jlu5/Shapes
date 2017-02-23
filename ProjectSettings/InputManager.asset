@@ -27,7 +27,7 @@ InputManager:
     descriptiveNegativeName: 
     negativeButton: down
     positiveButton: up
-    altNegativeButton: d
+    altNegativeButton: s
     altPositiveButton: w
     gravity: 3
     dead: 0.001
@@ -215,7 +215,7 @@ InputManager:
     joyNum: 0
   - serializedVersion: 3
     m_Name: ClickOnly
-    descriptiveName: Used to process mouse clicks in the HUD
+    descriptiveName: ClickOnly-DoNotUse
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: 
@@ -231,7 +231,7 @@ InputManager:
     joyNum: 0
   - serializedVersion: 3
     m_Name: Detach
-    descriptiveName: Unattaches all currently attached players
+    descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: q
@@ -247,7 +247,7 @@ InputManager:
     joyNum: 0
   - serializedVersion: 3
     m_Name: Attach
-    descriptiveName: Attaches to all colliding players
+    descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: e
