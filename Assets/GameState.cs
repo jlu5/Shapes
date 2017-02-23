@@ -23,8 +23,8 @@ public sealed class GameState : MonoBehaviour
     public int playerCount;
     private Dictionary<int, Player> players = new Dictionary<int, Player>();
 
-    // What percentage of the screen to the edge should a player need to be at to trigger camera movement?
-    public float boundaryPercentage = 0.3F;
+    // How quickly should the camera pan?
+    public float cameraPanTime = 0.1F;
 
     // Resource templates, used by Instantiate()
     private PlayerOverlay playerOverlay;

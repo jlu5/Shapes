@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
@@ -238,21 +239,22 @@ public class Player : MonoBehaviour {
             rb.AddForce(vector_move * moveSpeed);
             // Up rotates clockwise, down rotates counterclockwise
             rb.AddTorque(-r_move * rotationSpeed);
+        }
+    }
 
+    void LateUpdate() {
+        if (GameState.Instance.currentPlayer == playerID)
+        {
             // Handle camera pans
-            float leftBoundary = GameState.Instance.boundaryPercentage;
-            float rightBoundary = 1 - leftBoundary;
-            Vector3 cameraPoint = Camera.main.WorldToViewportPoint(transform.position);
-            if (cameraPoint.x > rightBoundary || cameraPoint.x < leftBoundary)
             {
-                Camera.main.transform.position += (Vector3.right * rb.velocity.x * 0.01F);
+                // Don't mess with the camera's Z axis, or the screen will blank out...
+                Vector3 target = new Vector3(transform.position.x, transform.position.y, -10);
+                Vector3 velocity = Vector3.zero;
+
+                // Use Unity's built in damping to make the panning less choppy
+                Camera.main.transform.position = Vector3.SmoothDamp(Camera.main.transform.position,
+                    target, ref velocity, GameState.Instance.cameraPanTime);
             }
-            /*
-            else if (cameraPoint.x < leftBoundary)
-            {
-                Camera.main.transform.position += (Vector3.left * 0.01F);
-            }
-            */
         }
     }
 
