@@ -238,6 +238,21 @@ public class Player : MonoBehaviour {
             rb.AddForce(vector_move * moveSpeed);
             // Up rotates clockwise, down rotates counterclockwise
             rb.AddTorque(-r_move * rotationSpeed);
+
+            // Handle camera pans
+            float leftBoundary = GameState.Instance.boundaryPercentage;
+            float rightBoundary = 1 - leftBoundary;
+            Vector3 cameraPoint = Camera.main.WorldToViewportPoint(transform.position);
+            if (cameraPoint.x > rightBoundary || cameraPoint.x < leftBoundary)
+            {
+                Camera.main.transform.position += (Vector3.right * rb.velocity.x * 0.01F);
+            }
+            /*
+            else if (cameraPoint.x < leftBoundary)
+            {
+                Camera.main.transform.position += (Vector3.left * 0.01F);
+            }
+            */
         }
     }
 
