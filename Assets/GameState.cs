@@ -21,10 +21,17 @@ public sealed class GameState : MonoBehaviour
     // TODO: make player settings configurable in via level data
     public int currentPlayer = 1;
     public int playerCount;
+    public bool gameEnded;
     private Dictionary<int, Player> players = new Dictionary<int, Player>();
 
     // How quickly should the camera pan?
     public float cameraPanTime = 0.1F;
+    // How quickly should we zoom the camera?
+    public float cameraZoomSpeed = 1F;
+    // What is the biggest camera view allowed?
+    public float cameraMaxSize = 15.0F;
+    // What is the smallest camera view allowed?
+    public float cameraMinSize = 5.0F;
 
     // Resource templates, used by Instantiate()
     private PlayerOverlay playerOverlay;
@@ -47,6 +54,7 @@ public sealed class GameState : MonoBehaviour
 
     public void LevelEnd(bool win=true)
     {
+        gameEnded = true;
         GameObject levelEndCanvas = Instantiate(simpleCanvasTemplate);
         GameObject levelEndText = Instantiate(stretchedTextLabelTemplate);
         Text text = levelEndText.GetComponent<Text>();
@@ -129,22 +137,39 @@ public sealed class GameState : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        for (int btnNum = 1; btnNum <= playerCount; btnNum++)
+        if (!gameEnded)
         {
-            string keyName = "Fire" + btnNum;
-
-            try
+            // Look up every possible FireX key, where X is the player
+            // number. This means that Fire1 switches to the 1st player,
+            // Fire2 switches to the 2nd player, etc.
+            for (int btnNum = 1; btnNum <= playerCount; btnNum++)
             {
-                if (Input.GetButtonDown(keyName))
+                string keyName = "Fire" + btnNum;
+
+                try
                 {
-                    Debug.Log("Current player set to " + btnNum);
-                    currentPlayer = btnNum;
+                    if (Input.GetButtonDown(keyName))
+                    {
+                        Debug.Log("Current player set to " + btnNum);
+                        currentPlayer = btnNum;
+                    }
                 }
-            }
-            catch (System.ArgumentException)
-            {
-            }
+                catch (System.ArgumentException)
+                {
+                    // This key doesn't exist, so ignore.
+                    Debug.LogWarning(string.Format("Tried to use Fire{0} for player {0}, but it wasn't bounded!",
+                                                   btnNum));
+                }
 
+            }
+            // Handle camera zoom: by default this is bound to the scroll wheel
+            float scroll = Input.GetAxis("Zoom");
+            float cameraSize = Camera.main.orthographicSize;
+            float newSize = cameraSize + scroll;
+            if (newSize < cameraMaxSize && newSize > cameraMinSize)
+            {
+                Camera.main.orthographicSize = newSize;
+            }
         }
     }
 }
