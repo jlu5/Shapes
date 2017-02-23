@@ -9,11 +9,13 @@ public class Player : MonoBehaviour {
     public float jumpStrength = 700;
     public float rotationSpeed = 3;
     public float jumpRecoilStrength = 100;
+    public Color textLabelColor = new Color(0, 0, 0, 0.5F);
     public int playerID = 0;
 
     // Quick access to components & resources
     private Rigidbody2D rb; // "rb" for RigidBody
     private GameObject bindDisplayTemplate; // BindDisplayObject template
+    private GameObject simpleTextMesh;
 
     // Jump / Rigidbody basics tracking
     private bool canJump = false;
@@ -46,6 +48,23 @@ public class Player : MonoBehaviour {
         // Add this player to our global game state.
         GameState.Instance.addPlayer(playerID, this);
         GameState.Instance.playerCount++;
+
+        simpleTextMesh = Resources.Load<GameObject>("SimpleTextMesh");
+
+        // Create a small text label to denote which player is which
+        GameObject playerIDLabel = Instantiate(simpleTextMesh);
+        playerIDLabel.transform.SetParent(gameObject.transform, false);
+
+        TextMesh playerIDText = playerIDLabel.GetComponent<TextMesh>();
+        playerIDText.text = playerID.ToString();
+        // Use a smaller font size
+        playerIDText.fontSize /= 3;
+        playerIDText.color = textLabelColor;
+
+        // Sort the label so that it shows over the player sprite.
+        Renderer renderer = playerIDLabel.GetComponent<Renderer>();
+        renderer.sortingLayerName = "PlayerForeground";
+        renderer.sortingOrder = -1;
     }
 
     // Collision handler
