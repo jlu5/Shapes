@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 // Singleton method adapted from https://msdn.microsoft.com/en-us/library/ff650316.aspx
 public sealed class GameState : MonoBehaviour
@@ -169,6 +170,11 @@ public sealed class GameState : MonoBehaviour
             if (newSize < cameraMaxSize && newSize > cameraMinSize)
             {
                 Camera.main.orthographicSize = newSize;
+            }
+
+            // Catch attempts to reload the scene (defaults to Esc key)
+            if (Input.GetButtonDown("Reset")) {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
         }
     }

@@ -151,7 +151,7 @@ InputManager:
     joyNum: 0
   - serializedVersion: 3
     m_Name: Horizontal
-    descriptiveName: 
+    descriptiveName: Horizontal (Joystick)
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: 
@@ -167,7 +167,7 @@ InputManager:
     joyNum: 0
   - serializedVersion: 3
     m_Name: Vertical
-    descriptiveName: 
+    descriptiveName: Vertical (Joystick)
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: 
@@ -202,7 +202,7 @@ InputManager:
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: escape
+    positiveButton: 
     altNegativeButton: 
     altPositiveButton: joystick button 1
     gravity: 1000
@@ -253,6 +253,22 @@ InputManager:
     positiveButton: e
     altNegativeButton: 
     altPositiveButton: c
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: Reset
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: escape
+    altNegativeButton: 
+    altPositiveButton: 
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
