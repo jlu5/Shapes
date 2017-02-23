@@ -16,6 +16,7 @@ public class Player : MonoBehaviour {
     private Rigidbody2D rb; // "rb" for RigidBody
     private GameObject bindDisplayTemplate; // BindDisplayObject template
     private GameObject simpleTextMesh;
+    private GameObject playerIDLabel;
 
     // Jump / Rigidbody basics tracking
     private bool canJump = false;
@@ -52,7 +53,7 @@ public class Player : MonoBehaviour {
         simpleTextMesh = Resources.Load<GameObject>("SimpleTextMesh");
 
         // Create a small text label to denote which player is which
-        GameObject playerIDLabel = Instantiate(simpleTextMesh);
+        playerIDLabel = Instantiate(simpleTextMesh);
         playerIDLabel.transform.SetParent(gameObject.transform, false);
 
         TextMesh playerIDText = playerIDLabel.GetComponent<TextMesh>();
@@ -262,6 +263,9 @@ public class Player : MonoBehaviour {
     }
 
     void LateUpdate() {
+        // Force the player ID label to be always upright
+        playerIDLabel.transform.rotation = Quaternion.identity;
+
         if (GameState.Instance.currentPlayer == playerID)
         {
             // Handle camera pans
