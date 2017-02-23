@@ -1046,8 +1046,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentPlayer: 1
-  playerCount: 2
+  playerCount: 0
+  gameEnded: 0
   cameraPanTime: 0.1
+  cameraZoomSpeed: 0.1
+  cameraMaxSize: 15
+  cameraMinSize: 5
 --- !u!4 &1614557363
 Transform:
   m_ObjectHideFlags: 0
