@@ -72,6 +72,12 @@ public sealed class GameState : MonoBehaviour
         canvas.addPlayer(id, player);
     }
 
+    // Returns the requested player by ID.
+    public Player getPlayer(int id)
+    {
+        return players[id];
+    }
+
     // Removes a player from the current scene.
     public void removePlayer(int id)
     {
