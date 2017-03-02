@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\BindDisplay.cs" />
      <Compile Include="Assets\Collidable.cs" />
+     <Compile Include="Assets\Door.cs" />
      <Compile Include="Assets\Editor.cs" />
      <Compile Include="Assets\FadeToColour.cs" />
      <Compile Include="Assets\Finish.cs" />
