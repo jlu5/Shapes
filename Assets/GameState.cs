@@ -24,6 +24,7 @@ public sealed class GameState : MonoBehaviour
     public int playerCount;
     public bool gameEnded;
     private Dictionary<int, Player> players = new Dictionary<int, Player>();
+    private Dictionary<System.Type, Dictionary<int, Collidable>> collidables = new Dictionary<System.Type, Dictionary<int, Collidable>>();
 
     // How quickly should the camera pan?
     public float cameraPanTime = 0.1F;
@@ -92,6 +93,41 @@ public sealed class GameState : MonoBehaviour
         // Finally, register the player into the player list. TODO: make sure
         // the key doesn't already exist.
         players[id] = player;
+    }
+
+    public void registerCollidable(int id, Collidable obj)
+    {
+        // Internally (to prevent a ton of variables from being used),
+        // this stores objects by their type, and then by their ID.
+
+        System.Type type = obj.GetType();
+        if (!collidables.ContainsKey(type))
+        { // Fill in the type key of the object if it doesn't exist
+            collidables[type] = new Dictionary<int, Collidable>();
+        }
+
+        collidables[type][id] = obj;
+    }
+
+    // Fetches a registered collidable, with the option of raising an error or returning 
+    // null if it is missing.
+    public Collidable getCollidable<T>(int id, bool nullFallback = false)
+    {
+        try
+        {
+            return collidables[typeof(T)][id];
+        }
+        catch (KeyNotFoundException)
+        {
+            if (nullFallback)
+            {
+                return null;
+            } else
+            {
+                throw;
+            }
+        }
+        
     }
 
     void Awake()

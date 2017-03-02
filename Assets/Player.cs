@@ -22,6 +22,7 @@ public class Player : MonoBehaviour {
     private bool canJump = false;
     private Vector2 nextJumpVector;
     private Dictionary<GameObject, Vector2> collidingObjects = new Dictionary<GameObject, Vector2>();
+    public List<GameObject> activeTriggers;
 
     // Tracking for player attachments
     private List<GameObject> collidingPlayers = new List<GameObject>();
@@ -78,7 +79,6 @@ public class Player : MonoBehaviour {
         if (collidable != null)
         {
             collidable.PlayerHit(this);
-            return; // XXX this is proabably not needed
         }
 
         // Collision with other players are tracked separately; this is used to process player
@@ -216,6 +216,20 @@ public class Player : MonoBehaviour {
         bindDisplays.Clear();
     }
 
+    // Interact with all colliding "Collidable" objects
+    void InteractAll()
+    {
+        foreach (GameObject otherObject in activeTriggers)
+        {
+            Debug.Log("Checking trigger");
+            Collidable collidable = otherObject.GetComponent<Collidable>();
+            if (collidable != null)
+            {
+                collidable.PlayerInteract(this);
+            }
+        }
+    }
+
     // Update is called once per frame
     void Update() {
         // Get horizontal and vertical (rotation) movement
@@ -254,6 +268,11 @@ public class Player : MonoBehaviour {
             {
                 Detach();
             }
+            else if (Input.GetButtonDown("Submit"))
+            {
+                InteractAll();
+            }
+
 
             Vector2 vector_move = new Vector2(x_move, 0.0F);
             rb.AddForce(vector_move * moveSpeed);

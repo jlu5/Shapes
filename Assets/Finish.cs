@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Finish : Collidable {
     private GameObject simpleTextMesh;
@@ -49,5 +50,10 @@ public class Finish : Collidable {
             return;
         }
         textUpdate();
+    }
+
+    public override void PlayerInteract(Player player)
+    {
+        PlayerHit(player);
     }
 }
