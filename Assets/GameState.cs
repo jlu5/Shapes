@@ -36,23 +36,12 @@ public sealed class GameState : MonoBehaviour
     public float cameraMinSize = 5.0F;
 
     // Resource templates, used by Instantiate()
-    private PlayerOverlay playerOverlay;
     private GameObject canvasTemplate;
     private GameObject simpleCanvasTemplate;
-    private GameObject HUDTextLabelTemplate;
     private GameObject stretchedTextLabelTemplate;
     private GameObject fadeToColourTemplate;
 
-    private GameObject canvas;
-
-    // Draws on the canvas the current player & a list of players as sprites
-    void MakeHUD()
-    {
-        canvas = Instantiate(canvasTemplate);
-        GameObject playerListLabel = Instantiate(HUDTextLabelTemplate);
-        playerListLabel.GetComponent<Text>().text = "Select character: ";
-        playerListLabel.transform.SetParent(canvas.transform);
-    }
+    private HUDCanvas canvas;
 
     public void LevelEnd(bool win=true)
     {
@@ -75,29 +64,21 @@ public sealed class GameState : MonoBehaviour
     // Adds a player into the current scene.
     public void addPlayer(int id, Player player)
     {
-        // Create a new instance of our player overlay prefab - this uses the
-        // same sprite as the player but has no movement attached.
-        PlayerOverlay newObj = Instantiate(playerOverlay);
-        // Set the object name and sprite color
-        newObj.name = "Player Overlay for Player " + id;
-        newObj.GetComponent<Image>().color = player.getColor();
-        // Move the object into the Canvas.
-        newObj.transform.SetParent(canvas.transform);
-        // Fix the position of the sprite within the character list
-        // The index happens to equal the ID, since element 0 is the
-        // "Character list" description text.
-        newObj.transform.SetSiblingIndex(id);
-        // Bind the new object to the player ID.
-        newObj.playerID = id;
-
-        // Finally, register the player into the player list. TODO: make sure
+        // Register the player into the player list. TODO: make sure
         // the key doesn't already exist.
         players[id] = player;
+
+        // Add the player to the player list canvas.
+        canvas.addPlayer(id, player);
     }
 
     // Removes a player from the current scene.
     public void removePlayer(int id)
     {
+        // First, remove our player overlay.
+        canvas.removePlayer(id);
+
+        // Then, destroy the gameobject and storage related to it.
         Player player = players[id];
         Destroy(player.gameObject);
         players.Remove(id);
@@ -168,15 +149,13 @@ public sealed class GameState : MonoBehaviour
         sim.submitButton = "ClickOnly";
 
         // Load our relevant resources
-        playerOverlay = Resources.Load<PlayerOverlay>("PlayerOverlay");
         canvasTemplate = Resources.Load<GameObject>("HUDCanvas");
         simpleCanvasTemplate = Resources.Load<GameObject>("SimpleHUDCanvas");
-        HUDTextLabelTemplate = Resources.Load<GameObject>("HUDTextLabel");
         stretchedTextLabelTemplate = Resources.Load<GameObject>("StretchedTextLabel");
         fadeToColourTemplate = Resources.Load<GameObject>("FadeToColour");
 
         // Initialize the characters list HUD
-        MakeHUD();
+        canvas = Instantiate(canvasTemplate).GetComponent<HUDCanvas>();
     }
 
     // Update is called once per frame

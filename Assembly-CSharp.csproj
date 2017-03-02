@@ -53,6 +53,7 @@
      <Compile Include="Assets\FadeToColour.cs" />
      <Compile Include="Assets\Finish.cs" />
      <Compile Include="Assets\GameState.cs" />
+     <Compile Include="Assets\HUDCanvas.cs" />
      <Compile Include="Assets\Player.cs" />
      <Compile Include="Assets\PlayerOverlay.cs" />
  <Reference Include="UnityEngine.UI">

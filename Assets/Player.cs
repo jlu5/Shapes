@@ -37,19 +37,18 @@ public class Player : MonoBehaviour {
     protected List<GameObject> masterPlayers = new List<GameObject>();
     protected int bindCount = 0;
 
-    // Use this for initialization
-    void Start () {
+    // Initialization is done in two steps here: Awake, which runs first, and Start, which runs second.
+    // This is so that variables other scripts depend on are always created (step 1) before any
+    // cross-script communication is done (step 2).
+    void Awake () {
         // Find our Rigidbody2D object
         rb = GetComponent<Rigidbody2D>();
         bindDisplayTemplate = Resources.Load<GameObject>("BindDisplayObject");
 
-        if (playerID == 0)
+        if (playerID == 0) // Player ID should never be zero (this is the prefab default)
         {
             Debug.LogWarning("Immovable player object with invalid ID!");
         }
-        // Add this player to our global game state.
-        GameState.Instance.addPlayer(playerID, this);
-        GameState.Instance.playerCount++;
 
         simpleTextMesh = Resources.Load<GameObject>("SimpleTextMesh");
 
@@ -67,6 +66,12 @@ public class Player : MonoBehaviour {
         Renderer renderer = playerIDLabel.GetComponent<Renderer>();
         renderer.sortingLayerName = "PlayerForeground";
         renderer.sortingOrder = -1;
+    }
+
+    void Start () {
+        // Add this player to our global game state.
+        GameState.Instance.addPlayer(playerID, this);
+        GameState.Instance.playerCount++;
     }
 
     // Collision handler
