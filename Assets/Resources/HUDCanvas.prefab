@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114185415552263168}
   - component: {fileID: 222669822359875706}
   - component: {fileID: 114221422576827194}
+  - component: {fileID: 114688101004959262}
   m_Layer: 5
   m_Name: HUDCanvas
   m_TagString: Untagged
@@ -90,6 +91,17 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
+--- !u!114 &114688101004959262
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1345933276433388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41be86126931a4208b0b0ac5161c9056, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &222669822359875706
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -103,7 +115,7 @@ Canvas:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1345933276433388}
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
@@ -112,6 +124,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
