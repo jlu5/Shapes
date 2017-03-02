@@ -95,6 +95,14 @@ public sealed class GameState : MonoBehaviour
         players[id] = player;
     }
 
+    // Removes a player from the current scene.
+    public void removePlayer(int id)
+    {
+        Player player = players[id];
+        Destroy(player.gameObject);
+        players.Remove(id);
+    }
+
     public void registerCollidable(int id, Collidable obj)
     {
         // Internally (to prevent a ton of variables from being used),
@@ -109,7 +117,7 @@ public sealed class GameState : MonoBehaviour
         collidables[type][id] = obj;
     }
 
-    // Fetches a registered collidable, with the option of raising an error or returning 
+    // Fetches a registered collidable, with the option of raising an error or returning
     // null if it is missing.
     public Collidable getCollidable<T>(int id, bool nullFallback = false)
     {
@@ -127,7 +135,7 @@ public sealed class GameState : MonoBehaviour
                 throw;
             }
         }
-        
+
     }
 
     void Awake()
