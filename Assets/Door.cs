@@ -3,6 +3,10 @@
 public class Door : Collidable {
     public int ID;
     public int targetDoor;
+    public bool isLocked;
+    private GameObject doorLock;
+    public Color color;
+    public Color lockOffsetColor = new Color(0.6F, 0.6F, 0.6F, 0);
 
     void Start()
     {
@@ -12,6 +16,16 @@ public class Door : Collidable {
             Destroy(gameObject);
         }
         GameState.Instance.registerCollidable(ID, this);
+
+        color = GetComponent<SpriteRenderer>().color;
+        if (isLocked)
+        {
+            // If the door is locked, show a lock overlay.
+            doorLock = Instantiate(Resources.Load<GameObject>("DoorLockDisplay"));
+            doorLock.transform.SetParent(transform, false);
+            // Offset the colour of the door lock so that it doesn't blend in with the door.
+            doorLock.GetComponent<SpriteRenderer>().color = color + lockOffsetColor;
+        }
     }
     
     // PlayerHit is a no-op
@@ -21,11 +35,18 @@ public class Door : Collidable {
     public override void PlayerInteract(Player player)
     {
         Collidable otherDoor = GameState.Instance.getCollidable<Door>(targetDoor, true);
-        if (otherDoor == null)
+        if (otherDoor == null || isLocked)
         {
             // XXX make this obvious to the player outside the editor
-            Debug.LogWarning(string.Format("This door is locked! (points to invalid door {0})", targetDoor));
-        } else
+            if (otherDoor == null)
+            {
+                Debug.LogWarning(string.Format("This door is locked! (points to invalid door {0})", targetDoor));
+            } else
+            {
+                Debug.Log("This door is locked!");
+            }
+        }
+        else
         {
             // Teleport the player!
             player.gameObject.transform.position = otherDoor.gameObject.transform.position;
