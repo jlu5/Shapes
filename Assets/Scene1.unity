@@ -1418,11 +1418,12 @@ Prefab:
     - target: {fileID: 102590317373944760, guid: 27ecead667d041c439d3beeb3b45b374,
         type: 2}
       propertyPath: m_Text
-      value: "Welcome to Shapes! Current level: Demo\n(Default) controls:\nMovement:
-        WASD or Arrow keys\nJump: Space\nAttach to adjacent characters: E \nDetach
+      value: "Welcome to Shapes! Current level: Demo\nDefault controls: Arrow keys
+        or WASD to move, space to jump\nAttach to adjacent characters: E \nDetach
         from attached characters: Q\nSelect character: 1, 2, 3 (or use the hotbar
-        at the top)\nRespawn/reset characters: Esc\nCamera zoom: Scroll wheel\nThe
-        objective is to get characters in the finish \u2197"
+        at the top)\nRespawn/reset level: Esc\nCamera zoom: Scroll wheel\nInteract
+        with objects (e.g. enter doors): Enter\nThe objective is to get characters
+        in the finish \u2197"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 27ecead667d041c439d3beeb3b45b374, type: 2}
