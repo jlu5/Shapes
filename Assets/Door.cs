@@ -27,9 +27,18 @@ public class Door : Collidable {
             doorLock.GetComponent<SpriteRenderer>().color = color + lockOffsetColor;
         }
     }
+
+    public void Unlock() {
+        isLocked = false;
+        if (doorLock)
+        {
+            // Remove the door lock overlay if it exists.
+            Destroy(doorLock);
+        }
+    }
     
     // PlayerHit is a no-op
-	public override void PlayerHit (Player player) {
+	public override void PlayerHit(Player player) {
 	}
 
     public override void PlayerInteract(Player player)
