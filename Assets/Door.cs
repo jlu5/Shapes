@@ -75,7 +75,14 @@ public class Door : Collidable {
     public override void PlayerInteract(Player player)
     {
         Collidable otherDoor = GameState.Instance.GetCollidable<Door>(targetDoor);
-        if (otherDoor == null || isLocked)
+
+        if (otherDoor == null)
+        {
+            otherDoor = this;
+            Debug.LogWarning(string.Format("Invalid target door {0}; setting target to current door!", targetDoor));
+        }
+
+        if (isLocked)
         {
             // XXX make this obvious to the player outside the editor
             Debug.Log("This door is locked!");
