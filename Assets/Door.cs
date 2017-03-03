@@ -34,7 +34,7 @@ public class Door : Collidable {
 
     public override void PlayerInteract(Player player)
     {
-        Collidable otherDoor = GameState.Instance.GetCollidable<Door>(targetDoor, true);
+        Collidable otherDoor = GameState.Instance.GetCollidable<Door>(targetDoor);
         if (otherDoor == null || isLocked)
         {
             // XXX make this obvious to the player outside the editor

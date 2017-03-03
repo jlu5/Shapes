@@ -104,9 +104,8 @@ public sealed class GameState : MonoBehaviour
         collidables[type][id] = obj;
     }
 
-    // Fetches a registered collidable, with the option of raising an error or returning
-    // null if it is missing.
-    public Collidable GetCollidable<T>(int id, bool nullFallback = false)
+    // Fetches a registered collidable, returning null if it is missing.
+    public Collidable GetCollidable<T>(int id)
     {
         try
         {
@@ -114,13 +113,7 @@ public sealed class GameState : MonoBehaviour
         }
         catch (KeyNotFoundException)
         {
-            if (nullFallback)
-            {
-                return null;
-            } else
-            {
-                throw;
-            }
+            return null;
         }
 
     }
