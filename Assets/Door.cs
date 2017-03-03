@@ -53,7 +53,7 @@ public class Door : Collidable {
 
         // Create a bind display between the doors if one doesn't already exist.
         Collidable otherDoor = GameState.Instance.GetCollidable<Door>(targetDoor);
-        if (bindDisplay == null && otherDoor)
+        if (bindDisplay == null && otherDoor && other.gameObject.CompareTag("Player"))
         {
             bindDisplay = Instantiate(bindDisplayTemplate);
             BindDisplay bindDisplayScript = bindDisplay.GetComponent<BindDisplay>();
