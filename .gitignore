@@ -1,17 +1,23 @@
 # Unity generated
 Temp/
 Library/
+[Oo]bj/
+[Bb]uild/
 
 # Visual Studio / MonoDevelop
 ExportedObj/
-obj/
-*.svd
+.consulo/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
 *.userprefs
 *.pidb
-*.suo
-*.user
-*.unityproj
+*.pidb.meta
 *.booproj
+*.svd
 
 # OS generated
 .DS_Store
