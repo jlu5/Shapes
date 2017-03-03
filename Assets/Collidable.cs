@@ -6,7 +6,7 @@ public abstract class Collidable : MonoBehaviour {
     public abstract void PlayerInteract(Player player);
 
     // Handler for collidables implementing triggers
-    void OnTriggerEnter2D(Collider2D other)
+    protected void OnTriggerEnter2D(Collider2D other)
     {
         Player player = other.gameObject.GetComponent<Player>();
         if (player != null)
@@ -15,7 +15,7 @@ public abstract class Collidable : MonoBehaviour {
         }
     }
 
-    void OnTriggerExit2D(Collider2D other)
+    protected void OnTriggerExit2D(Collider2D other)
     {
         Player player = other.gameObject.GetComponent<Player>();
         if (player != null)

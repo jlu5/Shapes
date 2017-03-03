@@ -5,6 +5,8 @@ public class Door : Collidable {
     public int targetDoor;
     public bool isLocked;
     private GameObject doorLock;
+    private GameObject bindDisplay;
+    private GameObject bindDisplayTemplate;
     public Color color;
     public Color lockOffsetColor = new Color(0.6F, 0.6F, 0.6F, 0);
 
@@ -26,6 +28,9 @@ public class Door : Collidable {
             // Offset the colour of the door lock so that it doesn't blend in with the door.
             doorLock.GetComponent<SpriteRenderer>().color = color + lockOffsetColor;
         }
+
+        bindDisplayTemplate = Resources.Load<GameObject>("BindDisplayObject");
+
     }
 
     public void Unlock() {
@@ -36,10 +41,36 @@ public class Door : Collidable {
             Destroy(doorLock);
         }
     }
-    
+
     // PlayerHit is a no-op
 	public override void PlayerHit(Player player) {
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        // Call the base Collidable class' trigger code.
+        base.OnTriggerEnter2D(other);
+
+        // Create a bind display between the doors if one doesn't already exist.
+        Collidable otherDoor = GameState.Instance.GetCollidable<Door>(targetDoor);
+        if (bindDisplay == null && otherDoor)
+        {
+            bindDisplay = Instantiate(bindDisplayTemplate);
+            BindDisplay bindDisplayScript = bindDisplay.GetComponent<BindDisplay>();
+
+            bindDisplayScript.object1 = gameObject;
+            bindDisplayScript.object2 = otherDoor.gameObject;
+            bindDisplayScript.transform.SetParent(transform);
+        }
 	}
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        base.OnTriggerExit2D(other);
+        if (bindDisplay != null) {
+            Destroy(bindDisplay);
+        }
+    }
 
     public override void PlayerInteract(Player player)
     {
@@ -47,13 +78,7 @@ public class Door : Collidable {
         if (otherDoor == null || isLocked)
         {
             // XXX make this obvious to the player outside the editor
-            if (otherDoor == null)
-            {
-                Debug.LogWarning(string.Format("This door is locked! (points to invalid door {0})", targetDoor));
-            } else
-            {
-                Debug.Log("This door is locked!");
-            }
+            Debug.Log("This door is locked!");
         }
         else
         {
