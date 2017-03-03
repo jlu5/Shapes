@@ -26,10 +26,10 @@ public class Finish : Collidable {
         text.transform.SetParent(finishWrapper.transform);
         text.name = "FinishLabel";
         text.transform.localPosition = Vector3.zero;
-        textUpdate();
+        TextUpdate();
     }
 
-    void textUpdate()
+    void TextUpdate()
     {
         // Update the finish label to display the new count of players needed.
         text.GetComponent<TextMesh>().text = System.Convert.ToString(playersNeeded);
@@ -40,7 +40,7 @@ public class Finish : Collidable {
     {
         playersNeeded -= 1;
         // Remove the player
-        GameState.Instance.removePlayer(player.playerID);
+        GameState.Instance.RemovePlayer(player.playerID);
 
         if (playersNeeded < 1)
         {
@@ -49,7 +49,7 @@ public class Finish : Collidable {
             Destroy(finishWrapper);
             return;
         }
-        textUpdate();
+        TextUpdate();
     }
 
     public override void PlayerInteract(Player player)

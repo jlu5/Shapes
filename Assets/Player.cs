@@ -70,7 +70,7 @@ public class Player : MonoBehaviour {
 
     void Start () {
         // Add this player to our global game state.
-        GameState.Instance.addPlayer(playerID, this);
+        GameState.Instance.AddPlayer(playerID, this);
         GameState.Instance.playerCount++;
     }
 

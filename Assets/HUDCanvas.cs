@@ -18,7 +18,7 @@ public class HUDCanvas : MonoBehaviour {
         playerListLabel.transform.SetParent(transform);
 	}
 
-	public void addPlayer(int id, Player player)
+	public void AddPlayer(int id, Player player)
 	{
 		// Create a new instance of our player overlay prefab - this uses the
         // same sprite as the player but has no movement attached.
@@ -41,7 +41,7 @@ public class HUDCanvas : MonoBehaviour {
         overlays[id] = newObj;
     }
 
-    public void removePlayer(int id)
+    public void RemovePlayer(int id)
     {
 		Destroy(overlays[id].gameObject);
 		overlays.Remove(id);

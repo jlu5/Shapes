@@ -15,7 +15,7 @@ public class Door : Collidable {
             Debug.LogError(string.Format("Door {0} has target of itself; removing!", ID));
             Destroy(gameObject);
         }
-        GameState.Instance.registerCollidable(ID, this);
+        GameState.Instance.RegisterCollidable(ID, this);
 
         color = GetComponent<SpriteRenderer>().color;
         if (isLocked)
@@ -34,7 +34,7 @@ public class Door : Collidable {
 
     public override void PlayerInteract(Player player)
     {
-        Collidable otherDoor = GameState.Instance.getCollidable<Door>(targetDoor, true);
+        Collidable otherDoor = GameState.Instance.GetCollidable<Door>(targetDoor, true);
         if (otherDoor == null || isLocked)
         {
             // XXX make this obvious to the player outside the editor

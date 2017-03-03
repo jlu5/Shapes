@@ -62,27 +62,27 @@ public sealed class GameState : MonoBehaviour
     }
 
     // Adds a player into the current scene.
-    public void addPlayer(int id, Player player)
+    public void AddPlayer(int id, Player player)
     {
         // Register the player into the player list. TODO: make sure
         // the key doesn't already exist.
         players[id] = player;
 
         // Add the player to the player list canvas.
-        canvas.addPlayer(id, player);
+        canvas.AddPlayer(id, player);
     }
 
     // Returns the requested player by ID.
-    public Player getPlayer(int id)
+    public Player GetPlayer(int id)
     {
         return players[id];
     }
 
     // Removes a player from the current scene.
-    public void removePlayer(int id)
+    public void RemovePlayer(int id)
     {
         // First, remove our player overlay.
-        canvas.removePlayer(id);
+        canvas.RemovePlayer(id);
 
         // Then, destroy the gameobject and storage related to it.
         Player player = players[id];
@@ -90,7 +90,7 @@ public sealed class GameState : MonoBehaviour
         players.Remove(id);
     }
 
-    public void registerCollidable(int id, Collidable obj)
+    public void RegisterCollidable(int id, Collidable obj)
     {
         // Internally (to prevent a ton of variables from being used),
         // this stores objects by their type, and then by their ID.
@@ -106,7 +106,7 @@ public sealed class GameState : MonoBehaviour
 
     // Fetches a registered collidable, with the option of raising an error or returning
     // null if it is missing.
-    public Collidable getCollidable<T>(int id, bool nullFallback = false)
+    public Collidable GetCollidable<T>(int id, bool nullFallback = false)
     {
         try
         {
