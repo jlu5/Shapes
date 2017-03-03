@@ -84,14 +84,12 @@ public class Door : Collidable {
 
         if (isLocked)
         {
-            // XXX make this obvious to the player outside the editor
+            otherDoor = this;
             Debug.Log("This door is locked!");
         }
-        else
-        {
-            // Teleport the player!
-            player.gameObject.transform.position = otherDoor.gameObject.transform.position;
-        }
+
+        // Teleport the player!
+        player.gameObject.transform.position = otherDoor.gameObject.transform.position;
     }
 
 
