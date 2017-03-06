@@ -42,10 +42,6 @@ public class Door : Collidable {
         }
     }
 
-    // PlayerHit is a no-op
-	public override void PlayerHit(Player player) {
-    }
-
     void OnTriggerEnter2D(Collider2D other)
     {
         // Call the base Collidable class' trigger code.

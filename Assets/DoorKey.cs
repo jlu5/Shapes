@@ -35,8 +35,4 @@ public class DoorKey : Collidable {
         myDoor.Unlock();
         Destroy(gameObject);
     }
-
-    // PlayerInteract is a stub.
-    public override void PlayerInteract(Player player) {
-    }
 }

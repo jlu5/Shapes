@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
 public abstract class Collidable : MonoBehaviour {
-    // This will be overriden by inheriting classes.
-    public abstract void PlayerHit(Player player);
-    public abstract void PlayerInteract(Player player);
+    // These will be overriden by inheriting classes if they choose.
+    public virtual void PlayerHit(Player player) { }
+    public virtual void PlayerInteract(Player player) { }
 
     // Handler for collidables implementing triggers
     protected void OnTriggerEnter2D(Collider2D other)
