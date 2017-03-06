@@ -5,8 +5,9 @@ public abstract class Collidable : MonoBehaviour {
     public virtual void PlayerHit(Player player) { }
     public virtual void PlayerInteract(Player player) { }
 
-    // Handler for collidables implementing triggers
-    protected void OnTriggerEnter2D(Collider2D other)
+    // For go-through collidables implementing triggers, these methods implement
+    // tracking for which triggers a player is interacting with at any given time.
+    protected virtual void OnTriggerEnter2D(Collider2D other)
     {
         Player player = other.gameObject.GetComponent<Player>();
         if (player != null)
@@ -15,7 +16,7 @@ public abstract class Collidable : MonoBehaviour {
         }
     }
 
-    protected void OnTriggerExit2D(Collider2D other)
+    protected virtual void OnTriggerExit2D(Collider2D other)
     {
         Player player = other.gameObject.GetComponent<Player>();
         if (player != null)

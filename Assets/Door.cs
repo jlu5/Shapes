@@ -42,7 +42,7 @@ public class Door : Collidable {
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    protected override void OnTriggerEnter2D(Collider2D other)
     {
         // Call the base Collidable class' trigger code.
         base.OnTriggerEnter2D(other);
@@ -60,7 +60,7 @@ public class Door : Collidable {
         }
 	}
 
-    void OnTriggerExit2D(Collider2D other)
+    protected override void OnTriggerExit2D(Collider2D other)
     {
         base.OnTriggerExit2D(other);
         if (bindDisplay != null) {
