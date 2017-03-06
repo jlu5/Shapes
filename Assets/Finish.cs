@@ -1,4 +1,6 @@
-﻿using System;
+﻿/* Shapes Game (c) 2017 James Lu. All rights reserved.
+ * Finish.cs: Implements a finish object
+ */
 using UnityEngine;
 
 public class Finish : Collidable {

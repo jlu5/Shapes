@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿/* Shapes Game (c) 2017 James Lu. All rights reserved.
+ * HUDCanvas.cs: Implements a canvas displaying a list of player characters
+ */
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;

@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿/* Shapes Game (c) 2017 James Lu. All rights reserved.
+ * PlayerOverlay.cs: Implements clickable player sprites for HUDCanvas instances
+ */
+using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerOverlay : MonoBehaviour

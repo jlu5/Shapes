@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿/* Shapes Game (c) 2017 James Lu. All rights reserved.
+ * DoorKey.cs: implements keys to unlock locked doors
+ */
+using UnityEngine;
 
 public class DoorKey : Collidable {
     public int doorID;

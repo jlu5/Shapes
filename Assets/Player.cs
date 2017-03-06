@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿/* Shapes Game (c) 2017 James Lu. All rights reserved.
+ * Player.cs: Implements the base player character
+ */
+using System.Collections.Generic;
 using System.Linq;
-using System;
 using UnityEngine;
 
 public class Player : MonoBehaviour {

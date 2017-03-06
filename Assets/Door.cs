@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿/* Shapes Game (c) 2017 James Lu. All rights reserved.
+ * Door.cs: Lockable doors for Shapes, teleporting the player to its target on interact
+ */
+using UnityEngine;
 
 public class Door : Collidable {
     public int ID;

@@ -1,5 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/* Shapes Game (c) 2017 James Lu. All rights reserved.
+ * BindDisplay.cs: Displays a line between two arbitrary game objects
+ */
 using UnityEngine;
 
 public class BindDisplay : MonoBehaviour {
