@@ -252,14 +252,21 @@ public class Player : MonoBehaviour {
                 // surface(s) it's touching.
                 rb.AddForce(nextJumpVector * jumpStrength);
 
-                foreach (KeyValuePair<GameObject, Vector2> objpair in collidingObjects)
+                foreach (KeyValuePair<GameObject, Vector2> objpair in collidingObjects.ToList())
                 {
-                    // For each object that we're colliding with, exert an opposing force
-                    // when we jump (if that object has a rigid body).
-                    Rigidbody2D other_rb = objpair.Key.GetComponent<Rigidbody2D>();
-                    if (other_rb != null)
+                    if (objpair.Key != null)
                     {
-                        other_rb.AddForce(-nextJumpVector * jumpRecoilStrength);
+                        // For each object that we're colliding with, exert an opposing force
+                        // when we jump (if that object has a rigid body).
+                        Rigidbody2D other_rb = objpair.Key.GetComponent<Rigidbody2D>();
+                        if (other_rb != null)
+                        {
+                            other_rb.AddForce(-nextJumpVector * jumpRecoilStrength);
+                        }
+                    } else
+                    {
+                        // The other object was destroyed while we collided with it; remove it.
+                        collidingObjects.Remove(objpair.Key);
                     }
                 }
 
