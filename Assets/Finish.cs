@@ -51,9 +51,4 @@ public class Finish : Collidable {
         }
         TextUpdate();
     }
-
-    public override void PlayerInteract(Player player)
-    {
-        PlayerHit(player);
-    }
 }
