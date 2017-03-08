@@ -9,13 +9,14 @@ public class HUDCanvas : MonoBehaviour {
 	private GameObject HUDTextLabelTemplate;
     private PlayerOverlay playerOverlay;
     private Dictionary<int, PlayerOverlay> overlays = new Dictionary<int, PlayerOverlay>();
+    private GameObject playerListLabel;
 
-	// Initialization: fill in resources and create the player list label
-	void Awake () {
+    // Initialization: fill in resources and create the player list label
+    void Awake () {
 		HUDTextLabelTemplate = Resources.Load<GameObject>("HUDTextLabel");
         playerOverlay = Resources.Load<PlayerOverlay>("PlayerOverlay");
 
-        GameObject playerListLabel = Instantiate(HUDTextLabelTemplate);
+        playerListLabel = Instantiate(HUDTextLabelTemplate);
         playerListLabel.GetComponent<Text>().text = "Select character: ";
         playerListLabel.transform.SetParent(transform);
 	}
@@ -39,17 +40,17 @@ public class HUDCanvas : MonoBehaviour {
         overlays[id] = newObj;
 
         // Sort the player overlays: for each child object with a PlayerOverlay script, set its
-        // index in the player list equal to the player ID (this starts at 1 since item 0 is the
-        // description label).
+        // index in the player list equal to the player ID - 1.
         foreach (Transform child in transform)
         {
             PlayerOverlay overlay = child.gameObject.GetComponent<PlayerOverlay>();
             if (overlay != null)
             {
                 Debug.Log(string.Format("HUDCanvas: sorting PlayerOverlay {0} to position {0}", overlay.playerID));
-                child.SetSiblingIndex(overlay.playerID);
+                child.SetSiblingIndex(overlay.playerID-1);
             }
         }
+        playerListLabel.transform.SetSiblingIndex(0);
     }
 
     // Removes a player from the canvas.
