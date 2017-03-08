@@ -6,6 +6,7 @@ public class BindDisplay : MonoBehaviour {
     public GameObject object1;
     public GameObject object2;
 
+    // Quick access to the line renderer component
     private LineRenderer lr;
 
     void Start()
@@ -15,6 +16,7 @@ public class BindDisplay : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        // The bind display needs two objects two draw between; nothing is displayed otherwise.
         if (object1 == null || object2 == null)
         {
             return;
@@ -23,7 +25,7 @@ public class BindDisplay : MonoBehaviour {
         lr.sortingLayerName = "PlayerForeground";
         lr.sortingOrder = -1;
 
-        // Draw the line between this player and the other one.
+        // Draw a line between this object and the other one (set the line renderer's positions).
         lr.numPositions = 2;
         lr.SetPositions(new Vector3[2] { object1.transform.position, object2.transform.position });
 

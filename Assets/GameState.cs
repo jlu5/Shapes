@@ -7,10 +7,13 @@ using UnityEngine.SceneManagement;
 // Singleton method adapted from https://msdn.microsoft.com/en-us/library/ff650316.aspx
 public sealed class GameState : MonoBehaviour
 {
+    // The current instance is privately tracked here.
     private static GameState instance;
 
+    // Make the constructor private so other classes can't create an instance of GameState.
     private GameState() { }
 
+    // Implement a read-only Instance attribute which returns the current instance
     public static GameState Instance
     {
         get
@@ -19,8 +22,10 @@ public sealed class GameState : MonoBehaviour
         }
     }
 
-    // TODO: make player settings configurable in via level data
+    // TODO: make the current player configurable in via level data
     public int currentPlayer = 1;
+
+    // Player/Level state tracking
     public int playerCount;
     public bool gameEnded;
     private Dictionary<int, Player> players = new Dictionary<int, Player>();
@@ -41,15 +46,57 @@ public sealed class GameState : MonoBehaviour
     private GameObject stretchedTextLabelTemplate;
     private GameObject fadeToColourTemplate;
 
+    // Access to the current HUDCanvas instance.
     private HUDCanvas canvas;
 
+    void Awake()
+    {
+        // Sets the current instance to the global one. TODO: make this thread safe?
+        if (instance == null)
+        {
+            instance = this;
+        }
+
+        // Requirement for UI elements: Create an EventSystem object with a default input module,
+        // if one doesn't already exist.
+        EventSystem eventSystem;
+        StandaloneInputModule sim;
+        if (EventSystem.current)
+        {
+            Debug.Log("GameState: Using existing EventSystem");
+            eventSystem = EventSystem.current;
+            sim = eventSystem.gameObject.GetComponent<StandaloneInputModule>();
+        }
+        else
+        {
+            Debug.Log("GameState: No EventSystem found; creating a new one");
+            GameObject eventSystemObject = new GameObject();
+            eventSystemObject.name = "ShapesEventSystem";
+            eventSystem = eventSystemObject.AddComponent<EventSystem>();
+            sim = eventSystemObject.AddComponent<StandaloneInputModule>();
+        }
+
+        // Use a separate input key for overlay buttons to not override keys like Enter and Space
+        sim.submitButton = "ClickOnly";
+
+        // Load our relevant resources
+        canvasTemplate = Resources.Load<GameObject>("HUDCanvas");
+        simpleCanvasTemplate = Resources.Load<GameObject>("SimpleHUDCanvas");
+        stretchedTextLabelTemplate = Resources.Load<GameObject>("StretchedTextLabel");
+        fadeToColourTemplate = Resources.Load<GameObject>("FadeToColour");
+
+        // Initialize the characters list HUD
+        canvas = Instantiate(canvasTemplate).GetComponent<HUDCanvas>();
+    }
+
+    // Method called to end the current level.
     public void LevelEnd(bool win=true)
     {
         gameEnded = true;
         GameObject levelEndCanvas = Instantiate(simpleCanvasTemplate);
         GameObject levelEndText = Instantiate(stretchedTextLabelTemplate);
         Text text = levelEndText.GetComponent<Text>();
-        text.text = "You win!";
+        text.text = "You win!"; // TODO: implement the win boolean with alternative losing text
         text.fontSize *= 4;  // Make the text bigger
 
         // Add a fade out image.
@@ -90,14 +137,15 @@ public sealed class GameState : MonoBehaviour
         players.Remove(id);
     }
 
+    // Registers a collidable with a given ID.
     public void RegisterCollidable(int id, Collidable obj)
     {
-        // Internally (to prevent a ton of variables from being used),
-        // this stores objects by their type, and then by their ID.
+        // Internally (to prevent a ton of variables from being used), this stores objects as a
+        // dictionary of dictionaries: first by their type, and then by their ID.
 
         System.Type type = obj.GetType();
         if (!collidables.ContainsKey(type))
-        { // Fill in the type key of the object if it doesn't exist
+        { // Fill in the type key corresponding to the object if it doesn't exist
             collidables[type] = new Dictionary<int, Collidable>();
         }
 
@@ -118,53 +166,13 @@ public sealed class GameState : MonoBehaviour
 
     }
 
-    void Awake()
-    {
-        // TODO: make this thread safe?
-        if (instance == null)
-        {
-            instance = this;
-        }
-
-        // Requirement for UI elements: Create an EventSystem object with a default input module,
-        // if one doesn't already exist.
-        EventSystem eventSystem;
-        StandaloneInputModule sim;
-        if (EventSystem.current)
-        {
-            Debug.Log("GameState: Using existing EventSystem");
-            eventSystem = EventSystem.current;
-            sim = eventSystem.gameObject.GetComponent<StandaloneInputModule>();
-        } else
-        {
-            Debug.Log("GameState: No EventSystem found; creating a new one");
-            GameObject eventSystemObject = new GameObject();
-            eventSystemObject.name = "ShapesEventSystem";
-            eventSystem = eventSystemObject.AddComponent<EventSystem>();
-            sim = eventSystemObject.AddComponent<StandaloneInputModule>();
-        }
-
-        // Use a separate input key for overlay buttons to not override keys like Enter and Space
-        sim.submitButton = "ClickOnly";
-
-        // Load our relevant resources
-        canvasTemplate = Resources.Load<GameObject>("HUDCanvas");
-        simpleCanvasTemplate = Resources.Load<GameObject>("SimpleHUDCanvas");
-        stretchedTextLabelTemplate = Resources.Load<GameObject>("StretchedTextLabel");
-        fadeToColourTemplate = Resources.Load<GameObject>("FadeToColour");
-
-        // Initialize the characters list HUD
-        canvas = Instantiate(canvasTemplate).GetComponent<HUDCanvas>();
-    }
-
     // Update is called once per frame
     void Update()
     {
         if (!gameEnded)
         {
-            // Look up every possible FireX key, where X is the player
-            // number. This means that Fire1 switches to the 1st player,
-            // Fire2 switches to the 2nd player, etc.
+            // Look up every possible FireX key, where X is the player number.
+            // This means that Fire1 switches to the 1st player, Fire2 switches to the 2nd player, etc.
             for (int btnNum = 1; btnNum <= playerCount; btnNum++)
             {
                 string keyName = "Fire" + btnNum;
@@ -189,6 +197,7 @@ public sealed class GameState : MonoBehaviour
             float scroll = Input.GetAxis("Zoom");
             float cameraSize = Camera.main.orthographicSize;
             float newSize = cameraSize + scroll;
+            // Only zoom if the new camera size is between the minimum and maximum sizes.
             if (newSize < cameraMaxSize && newSize > cameraMinSize)
             {
                 Camera.main.orthographicSize = newSize;

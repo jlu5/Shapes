@@ -8,7 +8,7 @@ public class HUDCanvas : MonoBehaviour {
     private PlayerOverlay playerOverlay;
     private Dictionary<int, PlayerOverlay> overlays = new Dictionary<int, PlayerOverlay>();
 
-	// Use this for initialization
+	// Initialization: fill in resources and create the player list label
 	void Awake () {
 		HUDTextLabelTemplate = Resources.Load<GameObject>("HUDTextLabel");
         playerOverlay = Resources.Load<PlayerOverlay>("PlayerOverlay");
@@ -18,6 +18,7 @@ public class HUDCanvas : MonoBehaviour {
         playerListLabel.transform.SetParent(transform);
 	}
 
+    // Adds a player to the canvas.
 	public void AddPlayer(int id, Player player)
 	{
 		// Create a new instance of our player overlay prefab - this uses the
@@ -41,8 +42,10 @@ public class HUDCanvas : MonoBehaviour {
         overlays[id] = newObj;
     }
 
+    // Removes a player from the canvas.
     public void RemovePlayer(int id)
     {
+        // Destroy the overlay object and its reference in our overlays tracker.
 		Destroy(overlays[id].gameObject);
 		overlays.Remove(id);
     }

@@ -6,9 +6,10 @@ public abstract class Collidable : MonoBehaviour {
     public virtual void PlayerInteract(Player player) { }
 
     // For go-through collidables implementing triggers, these methods implement
-    // tracking for which triggers a player is interacting with at any given time.
+    // tracking for which triggers a player is colliding with at any given time.
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {
+        // Try to fetch the player script of the triggering object, if it exists.
         Player player = other.gameObject.GetComponent<Player>();
         if (player != null)
         {

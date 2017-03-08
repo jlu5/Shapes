@@ -27,6 +27,7 @@ public class PlayerOverlay : MonoBehaviour
 
     }
 
+    // When clicked, set the current player to this one.
     public void OnClick()
     {
         if (playerID != 0)

@@ -55,7 +55,6 @@ public class Player : MonoBehaviour {
         // Create a small text label to denote which player is which
         playerIDLabel = Instantiate(simpleTextMesh);
         playerIDLabel.transform.SetParent(gameObject.transform, false);
-
         TextMesh playerIDText = playerIDLabel.GetComponent<TextMesh>();
         playerIDText.text = playerID.ToString();
         // Use a smaller font size
@@ -74,7 +73,7 @@ public class Player : MonoBehaviour {
         GameState.Instance.playerCount++;
     }
 
-    // Collision handler
+    // Collision handlers
     void OnCollisionEnter2D(Collision2D col)
     {
         // Objects with specific collision routines are (e.g. finishes) called here.
@@ -100,6 +99,7 @@ public class Player : MonoBehaviour {
 
     void OnCollisionExit2D(Collision2D col)
     {
+        // Remove the other object from the list of objects we're colliding with.
         collidingObjects.Remove(col.gameObject);
 
         if (collidingObjects.Count == 0)
@@ -117,22 +117,23 @@ public class Player : MonoBehaviour {
     void OnCollisionStay2D(Collision2D col)
     {
         /* Make jump realistic: whenever the player collides with the environment, set the
-            * jump direction perpendicular to the surface(s) the player is touching.
-            * This is in contrast to making jump always point upwards, which is completely wrong
-            * when colliding with slanted or floating platforms.
-            * Since forces are expressed as a vector, we can sum all the collision normal
-            * vectors if the player is touching multiple points at once (e.g. corner jump).
-            */
+         * jump direction perpendicular to the surface(s) the player is touching.
+         * This is in contrast to making jump always point upwards, which is incorrect
+         * when colliding with slanted platforms or the bottom of floating objects.
+         * Since directions are expressed as a vector, we can sum all the collision normal
+         * vectors if the player is touching multiple points at once (i.e. corner jump is possible).
+         */
         Vector2 normal_sum = Vector2.zero;
 
+        // Sum up the vectors at which we're colliding with all other objects.
         foreach (Vector2 vector in collidingObjects.Values)
         {
-            //Debug.Log(string.Format("Adding vector ({0}, {1}) from colliding object", vector.x, vector.y));
             normal_sum += vector;
         }
         nextJumpVector = normal_sum;
+
         // Normalize the resulting vector so we don't get super jumps when colliding with multiple
-        // objects at the same time (e.g. when resting on the crack between two parallel platforms).
+        // objects at the same angle (e.g. when resting on the crack between two parallel platforms).
         nextJumpVector.Normalize();
     }
 
@@ -141,6 +142,7 @@ public class Player : MonoBehaviour {
     {
         foreach (GameObject playerObject in collidingPlayers)
         {
+            // Create a relative (angle and distance preserving) joint between the two objects.
             RelativeJoint2D joint = gameObject.AddComponent<RelativeJoint2D>();
             joint.connectedBody = playerObject.GetComponent<Rigidbody2D>();
             playerBinds[playerObject] = joint;
@@ -165,6 +167,8 @@ public class Player : MonoBehaviour {
                 // Show what player IDs this bind display object uses
                 bdo.name += string.Format("{0}-{1}", playerID, otherPlayer.playerID);
                 bdo.transform.SetParent(transform);
+
+                // Set the bind display script to track this character and the other character.
                 BindDisplay bdoScript = bdo.GetComponent<BindDisplay>();
                 bdoScript.object1 = gameObject;
                 bdoScript.object2 = playerObject;
@@ -221,12 +225,12 @@ public class Player : MonoBehaviour {
         bindDisplays.Clear();
     }
 
-    // Interact with all colliding "Collidable" objects
+    // Interact with all triggered Collidables (for collidables that have trigger-based rigid bodies
+    // instead of physical collisions)
     void InteractAll()
     {
         foreach (GameObject otherObject in activeTriggers)
         {
-            Debug.Log("Checking trigger");
             Collidable collidable = otherObject.GetComponent<Collidable>();
             if (collidable != null)
             {
@@ -237,17 +241,15 @@ public class Player : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        // Get horizontal and vertical (rotation) movement
-
-        if (GameState.Instance.currentPlayer == playerID)
-        {
+        if (GameState.Instance.currentPlayer == playerID) {
+            // Get horizontal and vertical (rotation) movement
             float x_move = Input.GetAxis("Horizontal");
             float r_move = Input.GetAxis("Vertical");
 
             if (Input.GetButtonDown("Jump") && canJump)
             {
-                // Add a force on the player character to propel them perpendicular to the
-                // surface(s) they're touching.
+                // Add a force on the player character to propel it perpendicular to the
+                // surface(s) it's touching.
                 rb.AddForce(nextJumpVector * jumpStrength);
 
                 foreach (KeyValuePair<GameObject, Vector2> objpair in collidingObjects)
@@ -261,7 +263,7 @@ public class Player : MonoBehaviour {
                     }
                 }
 
-                // Disable jump while we're in mid-air (this is reset in OnCollisionStay2D).
+                // Disable jump while we're in mid-air (this is reset in OnCollisionEnter2D).
                 canJump = false;
                 Debug.Log("canJump set to false for player ID " + playerID);
             }
@@ -278,10 +280,9 @@ public class Player : MonoBehaviour {
                 InteractAll();
             }
 
-
             Vector2 vector_move = new Vector2(x_move, 0.0F);
             rb.AddForce(vector_move * moveSpeed);
-            // Up rotates clockwise, down rotates counterclockwise
+            // Up rotates clockwise, down rotates counterclockwise. TODO: replace this with inversion in the input settings
             rb.AddTorque(-r_move * rotationSpeed);
         }
     }
@@ -295,7 +296,7 @@ public class Player : MonoBehaviour {
             // Handle camera pans
             {
                 // Don't mess with the camera's Z axis, or the screen will blank out...
-                Vector3 target = new Vector3(transform.position.x, transform.position.y, -10);
+                Vector3 target = new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z);
                 Vector3 velocity = Vector3.zero;
 
                 // Use Unity's built in damping to make the panning less choppy
@@ -311,7 +312,7 @@ public class Player : MonoBehaviour {
         GameState.Instance.currentPlayer = playerID;
     }
 
-    // Returns the color object of the player.
+    // Returns the color object of the player. TODO: just make color a public attribute...
     public Color getColor()
     {
         return GetComponent<SpriteRenderer>().color;

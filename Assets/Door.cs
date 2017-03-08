@@ -12,6 +12,7 @@ public class Door : Collidable {
 
     void Start()
     {
+        // Initialization sanity checks...
         if (targetDoor == ID)
         {
             Debug.LogError(string.Format("Door {0} has target of itself; removing!", ID));
@@ -33,11 +34,12 @@ public class Door : Collidable {
 
     }
 
+    // Method to unlock the door.
     public void Unlock() {
         isLocked = false;
         if (doorLock)
         {
-            // Remove the door lock overlay if it exists.
+            // Remove the locked door overlay if it exists.
             Destroy(doorLock);
         }
     }
@@ -68,23 +70,27 @@ public class Door : Collidable {
         }
     }
 
+    // Method called when the player interacts with this door.
     public override void PlayerInteract(Player player)
     {
+        // Find the other door collidable (registered in GameState).
         Collidable otherDoor = GameState.Instance.GetCollidable<Door>(targetDoor);
 
         if (otherDoor == null)
         {
+            // If the target door doesn't exist, treat the door as locked.
             otherDoor = this;
             Debug.LogWarning(string.Format("Invalid target door {0}; setting target to current door!", targetDoor));
         }
 
         if (isLocked)
         {
+            // The door is explicitly locked: warp the player to the door they started in.
             otherDoor = this;
             Debug.Log("This door is locked!");
         }
 
-        // Teleport the player!
+        // Teleport the player to the target door!
         player.gameObject.transform.position = otherDoor.gameObject.transform.position;
     }
 
