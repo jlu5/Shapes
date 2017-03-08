@@ -34,14 +34,22 @@ public class HUDCanvas : MonoBehaviour {
         // Move the object into the Canvas.
         newObj.transform.SetParent(transform);
 
-        // Fix the position of the sprite within the character list
-        // The index happens to equal the ID, since element 0 is the
-        // "Character list" description text.
-        newObj.transform.SetSiblingIndex(id);
-
         // Bind the new object to the player ID.
         newObj.playerID = id;
         overlays[id] = newObj;
+
+        // Sort the player overlays: for each child object with a PlayerOverlay script, set its
+        // index in the player list equal to the player ID (this starts at 1 since item 0 is the
+        // description label).
+        foreach (Transform child in transform)
+        {
+            PlayerOverlay overlay = child.gameObject.GetComponent<PlayerOverlay>();
+            if (overlay != null)
+            {
+                Debug.Log(string.Format("HUDCanvas: sorting PlayerOverlay {0} to position {0}", overlay.playerID));
+                child.SetSiblingIndex(overlay.playerID);
+            }
+        }
     }
 
     // Removes a player from the canvas.
