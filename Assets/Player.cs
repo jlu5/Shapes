@@ -140,7 +140,7 @@ public class Player : MonoBehaviour {
     }
 
     // Attempts to attach to all colliding players.
-    void Attach()
+    public void Attach()
     {
         foreach (GameObject playerObject in collidingPlayers)
         {
@@ -181,7 +181,7 @@ public class Player : MonoBehaviour {
     }
 
     // Detaches from currently attached players.
-    void Detach()
+    public void Detach()
     {
         foreach (GameObject masterObject in masterPlayers)
         {
@@ -229,7 +229,7 @@ public class Player : MonoBehaviour {
 
     // Interact with all triggered Collidables (for collidables that have trigger-based rigid bodies
     // instead of physical collisions)
-    void InteractAll()
+    public void InteractAll()
     {
         foreach (GameObject otherObject in activeTriggers)
         {

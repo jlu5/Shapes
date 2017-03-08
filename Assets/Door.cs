@@ -93,6 +93,9 @@ public class Door : Collidable {
             Debug.Log("This door is locked!");
         }
 
+        // Unbind all players. XXX: maybe teleport attached players instead?
+        player.Detach();
+
         // Teleport the player to the target door!
         player.gameObject.transform.position = otherDoor.gameObject.transform.position;
     }
