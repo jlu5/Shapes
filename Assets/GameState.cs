@@ -205,11 +205,12 @@ public sealed class GameState : MonoBehaviour
             {
                 Camera.main.orthographicSize = newSize;
             }
+        }
 
-            // Catch attempts to reload the scene (defaults to Esc key)
-            if (Input.GetButtonDown("Reset")) {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            }
+        // Catch attempts to reload the scene (defaults to Esc key)
+        if (Input.GetButtonDown("Reset"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }
