@@ -265,7 +265,7 @@ public class Player : MonoBehaviour {
             {
                 // Add a force on the player character to propel it perpendicular to the
                 // surface(s) it's touching.
-                rb.AddForce(nextJumpVector * jumpStrength);
+                rb.AddForce(nextJumpVector * jumpStrength * rb.mass);
 
                 foreach (KeyValuePair<GameObject, Vector2> objpair in collidingObjects.ToList())
                 {
@@ -276,7 +276,7 @@ public class Player : MonoBehaviour {
                         Rigidbody2D other_rb = objpair.Key.GetComponent<Rigidbody2D>();
                         if (other_rb != null)
                         {
-                            other_rb.AddForce(-nextJumpVector * jumpRecoilStrength);
+                            other_rb.AddForce(-nextJumpVector * jumpRecoilStrength * rb.mass);
                         }
                     } else
                     {
@@ -303,7 +303,7 @@ public class Player : MonoBehaviour {
             }
 
             Vector2 vector_move = new Vector2(x_move, 0.0F);
-            rb.AddForce(vector_move * moveSpeed);
+            rb.AddForce(vector_move * moveSpeed * rb.mass);
             // Up rotates clockwise, down rotates counterclockwise. TODO: replace this with inversion in the input settings
             rb.AddTorque(-r_move * rotationSpeed);
         }
