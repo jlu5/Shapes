@@ -29,7 +29,7 @@ public sealed class GameState : MonoBehaviour
     public int currentPlayer = 1;
 
     // Player/Level state tracking
-    public int playerCount;
+    public int playerCount;  // Automatically incremented with every addPlayer call
     public bool gameEnded;
     private Dictionary<int, Player> players = new Dictionary<int, Player>();
     private Dictionary<System.Type, Dictionary<int, Collidable>> collidables = new Dictionary<System.Type, Dictionary<int, Collidable>>();
