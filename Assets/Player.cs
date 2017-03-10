@@ -138,14 +138,24 @@ public class Player : MonoBehaviour {
          * Since directions are expressed as a vector, we can sum all the collision normal
          * vectors if the player is touching multiple points at once (i.e. corner jump is possible).
          */
-        Vector2 normal_sum = Vector2.zero;
+        Vector2 normalSum = Vector2.zero;
 
         // Sum up the vectors at which we're colliding with all other objects.
-        foreach (Vector2 vector in collidingObjects.Values)
+        foreach (KeyValuePair<GameObject, Vector2> kvp in collidingObjects)
         {
-            normal_sum += vector;
+            // Find the rigid body of the colliding object.
+            Rigidbody2D otherRb = kvp.Key.GetComponent<Rigidbody2D>();
+            if (otherRb == null)
+            {
+                // This shouldn't ever happen, but just in case...
+                Debug.LogWarning(string.Format("Player: Skipping processing collision with object with no rigidbody! (Player ID: {0}, Object name: {1})", playerID, kvp.Key.name));
+                continue;
+            }
+
+            // Do some math to make heavier objects count for more when calculating jump forces.
+            normalSum += (kvp.Value * otherRb.mass);
         }
-        nextJumpVector = normal_sum;
+        nextJumpVector = normalSum;
 
         // Normalize the resulting vector so we don't get super jumps when colliding with multiple
         // objects at the same angle (e.g. when resting on the crack between two parallel platforms).
@@ -265,7 +275,9 @@ public class Player : MonoBehaviour {
             {
                 // Add a force on the player character to propel it perpendicular to the
                 // surface(s) it's touching.
-                rb.AddForce(nextJumpVector * jumpStrength * rb.mass);
+                Vector2 jumpForce = nextJumpVector * jumpStrength * rb.mass;
+                Debug.Log(string.Format("Player {0} jumps with a force of {1}", playerID, jumpForce));
+                rb.AddForce(jumpForce);
 
                 foreach (KeyValuePair<GameObject, Vector2> objpair in collidingObjects.ToList())
                 {
