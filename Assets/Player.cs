@@ -75,6 +75,19 @@ public class Player : MonoBehaviour {
         GameState.Instance.playerCount++;
     }
 
+    void UpdateCollisionAngles(Collision2D col)
+    {
+        // Track the objects we're currently colliding with along with the collision
+        // angle. This is used to process jump.
+        Vector2 normal = new Vector2();
+        // XXX: ugly but IEnumerable.Sum() only allows summing numbers AFAIK.
+        foreach (ContactPoint2D contact in col.contacts)
+        {
+            normal += contact.normal;
+        }
+        collidingObjects[col.gameObject] = normal;
+    }
+
     // Collision handlers
     void OnCollisionEnter2D(Collision2D col)
     {
@@ -93,9 +106,8 @@ public class Player : MonoBehaviour {
             collidingPlayers.Add(col.gameObject);
         }
 
-        // Track the objects we're currently colliding with along with the collision
-        // angle. This is used to process jump.
-        collidingObjects[col.gameObject] = col.contacts[0].normal;
+        // Track which objects we're colliding with.
+        UpdateCollisionAngles(col);
         canJump = true;
     }
 
@@ -118,6 +130,7 @@ public class Player : MonoBehaviour {
 
     void OnCollisionStay2D(Collision2D col)
     {
+        UpdateCollisionAngles(col);
         /* Make jump realistic: whenever the player collides with the environment, set the
          * jump direction perpendicular to the surface(s) the player is touching.
          * This is in contrast to making jump always point upwards, which is incorrect
