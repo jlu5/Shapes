@@ -304,8 +304,8 @@ public class Player : MonoBehaviour {
 
             Vector2 vector_move = new Vector2(x_move, 0.0F);
             rb.AddForce(vector_move * moveSpeed * rb.mass);
-            // Up rotates clockwise, down rotates counterclockwise. TODO: replace this with inversion in the input settings
-            rb.AddTorque(-r_move * rotationSpeed);
+            // Up rotates clockwise, down rotates counterclockwise.
+            rb.AddTorque(r_move * rotationSpeed);
         }
     }
 
