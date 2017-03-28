@@ -4,13 +4,20 @@
 using UnityEngine;
 
 public class Door : Collidable {
-    public int ID;
+    public int ID;  // Internal door ID
     public int targetDoor;
     public bool isLocked;
-    private GameObject doorLock;
-    private GameObject bindDisplay;
-    private GameObject bindDisplayTemplate;
-    public Color color;
+    public bool useHints = true;  // Defines whether we should use the target door hint.
+    public Color color;  // Color of the door
+
+	protected bool isHinted;  // Defines whether we're showing the target door hint right now
+	private GameObject doorLock;  // Points to the attached door lock sprite
+	private SpriteRenderer spriteRenderer;
+
+	// Offset color used to display hints when the player hits the door.
+	public Color hintOffsetColor = new Color(0.1F, 0.1F, 0.1F, 0);
+    // Offset color used for displaying locks (so they don't blend in completely with the door)
+    // and hinting the target door
     public Color lockOffsetColor = new Color(0.6F, 0.6F, 0.6F, 0);
 
     void Start()
@@ -23,19 +30,22 @@ public class Door : Collidable {
         }
         GameState.Instance.RegisterCollidable(ID, this);
 
-        color = GetComponent<SpriteRenderer>().color;
+		spriteRenderer = GetComponent<SpriteRenderer>();
+		color = spriteRenderer.color;
         if (isLocked)
         {
             // If the door is locked, show a lock overlay.
             doorLock = Instantiate(Resources.Load<GameObject>("DoorLockDisplay"));
             doorLock.transform.SetParent(transform, false);
             // Offset the colour of the door lock so that it doesn't blend in with the door.
-            doorLock.GetComponent<SpriteRenderer>().color = color + lockOffsetColor;
+			doorLock.GetComponent<SpriteRenderer>().color = color + lockOffsetColor;
         }
 
-        bindDisplayTemplate = Resources.Load<GameObject>("BindDisplayObject");
-
     }
+
+	public void UpdateColor() {
+		spriteRenderer.color = color;
+	}
 
     // Method to unlock the door.
     public void Unlock() {
@@ -52,24 +62,47 @@ public class Door : Collidable {
         // Call the base Collidable class' trigger code.
         base.OnTriggerEnter2D(other);
 
-        // Create a bind display between the doors if one doesn't already exist.
-        Collidable otherDoor = GameState.Instance.GetCollidable<Door>(targetDoor);
-        if (bindDisplay == null && otherDoor && other.gameObject.CompareTag("Player"))
-        {
-            bindDisplay = Instantiate(bindDisplayTemplate);
-            BindDisplay bindDisplayScript = bindDisplay.GetComponent<BindDisplay>();
+		if (other.gameObject.GetComponent<Player>() == null)
+		{
+			return;
+		}
 
-            bindDisplayScript.object1 = gameObject;
-            bindDisplayScript.object2 = otherDoor.gameObject;
-            bindDisplayScript.transform.SetParent(transform);
+        // Hint at where the door goes by tinting the color of the source and color doors. This is
+        // subtle enough to not give away rough locations if the target door is off the screen
+        // anyways.
+        Door otherDoor = (Door) GameState.Instance.GetCollidable<Door>(targetDoor);
+        if (otherDoor != null && useHints && !isHinted)
+        {
+            otherDoor.color += hintOffsetColor;
+			color += hintOffsetColor;
+			isHinted = true;
+
+			UpdateColor();
+			otherDoor.UpdateColor();
         }
 	}
 
     protected override void OnTriggerExit2D(Collider2D other)
     {
         base.OnTriggerExit2D(other);
-        if (bindDisplay != null) {
-            Destroy(bindDisplay);
+
+		if (other.gameObject.GetComponent<Player>() == null)
+		{
+			return;
+		}
+
+        Door otherDoor = (Door)GameState.Instance.GetCollidable<Door>(targetDoor);
+		if (isHinted)
+        {
+			if (otherDoor != null)
+			{
+				otherDoor.color -= hintOffsetColor;
+				otherDoor.isHinted = false;
+				otherDoor.UpdateColor();
+			}
+			color -= hintOffsetColor;
+			isHinted = false;
+			UpdateColor();
         }
     }
 
