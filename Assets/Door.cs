@@ -2,6 +2,7 @@
  * Door.cs: Lockable doors for Shapes, teleporting the player to its target on interact
  */
 using UnityEngine;
+using System;
 
 public class Door : Collidable {
     public int ID;  // Internal door ID
@@ -14,11 +15,25 @@ public class Door : Collidable {
 	private GameObject doorLock;  // Points to the attached door lock sprite
 	private SpriteRenderer spriteRenderer;
 
-	// Offset color used to display hints when the player hits the door.
-	public Color hintOffsetColor = new Color(0.1F, 0.1F, 0.1F, 0);
+    // Offset color used to display hints when the player hits the door.
+    protected Color hintOffsetColor = new Color(0.1F, 0.1F, 0.1F, 0);
     // Offset color used for displaying locks (so they don't blend in completely with the door)
-    // and hinting the target door
-    public Color lockOffsetColor = new Color(0.6F, 0.6F, 0.6F, 0);
+    protected Color lockOffsetColor = new Color(0.2F, 0.2F, 0.2F, -0.2F);
+
+    // Returns a normalized sum of the two colors.
+    public Color ColorSum(Color first, Color second)
+    {
+        // Separate the components, add them, and cap them at 1.
+        Debug.Log(string.Format("first color values: {0}, {1}, {2}, {3}", first.r, first.g, first.b, first.a));
+        Debug.Log(string.Format("second color values: {0}, {1}, {2}, {3}", second.r, second.g, second.b, second.a));
+        float r = Math.Min(1, first.r + second.r);
+        float g = Math.Min(1, first.g + second.g);
+        float b = Math.Min(1, first.b + second.b);
+        float a = Math.Min(1, first.a + second.a);
+        // Return the new color sum.
+        Debug.Log(string.Format("sum: {0}, {1}, {2}, {3}", r, g, b, a));
+        return new Color(r, g, b, a);
+    }
 
     void Start()
     {
@@ -38,13 +53,13 @@ public class Door : Collidable {
             doorLock = Instantiate(Resources.Load<GameObject>("DoorLockDisplay"));
             doorLock.transform.SetParent(transform, false);
             // Offset the colour of the door lock so that it doesn't blend in with the door.
-			doorLock.GetComponent<SpriteRenderer>().color = color + lockOffsetColor;
+            doorLock.GetComponent<SpriteRenderer>().color = ColorSum(color, lockOffsetColor);
         }
 
     }
 
-	public void UpdateColor() {
-		spriteRenderer.color = color;
+	public void UpdateColor(Color newColor) {
+		spriteRenderer.color = newColor;
 	}
 
     // Method to unlock the door.
@@ -62,6 +77,7 @@ public class Door : Collidable {
         // Call the base Collidable class' trigger code.
         base.OnTriggerEnter2D(other);
 
+        // Only process this trigger if it's a player that we're colliding with
 		if (other.gameObject.GetComponent<Player>() == null)
 		{
 			return;
@@ -73,12 +89,14 @@ public class Door : Collidable {
         Door otherDoor = (Door) GameState.Instance.GetCollidable<Door>(targetDoor);
         if (otherDoor != null && useHints && !isHinted)
         {
-            otherDoor.color += hintOffsetColor;
-			color += hintOffsetColor;
 			isHinted = true;
+            // For both the source and target doors, add the current door color and the
+            // hint offset color.
+            Color mycolor = ColorSum(color, hintOffsetColor);
+            UpdateColor(mycolor);
 
-			UpdateColor();
-			otherDoor.UpdateColor();
+            Color theircolor = ColorSum(otherDoor.color, otherDoor.hintOffsetColor);
+            otherDoor.UpdateColor(theircolor);
         }
 	}
 
@@ -94,15 +112,15 @@ public class Door : Collidable {
         Door otherDoor = (Door)GameState.Instance.GetCollidable<Door>(targetDoor);
 		if (isHinted)
         {
-			if (otherDoor != null)
+            // Unset hinting door coloring if it is set.
+            if (otherDoor != null)
 			{
-				otherDoor.color -= hintOffsetColor;
 				otherDoor.isHinted = false;
-				otherDoor.UpdateColor();
+                // Door.color is the original color, so we can simply reset it back to that.
+				otherDoor.UpdateColor(otherDoor.color);
 			}
-			color -= hintOffsetColor;
 			isHinted = false;
-			UpdateColor();
+			UpdateColor(color);
         }
     }
 
