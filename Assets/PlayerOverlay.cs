@@ -4,17 +4,15 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerOverlay : MonoBehaviour
+public class PlayerOverlay : ClickableOverlay
 {
     public int playerID;
     private GameObject HUDTextLabelTemplate;
     private GameObject label;
-    private Button button;
 
-    void Start()
+    protected override void Start()
     {
-        button = GetComponent<Button>();
-        button.onClick.AddListener(OnClick);
+        base.Start(); // Initialize the base ClickableOverlay class
 
         // Label which player this overlay corresponds to
 		HUDTextLabelTemplate = Resources.Load<GameObject>("HUDTextLabel");
@@ -31,7 +29,7 @@ public class PlayerOverlay : MonoBehaviour
     }
 
     // When clicked, set the current player to this one.
-    public void OnClick()
+    public override void OnClick()
     {
         if (playerID != 0)
         {
