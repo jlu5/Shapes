@@ -871,6 +871,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentObject: 
+  displayBracket: {fileID: 0}
 --- !u!4 &1674925548
 Transform:
   m_ObjectHideFlags: 0

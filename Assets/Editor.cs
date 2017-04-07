@@ -27,8 +27,12 @@ public sealed class Editor : MonoBehaviour
     // Store the currently active object
     public string currentObject;
 
+    // References to GameObjects and various templates
     private GameObject editorOverlayTemplate;
     private Sprite editorDummySprite;
+    public GameObject displayBracket;
+    private GameObject itemsCanvas;
+    private GameObject editorCanvas;
 
     void Awake()
     {
@@ -39,7 +43,17 @@ public sealed class Editor : MonoBehaviour
 
         editorOverlayTemplate = Resources.Load<GameObject>("EditorOverlay");
         editorDummySprite = Resources.Load<Sprite>("editordummysprite");
-        GameObject itemsCanvas = GameObject.Find("ItemsCanvas");
+
+        // The editor scene uses two canvases: ItemsCanvas uses a layout group to sort all displayable items/tools,
+        // while EditorCanvas is freeform (used for the scrolling arrows, etc.)
+        itemsCanvas = GameObject.Find("ItemsCanvas");
+        editorCanvas = GameObject.Find("EditorCanvas");
+
+        // Create a display bracket object representing the currently selected item: EditorOverlay
+        // instances will later enable this and move it to the right positions.
+        displayBracket = Instantiate(Resources.Load<GameObject>("SelectionBracketOverlay"));
+        displayBracket.SetActive(false);
+        displayBracket.transform.SetParent(editorCanvas.transform);
 
         foreach (string item in supportedObjects)
         {
@@ -75,17 +89,14 @@ public sealed class Editor : MonoBehaviour
         // On left mouse click, place the currently active object in the world where the mouse is.
         if (Input.GetMouseButtonUp(0) && !string.IsNullOrEmpty(currentObject))
         {
-            //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            // UI raycasting is annoying ...
+            // UI raycasting is annoying ... Derived from
+            // http://answers.unity3d.com/questions/844158/how-do-you-perform-a-graphic-raycast.html
+            // Basically this creates a PointerEventData object with the current mouse position,
+            // and passes that into EventSystem.current.RaycastAll(). This then tests the given position
+            // for any UI object collisions, and dumps the results into the raycastResults list.
             PointerEventData pointerData = new PointerEventData(EventSystem.current);
             pointerData.position = Input.mousePosition;
-            /*
-            {
-                pointerId = -1,
-            };*/
-
-
             List<RaycastResult> raycastResults = new List<RaycastResult>();
             EventSystem.current.RaycastAll(pointerData, raycastResults);
 

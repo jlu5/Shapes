@@ -18,5 +18,9 @@ public class EditorOverlay : ClickableOverlay
 
         Debug.Log("Setting current object to " + resourceName);
         Editor.Instance.currentObject = resourceName;
+
+        // Move the Editor display bracket over this object.
+        Editor.Instance.displayBracket.SetActive(true);
+        Editor.Instance.displayBracket.transform.position = transform.position;
     }
 }
