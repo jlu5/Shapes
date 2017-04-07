@@ -3,6 +3,7 @@
  */
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using System.Collections.Generic;
 
 public sealed class Editor : MonoBehaviour
@@ -48,19 +49,24 @@ public sealed class Editor : MonoBehaviour
 
             Debug.Log("Editor: loading resource " + item);
 
-            /* XXX: needs error handling to work
+            // Initialize the items list: use our editor overlay prefab for each object,
+            // but set its sprite to match the object it represents.
             Sprite objectSprite;
             SpriteRenderer spriteRenderer = template.GetComponent<SpriteRenderer>();
             GameObject overlay = Instantiate(editorOverlayTemplate, itemsCanvas.transform);
             if (spriteRenderer == null)
             {
+                // For objects without a sprite renderer (e.g. SimpleTextMesh), fall back to a
+                // dummy sprite.
                 objectSprite = editorDummySprite;
             } else
             {
                 objectSprite = spriteRenderer.sprite;
             }
-            overlay.GetComponent<Image>().sprite = template.GetComponent<SpriteRenderer>().sprite;
-            */
+            overlay.GetComponent<Image>().sprite = objectSprite;
+
+            // Set the editor overlay's resource name, so that it can be clicked.
+            overlay.GetComponent<EditorOverlay>().resourceName = item;
         }
     }
 
@@ -69,8 +75,30 @@ public sealed class Editor : MonoBehaviour
         // On left mouse click, place the currently active object in the world where the mouse is.
         if (Input.GetMouseButtonUp(0) && !string.IsNullOrEmpty(currentObject))
         {
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            GameObject newObject = Instantiate(templates[currentObject], mousePosition, Quaternion.identity);
+            //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            // UI raycasting is annoying ...
+            PointerEventData pointerData = new PointerEventData(EventSystem.current);
+            pointerData.position = Input.mousePosition;
+            /*
+            {
+                pointerId = -1,
+            };*/
+
+
+            List<RaycastResult> raycastResults = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(pointerData, raycastResults);
+
+            if (raycastResults.Count == 0)
+            {
+                Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                GameObject newObject = Instantiate(templates[currentObject], mousePosition, Quaternion.identity);
+                newObject.transform.position = new Vector3(newObject.transform.position.x, newObject.transform.position.y, 0);
+
+                Debug.Log("Editor: adding new object!");
+            }
+
+
         }
     } 
 }

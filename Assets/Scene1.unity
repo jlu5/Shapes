@@ -443,6 +443,21 @@ Prefab:
       propertyPath: ID
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 212424887678333108, guid: e695e574a6c3e7641be96f33a4d655e2,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 0.62352943
+      objectReference: {fileID: 0}
+    - target: {fileID: 212424887678333108, guid: e695e574a6c3e7641be96f33a4d655e2,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 0.62352943
+      objectReference: {fileID: 0}
+    - target: {fileID: 212424887678333108, guid: e695e574a6c3e7641be96f33a4d655e2,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 0.62352943
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
   m_ParentPrefab: {fileID: 100100000, guid: e695e574a6c3e7641be96f33a4d655e2, type: 2}
@@ -494,6 +509,21 @@ Prefab:
         type: 2}
       propertyPath: targetDoor
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212424887678333108, guid: e695e574a6c3e7641be96f33a4d655e2,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 0.62352943
+      objectReference: {fileID: 0}
+    - target: {fileID: 212424887678333108, guid: e695e574a6c3e7641be96f33a4d655e2,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 0.62352943
+      objectReference: {fileID: 0}
+    - target: {fileID: 212424887678333108, guid: e695e574a6c3e7641be96f33a4d655e2,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 0.62352943
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
