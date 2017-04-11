@@ -22,6 +22,8 @@ public sealed class Editor : MonoBehaviour
     // Defines which objects are items that can be added by the editor.
     private string[] supportedObjects = new string[] {"PlayerObject", "CircleWall", "DoorKeyObject", "DoorObject",
                                                       "FinishObject", "SimpleTextMesh", "TriangleWall", "Wall"};
+    // Special tools in the editor that don't correspond to any game object.
+    private string[] specialObjects = new string[] { "configure", "delete" };
     private Dictionary<string, GameObject> templates = new Dictionary<string, GameObject>();
 
     // Store the currently active object
@@ -33,6 +35,23 @@ public sealed class Editor : MonoBehaviour
     public GameObject displayBracket;
     private GameObject itemsCanvas;
     private GameObject editorCanvas;
+    private GameObject editorBlueprintTemplate;
+
+    // Return the an object's sprite, or a dummy sprite if none is available. 
+    public Sprite GetSprite(GameObject obj)
+    {
+        SpriteRenderer spriteRenderer = obj.GetComponent<SpriteRenderer>();
+        if (spriteRenderer == null)
+        {
+            // For objects without a sprite renderer (e.g. SimpleTextMesh), fall back to a
+            // dummy sprite.
+            return editorDummySprite;
+        }
+        else
+        {
+            return spriteRenderer.sprite;
+        }
+    }
 
     void Awake()
     {
@@ -43,6 +62,7 @@ public sealed class Editor : MonoBehaviour
 
         editorOverlayTemplate = Resources.Load<GameObject>("EditorOverlay");
         editorDummySprite = Resources.Load<Sprite>("editordummysprite");
+        editorBlueprintTemplate = Resources.Load<GameObject>("EditorBlueprint");
 
         // The editor scene uses two canvases: ItemsCanvas uses a layout group to sort all displayable items/tools,
         // while EditorCanvas is freeform (used for the scrolling arrows, etc.)
@@ -65,26 +85,15 @@ public sealed class Editor : MonoBehaviour
 
             // Initialize the items list: use our editor overlay prefab for each object,
             // but set its sprite to match the object it represents.
-            Sprite objectSprite;
-            SpriteRenderer spriteRenderer = template.GetComponent<SpriteRenderer>();
             GameObject overlay = Instantiate(editorOverlayTemplate, itemsCanvas.transform);
-            if (spriteRenderer == null)
-            {
-                // For objects without a sprite renderer (e.g. SimpleTextMesh), fall back to a
-                // dummy sprite.
-                objectSprite = editorDummySprite;
-            } else
-            {
-                objectSprite = spriteRenderer.sprite;
-            }
-            overlay.GetComponent<Image>().sprite = objectSprite;
+            overlay.GetComponent<Image>().sprite = GetSprite(template);
 
             // Set the editor overlay's resource name, so that it can be clicked.
             overlay.GetComponent<EditorOverlay>().resourceName = item;
         }
 
         // Now, append sprites for the delete and settings tools. These aren't implemented yet...
-        foreach (string spritename in new string[] { "delete", "configure"})
+        foreach (string spritename in specialObjects)
         {
             Sprite sprite = Resources.Load<Sprite>(spritename);
             GameObject overlay = Instantiate(editorOverlayTemplate, itemsCanvas.transform);
@@ -109,13 +118,28 @@ public sealed class Editor : MonoBehaviour
             List<RaycastResult> raycastResults = new List<RaycastResult>();
             EventSystem.current.RaycastAll(pointerData, raycastResults);
 
+            // No object was clicked, so we create a new instance of the object we've selected.
             if (raycastResults.Count == 0)
             {
                 Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                GameObject newObject = Instantiate(templates[currentObject], mousePosition, Quaternion.identity);
+                GameObject baseObject = templates[currentObject];
+
+                // Use blueprint objects in the editor instead of adding the actual object: complex
+                // objects like doors and players don't work unless you assign IDs to them, so
+                // blindly creating and initializing the original will break.
+                GameObject newObject = Instantiate(editorBlueprintTemplate, mousePosition, Quaternion.identity);
                 newObject.transform.position = new Vector3(newObject.transform.position.x, newObject.transform.position.y, 0);
 
-                Debug.Log("Editor: adding new object!");
+                // What we do want the blueprint to do however, is use the sprite + dimensions of
+                // the object it represents.
+                newObject.transform.localScale = baseObject.transform.localScale;
+                SpriteRenderer spriteRenderer = newObject.GetComponent<SpriteRenderer>();
+                if (spriteRenderer != null)
+                {
+                    spriteRenderer.sprite = GetSprite(baseObject);
+                }
+
+                Debug.Log("Editor: adding new object " + currentObject);
             }
 
 
