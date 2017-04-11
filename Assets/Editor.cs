@@ -82,6 +82,15 @@ public sealed class Editor : MonoBehaviour
             // Set the editor overlay's resource name, so that it can be clicked.
             overlay.GetComponent<EditorOverlay>().resourceName = item;
         }
+
+        // Now, append sprites for the delete and settings tools. These aren't implemented yet...
+        foreach (string spritename in new string[] { "delete", "configure"})
+        {
+            Sprite sprite = Resources.Load<Sprite>(spritename);
+            GameObject overlay = Instantiate(editorOverlayTemplate, itemsCanvas.transform);
+            overlay.GetComponent<EditorOverlay>().resourceName = spritename;
+            overlay.GetComponent<Image>().sprite = sprite;
+        }
     }
 
     private void Update()
