@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
+using System.Linq;
 
 public sealed class Editor : MonoBehaviour
 {
@@ -20,10 +21,12 @@ public sealed class Editor : MonoBehaviour
     }
 
     // Defines which objects are items that can be added by the editor.
-    private string[] supportedObjects = new string[] {"PlayerObject", "CircleWall", "DoorKeyObject", "DoorObject",
-                                                      "FinishObject", "SimpleTextMesh", "TriangleWall", "Wall"};
+    private string[] supportedObjects = new string[] { "PlayerObject", "CircleWall", "DoorKeyObject", "DoorObject",
+                                                       "FinishObject", "SimpleTextMesh", "TriangleWall", "Wall" };
     // Special tools in the editor that don't correspond to any game object.
     private string[] specialObjects = new string[] { "configure", "delete" };
+    // Objects that we shouldn't use an editor blueprint for.
+    private string[] passthroughObjects = new string[] { "SimpleTextMesh" };
     private Dictionary<string, GameObject> templates = new Dictionary<string, GameObject>();
 
     // Store the currently active object
@@ -124,20 +127,28 @@ public sealed class Editor : MonoBehaviour
                 Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 GameObject baseObject = templates[currentObject];
 
-                // Use blueprint objects in the editor instead of adding the actual object: complex
+                // Prefer blueprint objects in the editor instead of adding the actual object: complex
                 // objects like doors and players don't work unless you assign IDs to them, so
                 // blindly creating and initializing the original will break.
-                GameObject newObject = Instantiate(editorBlueprintTemplate, mousePosition, Quaternion.identity);
-                newObject.transform.position = new Vector3(newObject.transform.position.x, newObject.transform.position.y, 0);
-
-                // What we do want the blueprint to do however, is use the sprite + dimensions of
-                // the object it represents.
-                newObject.transform.localScale = baseObject.transform.localScale;
-                SpriteRenderer spriteRenderer = newObject.GetComponent<SpriteRenderer>();
-                if (spriteRenderer != null)
+                GameObject newObject;
+                if (!passthroughObjects.Contains(currentObject))
                 {
-                    spriteRenderer.sprite = GetSprite(baseObject);
+                    newObject = Instantiate(editorBlueprintTemplate, mousePosition, Quaternion.identity);
+                    // Give the blueprint the same sprite + dimensions as the object it represents.
+                    newObject.transform.localScale = baseObject.transform.localScale;
+                    SpriteRenderer spriteRenderer = newObject.GetComponent<SpriteRenderer>();
+                    if (spriteRenderer != null)
+                    {
+                        spriteRenderer.sprite = GetSprite(baseObject);
+                    }
+
+                } else
+                {
+                    // However, some objects like SimpleTextMesh are safe to use and exceptions to this rule.
+                    newObject = Instantiate(baseObject, mousePosition, Quaternion.identity);
                 }
+
+                newObject.transform.position = new Vector3(newObject.transform.position.x, newObject.transform.position.y, 0);
 
                 Debug.Log("Editor: adding new object " + currentObject);
             }
