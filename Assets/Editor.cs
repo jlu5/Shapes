@@ -121,8 +121,29 @@ public sealed class Editor : MonoBehaviour
             List<RaycastResult> raycastResults = new List<RaycastResult>();
             EventSystem.current.RaycastAll(pointerData, raycastResults);
 
-            // No object was clicked, so we create a new instance of the object we've selected.
-            if (raycastResults.Count == 0)
+            if (raycastResults.Count != 0)
+            {
+                // If we hit a UI object, just return.
+                return;
+            }
+
+            /*
+            // Now we move on to regular object checking. Vector2.zero represents the ray distance: setting it to 0
+            // will make it only hit the object right on the cursor.
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+
+            // Delete tool was selected and we clicked one or more object; delete the target here.
+            if (currentObject == "delete")
+            {
+                // XXX: investigate how object ordering affects raycast results. We should deal with
+                // overlapping objects consistently when using the delete tool
+                GameObject targetObject = hit.collider.gameObject;
+                Debug.Log("Editor: Deleting object " + targetObject.name);
+                Destroy(gameObject);
+            }
+            */
+            // No object was clicked, so we create a new instance of the game object we've selected (if any).
+            if (!specialObjects.Contains(currentObject))
             {
                 Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 GameObject baseObject = templates[currentObject];
@@ -141,6 +162,7 @@ public sealed class Editor : MonoBehaviour
                     {
                         spriteRenderer.sprite = GetSprite(baseObject);
                     }
+                    newObject.AddComponent<PolygonCollider2D>();
 
                 } else
                 {
