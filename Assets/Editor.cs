@@ -29,8 +29,10 @@ public sealed class Editor : MonoBehaviour
     private string[] passthroughObjects = new string[] { "SimpleTextMesh" };
     private Dictionary<string, GameObject> templates = new Dictionary<string, GameObject>();
 
-    // Store the currently active object
+    // Store the currently selected item from the item list
     public string currentObject;
+    // Store the object we're currently configuring
+    public GameObject currentlyConfiguring;
 
     // References to GameObjects and various templates
     private GameObject editorOverlayTemplate;
@@ -62,6 +64,8 @@ public sealed class Editor : MonoBehaviour
         {
             instance = this;
         }
+        // Clear any leftovers from the Unity Editor
+        currentlyConfiguring = null;
 
         editorOverlayTemplate = Resources.Load<GameObject>("EditorOverlay");
         editorDummySprite = Resources.Load<Sprite>("editordummysprite");
@@ -127,21 +131,6 @@ public sealed class Editor : MonoBehaviour
                 return;
             }
 
-            /*
-            // Now we move on to regular object checking. Vector2.zero represents the ray distance: setting it to 0
-            // will make it only hit the object right on the cursor.
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-
-            // Delete tool was selected and we clicked one or more object; delete the target here.
-            if (currentObject == "delete")
-            {
-                // XXX: investigate how object ordering affects raycast results. We should deal with
-                // overlapping objects consistently when using the delete tool
-                GameObject targetObject = hit.collider.gameObject;
-                Debug.Log("Editor: Deleting object " + targetObject.name);
-                Destroy(gameObject);
-            }
-            */
             // No object was clicked, so we create a new instance of the game object we've selected (if any).
             if (!specialObjects.Contains(currentObject))
             {
@@ -174,8 +163,6 @@ public sealed class Editor : MonoBehaviour
 
                 Debug.Log("Editor: adding new object " + currentObject);
             }
-
-
         }
     } 
 }
