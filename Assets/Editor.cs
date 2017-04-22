@@ -27,15 +27,14 @@ public sealed class Editor : MonoBehaviour
     private static string[] specialObjects = new string[] { "configure", "delete" };
     // Objects that we shouldn't use an editor blueprint for.
     private static string[] passthroughObjects = new string[] { "SimpleTextMesh" };
-    /*
+
     // Defines which fields are configurable for certain types of objects.
-    private static Dictionary<string, System.Type[]> configurableFields = new Dictionary<string, System.Type>() {
-        {"PlayerObject", new System.Type[] {"moveSpeed", "jumpStrength", "jumpRecoilStrength", "playerID"},
+    private static Dictionary<string, List<string>> configurableFields = new Dictionary<string, List<string>>() {
+        {"PlayerObject", new List<string> {"moveSpeed", "jumpStrength", "jumpRecoilStrength", "playerID"}},
     };
-    */
 
     // Defines which fields are configurable for all objects.
-    private static string[] commonConfigurableFields = new string [] { "positionx", "positiony", "scalex", "scaley" };
+    private static List<string> commonConfigurableFields = new List<string> { "positionx", "positiony", "scalex", "scaley" };
 
     // Stores a template for each object.
     private Dictionary<string, GameObject> templates = new Dictionary<string, GameObject>();
@@ -120,21 +119,30 @@ public sealed class Editor : MonoBehaviour
         }
     }
 
-    public void SetClickedObject(GameObject obj)
+    public void SetClickedObject(GameObject obj, string objectType)
     {
-        Debug.Log("Editor: currently configuring " + gameObject.name);
+        Debug.Log("Editor: currently configuring " + obj.name + " (type " + objectType + ")");
         currentlyConfiguring = obj;
 
         // Fill in all input fields with the current object's info.
+        List<string> allFields = commonConfigurableFields;
+        try {
+            // Try to add fields specific for this object, unless none are available.
+            allFields.AddRange(configurableFields[objectType]);
+        } catch (KeyNotFoundException) {
+            Debug.Log("Editor.SetClickedObject: Failed to retrieve fields for object " + objectType);
+        }
+
         foreach (EditorInputField inputfield in FindObjectsOfType(typeof(EditorInputField)) as EditorInputField[])
         {
-            foreach (string field in commonConfigurableFields)
+            foreach (string field in allFields)
             {
                 // XXX: this loop + check is a bit inefficient...
+                Debug.Log("Editor.SetClickedObject: Checking field " + field);
                 if (field == inputfield.targetField)
                 {
                     string attrvalue = obj.GetComponent<EditorBlueprint>().GetAttribute(field);
-                    Debug.Log("Attribute " + field + ": " + attrvalue);
+                    //Debug.Log("Attribute " + field + ": " + attrvalue);
                     inputfield.myInput.text = attrvalue;
                 }
             }
@@ -193,6 +201,7 @@ public sealed class Editor : MonoBehaviour
                 }
 
                 newObject.transform.position = new Vector3(newObject.transform.position.x, newObject.transform.position.y, 0);
+                newObject.GetComponent<EditorBlueprint>().objectType = currentObject;
 
                 Debug.Log("Editor: adding new object " + currentObject);
             }

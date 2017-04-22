@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EditorBlueprint : MonoBehaviour {
 
+    public string objectType;
+
     void OnMouseUpAsButton()
     {
         if (Editor.Instance != null)
@@ -15,7 +17,7 @@ public class EditorBlueprint : MonoBehaviour {
                 Destroy(gameObject);
             } else if (currentTool == "configure")
             {
-                Editor.Instance.SetClickedObject(gameObject);
+                Editor.Instance.SetClickedObject(gameObject, objectType);
             }
         }
     }
