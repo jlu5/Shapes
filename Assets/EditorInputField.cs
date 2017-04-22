@@ -98,8 +98,10 @@ public class EditorInputField : MonoBehaviour {
     void UpdateAttribute(InputField input)
     {
         GameObject target = Editor.Instance.currentlyConfiguring;
-        if (target != null)
+        if (target != null) // Don't do anything if we don't have an object selected.
         {
+            // Pass the attribute update to the editor blueprint we're currently
+            // configuring.
             EditorBlueprint targetScript = target.GetComponent<EditorBlueprint>();
             targetScript.SetAttribute(targetField, input.text);
         }
@@ -108,6 +110,6 @@ public class EditorInputField : MonoBehaviour {
     void Start()
     {
         myInput = GetComponent<InputField>();
-        myInput.onEndEdit.AddListener(delegate { UpdateAttribute(myInput); });
+        myInput.onValueChanged.AddListener(delegate { UpdateAttribute(myInput); });
     }
 }
