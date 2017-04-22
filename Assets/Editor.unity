@@ -421,6 +421,11 @@ Prefab:
       propertyPath: m_SizeDelta.y
       value: 32
       objectReference: {fileID: 0}
+    - target: {fileID: 114884536102474700, guid: 79571087a0d171944985449f1ab82c05,
+        type: 2}
+      propertyPath: targetField
+      value: scalex
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79571087a0d171944985449f1ab82c05, type: 2}
   m_IsPrefabParent: 0
@@ -1285,6 +1290,11 @@ Prefab:
       propertyPath: m_Text
       value: Y scale
       objectReference: {fileID: 0}
+    - target: {fileID: 114884536102474700, guid: 79571087a0d171944985449f1ab82c05,
+        type: 2}
+      propertyPath: targetField
+      value: scaley
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79571087a0d171944985449f1ab82c05, type: 2}
   m_IsPrefabParent: 0
@@ -1586,7 +1596,7 @@ Prefab:
     - target: {fileID: 114884536102474700, guid: 79571087a0d171944985449f1ab82c05,
         type: 2}
       propertyPath: targetField
-      value: transformx
+      value: positionx
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79571087a0d171944985449f1ab82c05, type: 2}
@@ -1801,7 +1811,7 @@ Prefab:
     - target: {fileID: 114884536102474700, guid: 79571087a0d171944985449f1ab82c05,
         type: 2}
       propertyPath: targetField
-      value: transformy
+      value: positiony
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79571087a0d171944985449f1ab82c05, type: 2}

@@ -27,11 +27,18 @@ public class EditorBlueprint : MonoBehaviour {
         {
             switch (name)
             {
-                case "transformx":
+                // Handle position and scale changes.
+                case "positionx":
                     transform.position = new Vector3(float.Parse(value), transform.position.y, transform.position.z);
                     break;
-                case "transformy":
+                case "positiony":
                     transform.position = new Vector3(transform.position.x, float.Parse(value), transform.position.z);
+                    break;
+                case "scalex":
+                    transform.localScale = new Vector3(float.Parse(value), transform.localScale.y, transform.position.z);
+                    break;
+                case "scaley":
+                    transform.localScale = new Vector3(transform.localScale.x, float.Parse(value), transform.position.z);
                     break;
             }
         }
