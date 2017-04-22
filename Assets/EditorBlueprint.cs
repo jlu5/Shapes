@@ -15,15 +15,14 @@ public class EditorBlueprint : MonoBehaviour {
                 Destroy(gameObject);
             } else if (currentTool == "configure")
             {
-                Debug.Log("Editor: currently configuring " + gameObject.name);
-                Editor.Instance.currentlyConfiguring = gameObject;
+                Editor.Instance.SetClickedObject(gameObject);
             }
         }
     }
 
     public void SetAttribute(string name, string value)
     {
-        if (Editor.Instance != null)
+        if (Editor.Instance != null && !string.IsNullOrEmpty(value))
         {
             switch (name)
             {
@@ -41,6 +40,23 @@ public class EditorBlueprint : MonoBehaviour {
                     transform.localScale = new Vector3(transform.localScale.x, float.Parse(value), transform.position.z);
                     break;
             }
+        }
+    }
+
+    public string GetAttribute(string name)
+    {
+        switch (name)
+        {
+            case "positionx":
+                return transform.position.x.ToString();
+            case "positiony":
+                return transform.position.y.ToString();
+            case "scalex":
+                return transform.localScale.x.ToString();
+            case "scaley":
+                return transform.localScale.y.ToString();
+            default:
+                return "";
         }
     }
 }

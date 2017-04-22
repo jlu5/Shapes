@@ -21,12 +21,23 @@ public sealed class Editor : MonoBehaviour
     }
 
     // Defines which objects are items that can be added by the editor.
-    private string[] supportedObjects = new string[] { "PlayerObject", "CircleWall", "DoorKeyObject", "DoorObject",
-                                                       "FinishObject", "SimpleTextMesh", "TriangleWall", "Wall" };
+    private static string[] supportedObjects = new string[] { "PlayerObject", "CircleWall", "DoorKeyObject", "DoorObject",
+                                                            "FinishObject", "SimpleTextMesh", "TriangleWall", "Wall" };
     // Special tools in the editor that don't correspond to any game object.
-    private string[] specialObjects = new string[] { "configure", "delete" };
+    private static string[] specialObjects = new string[] { "configure", "delete" };
     // Objects that we shouldn't use an editor blueprint for.
-    private string[] passthroughObjects = new string[] { "SimpleTextMesh" };
+    private static string[] passthroughObjects = new string[] { "SimpleTextMesh" };
+    /*
+    // Defines which fields are configurable for certain types of objects.
+    private static Dictionary<string, System.Type[]> configurableFields = new Dictionary<string, System.Type>() {
+        {"PlayerObject", new System.Type[] {"moveSpeed", "jumpStrength", "jumpRecoilStrength", "playerID"},
+    };
+    */
+
+    // Defines which fields are configurable for all objects.
+    private static string[] commonConfigurableFields = new string [] { "positionx", "positiony", "scalex", "scaley" };
+
+    // Stores a template for each object.
     private Dictionary<string, GameObject> templates = new Dictionary<string, GameObject>();
 
     // Store the currently selected item from the item list
@@ -107,6 +118,28 @@ public sealed class Editor : MonoBehaviour
             overlay.GetComponent<EditorOverlay>().resourceName = spritename;
             overlay.GetComponent<Image>().sprite = sprite;
         }
+    }
+
+    public void SetClickedObject(GameObject obj)
+    {
+        Debug.Log("Editor: currently configuring " + gameObject.name);
+        currentlyConfiguring = obj;
+
+        // Fill in all input fields with the current object's info.
+        foreach (EditorInputField inputfield in FindObjectsOfType(typeof(EditorInputField)) as EditorInputField[])
+        {
+            foreach (string field in commonConfigurableFields)
+            {
+                // XXX: this loop + check is a bit inefficient...
+                if (field == inputfield.targetField)
+                {
+                    string attrvalue = obj.GetComponent<EditorBlueprint>().GetAttribute(field);
+                    Debug.Log("Attribute " + field + ": " + attrvalue);
+                    inputfield.myInput.text = attrvalue;
+                }
+            }
+        }
+
     }
 
     private void Update()
