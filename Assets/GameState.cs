@@ -50,7 +50,7 @@ public sealed class GameState : MonoBehaviour
     private GameObject fadeToColourTemplate;
 
     // Access to the current HUDCanvas instance.
-    private HUDCanvas canvas;
+    private HUDCanvas playerList;
 
     void Awake()
     {
@@ -89,7 +89,7 @@ public sealed class GameState : MonoBehaviour
         fadeToColourTemplate = Resources.Load<GameObject>("FadeToColour");
 
         // Initialize the characters list HUD
-        canvas = Instantiate(canvasTemplate).GetComponent<HUDCanvas>();
+        playerList = Instantiate(canvasTemplate).GetComponent<HUDCanvas>();
     }
 
     // Method called to end the current level.
@@ -119,7 +119,7 @@ public sealed class GameState : MonoBehaviour
         players[id] = player;
 
         // Add the player to the player list canvas.
-        canvas.AddPlayer(id, player);
+        playerList.AddPlayer(id, player);
     }
 
     // Returns the requested player by ID.
@@ -132,7 +132,7 @@ public sealed class GameState : MonoBehaviour
     public void RemovePlayer(int id)
     {
         // First, remove our player overlay.
-        canvas.RemovePlayer(id);
+        playerList.RemovePlayer(id);
 
         // Then, destroy the gameobject and storage related to it.
         Player player = players[id];
