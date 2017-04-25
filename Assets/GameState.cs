@@ -27,6 +27,9 @@ public sealed class GameState : MonoBehaviour
 
     // TODO: make the current player configurable in via level data
     public int currentPlayer = 1;
+    // Sets the amount of time to wait before increasing the score based on elapsed time
+    // (lower is better).
+    private int scoreInterval = 1;
 
     // Player/Level state tracking
     public int playerCount;  // Automatically incremented with every addPlayer call
@@ -48,9 +51,13 @@ public sealed class GameState : MonoBehaviour
     private GameObject simpleCanvasTemplate;
     private GameObject stretchedTextLabelTemplate;
     private GameObject fadeToColourTemplate;
+    private GameObject HUDTextLabelTemplate;
 
     // Access to the current HUDCanvas instance.
     private HUDCanvas playerList;
+
+    private int score;
+    private Text scoreText;
 
     void Awake()
     {
@@ -87,9 +94,34 @@ public sealed class GameState : MonoBehaviour
         simpleCanvasTemplate = Resources.Load<GameObject>("SimpleHUDCanvas");
         stretchedTextLabelTemplate = Resources.Load<GameObject>("StretchedTextLabel");
         fadeToColourTemplate = Resources.Load<GameObject>("FadeToColour");
+        HUDTextLabelTemplate = Resources.Load<GameObject>("HUDTextLabel");
 
         // Initialize the characters list HUD
         playerList = Instantiate(canvasTemplate).GetComponent<HUDCanvas>();
+
+        // Create a freeform canvas for the score text.
+        GameObject freeCanvasObject = Instantiate(simpleCanvasTemplate);
+        GameObject scoreTextObject = Instantiate(HUDTextLabelTemplate);
+        // Set the anchor and position of the text object to the top right.
+        scoreText = scoreTextObject.GetComponent<Text>();
+        scoreText.fontSize = (int) System.Math.Floor(1.5 * scoreText.fontSize);
+        RectTransform rt = scoreText.rectTransform;
+        rt.anchorMin = new Vector2(1, 1);
+        rt.anchorMax = new Vector2(1, 1);
+        // Scale the text box to fit its contents better.
+        rt.sizeDelta = new Vector2(200, 50);
+        scoreText.transform.position = new Vector3(-0.5f * rt.rect.width,
+                                                   -0.5f * rt.rect.height,
+                                                   scoreText.transform.position.z);
+
+        scoreText.text = "Score: ";
+        scoreTextObject.transform.SetParent(freeCanvasObject.transform, false);
+    }
+
+    void Start()
+    {
+        // Start the score updater in a loop.
+        InvokeRepeating("UpdateScore", 0, scoreInterval);
     }
 
     // Method called to end the current level.
@@ -212,5 +244,12 @@ public sealed class GameState : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+    }
+
+    void UpdateScore()
+    {
+        // Update the score and the display text.
+        score += scoreInterval;
+        scoreText.text = "Score: " + score.ToString();
     }
 }
