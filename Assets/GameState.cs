@@ -25,10 +25,17 @@ public sealed class GameState : MonoBehaviour
         }
     }
 
+    public int initialScore = 1000;
+
     // TODO: make the current player configurable in via level data
+    [Tooltip("Sets the player ID for the game to initially start at. This will be changed by the game in runtime as the current player is updated.")]
     public int currentPlayer = 1;
-    // Sets the amount of time to wait before increasing the score based on elapsed time
-    // (lower is better).
+
+    // Score tracking stuff
+    [SerializeField] // Make the 'score' variable show in the editor even though it is marked private
+    private int score;
+    private Text scoreText; // Stores the score display object
+    [Tooltip("Sets the amount of time to wait before increasing the score based on elapsed time")]
     private int scoreInterval = 1;
 
     // Player/Level state tracking
@@ -55,9 +62,6 @@ public sealed class GameState : MonoBehaviour
 
     // Access to the current HUDCanvas instance.
     private HUDCanvas playerList;
-
-    private int score;
-    private Text scoreText;
 
     void Awake()
     {
@@ -120,8 +124,11 @@ public sealed class GameState : MonoBehaviour
 
     void Start()
     {
+        // Set the initial score.
+        AddScore(initialScore);
+
         // Start the score updater in a loop.
-        InvokeRepeating("UpdateScore", 0, scoreInterval);
+        InvokeRepeating("AddScoreTime", scoreInterval, scoreInterval);
     }
 
     // Method called to end the current level.
@@ -246,10 +253,16 @@ public sealed class GameState : MonoBehaviour
         }
     }
 
-    void UpdateScore()
+    // Add the given amount to the current score, and update the score text.
+    public int AddScore(int amount)
     {
-        // Update the score and the display text.
-        score += scoreInterval;
+        score += amount;
         scoreText.text = "Score: " + score.ToString();
+        return score;
+    }
+    // Update the score based on time - this is a simple, parameter free wrapper around AddScore()
+    void AddScoreTime()
+    {
+        AddScore(-scoreInterval);
     }
 }
