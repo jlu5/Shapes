@@ -20,21 +20,6 @@ public class Door : Collidable {
     // Offset color used for displaying locks (so they don't blend in completely with the door)
     protected Color lockOffsetColor = new Color(0.2F, 0.2F, 0.2F, -0.2F);
 
-    // Returns a normalized sum of the two colors.
-    public Color ColorSum(Color first, Color second)
-    {
-        // Separate the components, add them, and cap them at 1.
-        Debug.Log(string.Format("first color values: {0}, {1}, {2}, {3}", first.r, first.g, first.b, first.a));
-        Debug.Log(string.Format("second color values: {0}, {1}, {2}, {3}", second.r, second.g, second.b, second.a));
-        float r = Math.Min(1, first.r + second.r);
-        float g = Math.Min(1, first.g + second.g);
-        float b = Math.Min(1, first.b + second.b);
-        float a = Math.Min(1, first.a + second.a);
-        // Return the new color sum.
-        Debug.Log(string.Format("sum: {0}, {1}, {2}, {3}", r, g, b, a));
-        return new Color(r, g, b, a);
-    }
-
     void Start()
     {
         // Initialization sanity checks...
@@ -53,7 +38,7 @@ public class Door : Collidable {
             doorLock = Instantiate(Resources.Load<GameObject>("DoorLockDisplay"));
             doorLock.transform.SetParent(transform, false);
             // Offset the colour of the door lock so that it doesn't blend in with the door.
-            doorLock.GetComponent<SpriteRenderer>().color = ColorSum(color, lockOffsetColor);
+            doorLock.GetComponent<SpriteRenderer>().color = Utils.ColorSum(color, lockOffsetColor);
         }
 
     }
@@ -92,10 +77,10 @@ public class Door : Collidable {
 			isHinted = true;
             // For both the source and target doors, add the current door color and the
             // hint offset color.
-            Color mycolor = ColorSum(color, hintOffsetColor);
+            Color mycolor = Utils.ColorSum(color, hintOffsetColor);
             UpdateColor(mycolor);
 
-            Color theircolor = ColorSum(otherDoor.color, otherDoor.hintOffsetColor);
+            Color theircolor = Utils.ColorSum(otherDoor.color, otherDoor.hintOffsetColor);
             otherDoor.UpdateColor(theircolor);
         }
 	}
