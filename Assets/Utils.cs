@@ -16,4 +16,12 @@ public static class Utils {
         Debug.Log(string.Format("sum: {0}, {1}, {2}, {3}", r, g, b, a));
         return new Color(r, g, b, a);
     }
+
+    // Returns a hex color given a hex string (or HTML color code).
+    public static Color HexColor(string hexstring) {
+        Color color;
+        // First arg = hex string, second arg = color variable to output to
+        ColorUtility.TryParseHtmlString(hexstring, out color);
+        return color;
+    }
 }
