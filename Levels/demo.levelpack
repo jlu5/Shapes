@@ -1,0 +1,8 @@
+{
+    "levels":
+        [{
+            "name": "Demo Level",
+            "path": "Scene1.unity",
+            "thumbnail": "Scene1.png"
+        }]
+}

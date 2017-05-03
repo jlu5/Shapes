@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public static class Utils {
     // Returns a normalized sum of two colors.
@@ -23,5 +24,15 @@ public static class Utils {
         // First arg = hex string, second arg = color variable to output to
         ColorUtility.TryParseHtmlString(hexstring, out color);
         return color;
+    }
+
+    // Updates the text of a GameObject with either UI.Text or TextMesh.
+    public static void SetText(GameObject gameObject, string text)
+    {
+        Text uiText = gameObject.GetComponent<Text>();
+        if (uiText != null)
+        {
+            uiText.text = text;
+        }
     }
 }
