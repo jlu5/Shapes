@@ -40,7 +40,6 @@ public class LevelSelector : MonoBehaviour {
         }
 
         string basePath;
-        string scenePath;
         string thumbnailPath;
         for (int idx = 0; idx < levelData.levels.Length; idx++)
         {
@@ -49,7 +48,8 @@ public class LevelSelector : MonoBehaviour {
 
             // Get the base path, and the paths of the scene file and thumbnail.
             basePath = Path.GetDirectoryName(packPath);
-            scenePath = Path.Combine(basePath, level.path);
+            newbtn.GetComponent<LevelSelectButton>().path = Path.Combine(basePath, level.path);
+            // TODO: replace the button BG with a thumbnail
             thumbnailPath = Path.Combine(basePath, level.thumbnail);
 
             // Set the text related to the level entry: the level name and the level count.

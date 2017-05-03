@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 222853632013594194}
   - component: {fileID: 114116970939582190}
   - component: {fileID: 114709733754786232}
+  - component: {fileID: 114781896339498780}
   m_Layer: 5
   m_Name: LevelSelectButton
   m_TagString: Untagged
@@ -164,6 +165,18 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114781896339498780
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1150402380540250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627a5231d7c6e1a40bb4b4b37f27285c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  path: 
 --- !u!114 &114802805574035732
 MonoBehaviour:
   m_ObjectHideFlags: 1
