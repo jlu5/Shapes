@@ -6,6 +6,9 @@ using System.Linq;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
+    // Color presets
+    public static string[] playerColors = new string[] { "#7CC3FF", "#FFA574", "#74FF92" };
+
     // Public (editor-exposed) variables
     public float moveSpeed = 10;
     public float jumpStrength = 700;
@@ -49,7 +52,14 @@ public class Player : MonoBehaviour {
 
         if (playerID == 0) // Player ID should never be zero (this is the prefab default)
         {
-            Debug.LogWarning("Immovable player object with invalid ID!");
+            Debug.LogWarning("Player object has invalid ID 0!");
+        }
+        else if (playerID <= playerColors.Count())
+        {
+            // Set the player color to the preset color for the current player ID, if one exists.
+            string hexcolor = playerColors[playerID-1];
+            Debug.Log(string.Format("Setting color of player {0} to {1}", playerID, hexcolor));
+            GetComponent<SpriteRenderer>().color = Utils.HexColor(hexcolor);
         }
 
         simpleTextMesh = Resources.Load<GameObject>("SimpleTextMesh");
