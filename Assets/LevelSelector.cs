@@ -50,7 +50,7 @@ public class LevelSelector : MonoBehaviour {
 
             // Get the base path, and the paths of the scene file and thumbnail.
             //basePath = Path.GetDirectoryName(packPath);
-            newbtn.GetComponent<LevelSelectButton>().levelName = Path.GetFileNameWithoutExtension(level.path);
+            newbtn.GetComponent<LevelSelectButton>().levelName = level.path;
             // TODO: replace the button BG with a thumbnail
             //thumbnailPath = basePath + level.thumbnail;
 

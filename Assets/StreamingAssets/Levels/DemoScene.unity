@@ -160,6 +160,11 @@ Prefab:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 6200000, guid: 721ce8dbb3932c548b208788f4aa3f36, type: 2}
+    - target: {fileID: 114264158928404904, guid: 794043db922474a71803d00d0c3d8d5f,
+        type: 2}
+      propertyPath: isIce
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 794043db922474a71803d00d0c3d8d5f, type: 2}
   m_IsPrefabParent: 0
@@ -792,6 +797,11 @@ Prefab:
       propertyPath: m_Name
       value: Wall (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 114264158928404904, guid: 794043db922474a71803d00d0c3d8d5f,
+        type: 2}
+      propertyPath: isIce
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 794043db922474a71803d00d0c3d8d5f, type: 2}
   m_IsPrefabParent: 0
@@ -1340,6 +1350,11 @@ Prefab:
       propertyPath: m_SortingOrder
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 114394878137339306, guid: eee3465a5def66247b13dd8cd729e44e,
+        type: 2}
+      propertyPath: isBouncy
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eee3465a5def66247b13dd8cd729e44e, type: 2}
   m_IsPrefabParent: 0
@@ -1577,6 +1592,11 @@ Prefab:
       propertyPath: m_SortingOrder
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 114394878137339306, guid: eee3465a5def66247b13dd8cd729e44e,
+        type: 2}
+      propertyPath: isBouncy
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eee3465a5def66247b13dd8cd729e44e, type: 2}
   m_IsPrefabParent: 0
@@ -1651,6 +1671,11 @@ Prefab:
         type: 2}
       propertyPath: m_SortingOrder
       value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114264158928404904, guid: 794043db922474a71803d00d0c3d8d5f,
+        type: 2}
+      propertyPath: isBouncy
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 794043db922474a71803d00d0c3d8d5f, type: 2}

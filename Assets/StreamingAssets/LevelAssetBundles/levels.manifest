@@ -1,14 +1,14 @@
 ManifestFileVersion: 0
-CRC: 3107152003
+CRC: 1344083802
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: fa1f6100eeebd0e6bc70a07099976485
+    Hash: eae17edf7a27703fe2849edf94c3ac9d
   TypeTreeHash:
     serializedVersion: 2
     Hash: 31d6cfe0d16ae931b73c59d7e0c089c0
 HashAppended: 0
 ClassTypes: []
 Assets:
-- Assets/StreamingAssets/Levels/Scene1.unity
+- Assets/StreamingAssets/Levels/DemoScene.unity
 Dependencies: []
