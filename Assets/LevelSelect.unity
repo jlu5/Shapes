@@ -682,7 +682,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ec85f969a005114195150ca3b218f99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultLevelPack: Levels/demo.levelpack
+  defaultLevelPack: demo.levelpack
   levelData:
     levels: []
 --- !u!1 &523958452
@@ -822,22 +822,22 @@ Prefab:
     - target: {fileID: 224394599296626640, guid: 02cc826e88c495a4b9f2423f9c14f4e8,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 224394599296626640, guid: 02cc826e88c495a4b9f2423f9c14f4e8,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 224394599296626640, guid: 02cc826e88c495a4b9f2423f9c14f4e8,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 224394599296626640, guid: 02cc826e88c495a4b9f2423f9c14f4e8,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 224394599296626640, guid: 02cc826e88c495a4b9f2423f9c14f4e8,
         type: 2}
@@ -847,7 +847,7 @@ Prefab:
     - target: {fileID: 224394599296626640, guid: 02cc826e88c495a4b9f2423f9c14f4e8,
         type: 2}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224394599296626640, guid: 02cc826e88c495a4b9f2423f9c14f4e8,
         type: 2}
@@ -857,7 +857,7 @@ Prefab:
     - target: {fileID: 224394599296626640, guid: 02cc826e88c495a4b9f2423f9c14f4e8,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224394599296626640, guid: 02cc826e88c495a4b9f2423f9c14f4e8,
         type: 2}

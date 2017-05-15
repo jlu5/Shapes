@@ -1,14 +1,17 @@
-﻿using UnityEngine.SceneManagement;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelSelectButton : ClickableOverlay
 {
-    public string path;
+    public string levelName { get; set; }
 
 	public override void OnClick()
     {
-        if (!string.IsNullOrEmpty(path))
+        if (!string.IsNullOrEmpty(levelName))
         {
-            Scene scene = SceneManager.GetSceneByPath(path);
+            Debug.Log("Trying to load scene " + levelName);
+            SceneManager.LoadScene(levelName);
+            Scene scene = SceneManager.GetSceneByName(levelName);
             SceneManager.SetActiveScene(scene);
         }
     }

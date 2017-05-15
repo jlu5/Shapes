@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 // Structures to help deserialize level data from JSON
 [System.Serializable]
@@ -20,7 +20,8 @@ public class LevelDataCollection
 
 public class LevelSelector : MonoBehaviour {
 
-    public string defaultLevelPack = "Levels/demo.levelpack";
+    public string levelsPath { get; set; }
+    public string defaultLevelPack = "demo.levelpack";
     public LevelDataCollection levelData;
     public List<string> levelPacks { get; set; }
 
@@ -29,6 +30,7 @@ public class LevelSelector : MonoBehaviour {
     // Loads a level pack and initializes the level choosing screen
     void InitLevelPack(string packPath)
     {
+        packPath = levelsPath + packPath;
         string jsonData = File.ReadAllText(packPath);
         Debug.Log("Got raw JSON data for " + packPath + " :" + jsonData.Replace("\n", " ").Replace("\r", ""));
         levelData = JsonUtility.FromJson<LevelDataCollection>(jsonData);
@@ -47,10 +49,10 @@ public class LevelSelector : MonoBehaviour {
             GameObject newbtn = Instantiate(levelSelectButtonTemplate);
 
             // Get the base path, and the paths of the scene file and thumbnail.
-            basePath = Path.GetDirectoryName(packPath);
-            newbtn.GetComponent<LevelSelectButton>().path = Path.Combine(basePath, level.path);
+            //basePath = Path.GetDirectoryName(packPath);
+            newbtn.GetComponent<LevelSelectButton>().levelName = Path.GetFileNameWithoutExtension(level.path);
             // TODO: replace the button BG with a thumbnail
-            thumbnailPath = Path.Combine(basePath, level.thumbnail);
+            //thumbnailPath = basePath + level.thumbnail;
 
             // Set the text related to the level entry: the level name and the level count.
             Utils.SetText(newbtn.transform.GetChild(0).gameObject, level.name);
@@ -62,12 +64,17 @@ public class LevelSelector : MonoBehaviour {
     }
 
 	void Awake () {
+
+        AssetBundle bundle = AssetBundle.LoadFromFile(Application.streamingAssetsPath + "/LevelAssetBundles/levels");
+        Debug.Log(bundle.GetAllScenePaths().ToString());
+
+        levelsPath = Application.streamingAssetsPath + "/Levels/";
         // Initialize our level pack list.
         levelPacks = new List<string>();
 
         levelSelectButtonTemplate = Resources.Load<GameObject>("LevelSelectButton");
         // Load all available level packs.
-        foreach (string path in Directory.GetFiles("Levels/", "*.levelpack", SearchOption.AllDirectories))
+        foreach (string path in Directory.GetFiles(levelsPath, "*.levelpack", SearchOption.AllDirectories))
         {
             Debug.Log("Found level pack " + path);
             levelPacks.Add(path);
