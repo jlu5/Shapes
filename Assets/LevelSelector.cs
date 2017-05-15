@@ -35,8 +35,10 @@ public class LevelSelector : MonoBehaviour {
         Debug.Log("Got raw JSON data for " + packPath + " :" + jsonData.Replace("\n", " ").Replace("\r", ""));
         levelData = JsonUtility.FromJson<LevelDataCollection>(jsonData);
 
+        GameObject levelSelectPanel = GameObject.Find("LevelSelectMainPanel");
+
         // First, clear all levels from the level list.
-        foreach (Transform child in transform)
+        foreach (Transform child in levelSelectPanel.transform)
         {
             Destroy(child.gameObject);
         }
@@ -59,14 +61,13 @@ public class LevelSelector : MonoBehaviour {
             Utils.SetText(newbtn.transform.GetChild(1).gameObject, (idx+1).ToString());
 
             //newbtn.GetComponent<Image>();
-            newbtn.transform.SetParent(transform);
+            newbtn.transform.SetParent(levelSelectPanel.transform);
         }
     }
 
 	void Awake () {
-
+        // Load our scene asset bundle.
         AssetBundle bundle = AssetBundle.LoadFromFile(Application.streamingAssetsPath + "/LevelAssetBundles/levels");
-        Debug.Log(bundle.GetAllScenePaths().ToString());
 
         levelsPath = Application.streamingAssetsPath + "/Levels/";
         // Initialize our level pack list.
