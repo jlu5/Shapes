@@ -19,15 +19,27 @@ public class LevelDataCollection
 }
 
 public class LevelSelector : MonoBehaviour {
+    // Make LevelSelector a singleton class - see GameState.cs for more details
+    private static LevelSelector instance;
+    private LevelSelector() { }
+    public static LevelSelector Instance
+    {
+        get
+        {
+            return instance;
+        }
+    }
 
     public string levelsPath { get; set; }
     public string defaultLevelPack = "demo.levelpack";
     public LevelDataCollection levelData;
     public List<string> levelPacks { get; set; }
+    public int lastLevel { get; set; }
 
     private GameObject levelSelectButtonTemplate;
     private GameObject welcomeCanvas;
     private GameObject levelSelectCanvas;
+    private GameObject levelSelectPanel;
 
     public void Quit() {
         Application.Quit();
@@ -65,8 +77,6 @@ public class LevelSelector : MonoBehaviour {
         Debug.Log("Got raw JSON data for " + packPath + " :" + jsonData.Replace("\n", " ").Replace("\r", ""));
         levelData = JsonUtility.FromJson<LevelDataCollection>(jsonData);
 
-        GameObject levelSelectPanel = GameObject.Find("LevelSelectMainPanel");
-
         // First, clear all levels from the level list.
         foreach (Transform child in levelSelectPanel.transform)
         {
@@ -80,9 +90,13 @@ public class LevelSelector : MonoBehaviour {
             LevelData level = levelData.levels[idx];
             GameObject newbtn = Instantiate(levelSelectButtonTemplate);
 
+            // Set up the button corresponding to that level.
+            LevelSelectButton lsb = newbtn.GetComponent<LevelSelectButton>();
+            lsb.levelName = level.path;
+            lsb.levelNum = idx;
+
             // Get the base path, and the paths of the scene file and thumbnail.
             //basePath = Path.GetDirectoryName(packPath);
-            newbtn.GetComponent<LevelSelectButton>().levelName = level.path;
             // TODO: replace the button BG with a thumbnail
             //thumbnailPath = basePath + level.thumbnail;
 
@@ -95,10 +109,23 @@ public class LevelSelector : MonoBehaviour {
         }
     }
 
+    public void PlayNextLevel() {
+        int targetLevel = lastLevel + 1;
+        if (targetLevel < levelSelectPanel.transform.childCount) {
+            levelSelectPanel.transform.GetChild(targetLevel).gameObject.GetComponent<LevelSelectButton>().OnClick();
+        }
+    }
+
     void Awake () {
+        if (instance == null)
+        {
+            instance = this;
+        }
+
         // Initialize object references...
         welcomeCanvas = GameObject.Find("WelcomeCanvas");
         levelSelectCanvas = GameObject.Find("LevelSelectCanvas");
+        levelSelectPanel = GameObject.Find("LevelSelectMainPanel");
 
         // Load our scene asset bundle.
         AssetBundle bundle = AssetBundle.LoadFromFile(Application.streamingAssetsPath + "/LevelAssetBundles/levels");
