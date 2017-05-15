@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
     // Color presets
+    public static Color textLabelColor = new Color(0, 0, 0, 0.5F);
     public static string[] playerColors = new string[] { "#7CC3FF", "#FFA574", "#74FF92" };
 
     // Public (editor-exposed) variables
@@ -14,7 +15,6 @@ public class Player : MonoBehaviour {
     public float jumpStrength = 700;
     public float rotationSpeed = 3;
     public float jumpRecoilStrength = 100;
-    public Color textLabelColor = new Color(0, 0, 0, 0.5F);
     public int playerID = 0;
 
     // Quick access to components & resources

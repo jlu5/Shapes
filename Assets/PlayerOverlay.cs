@@ -21,7 +21,7 @@ public class PlayerOverlay : ClickableOverlay
         labeltext.text = playerID.ToString();
 
         // Use the same colour as the player object's overlay (for consistency)
-        labeltext.color = GameState.Instance.GetPlayer(playerID).textLabelColor;
+        labeltext.color = Player.textLabelColor;
 
         // Move the label under the player overlay
         label.transform.SetParent(transform);
