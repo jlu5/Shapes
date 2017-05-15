@@ -57,7 +57,7 @@ public sealed class GameState : MonoBehaviour
     private GameObject canvasTemplate;
     private GameObject simpleCanvasTemplate;
     private GameObject stretchedTextLabelTemplate;
-    private GameObject fadeToColourTemplate;
+    private GameObject levelEndScreenTemplate;
     private GameObject HUDTextLabelTemplate;
 
     // Access to the current HUDCanvas instance.
@@ -97,7 +97,7 @@ public sealed class GameState : MonoBehaviour
         canvasTemplate = Resources.Load<GameObject>("HUDCanvas");
         simpleCanvasTemplate = Resources.Load<GameObject>("SimpleHUDCanvas");
         stretchedTextLabelTemplate = Resources.Load<GameObject>("StretchedTextLabel");
-        fadeToColourTemplate = Resources.Load<GameObject>("FadeToColour");
+        levelEndScreenTemplate = Resources.Load<GameObject>("LevelEndScreen");
         HUDTextLabelTemplate = Resources.Load<GameObject>("HUDTextLabel");
 
         // Initialize the characters list HUD
@@ -142,7 +142,7 @@ public sealed class GameState : MonoBehaviour
         text.fontSize *= 4;  // Make the text bigger
 
         // Add a fade out image.
-        Instantiate(fadeToColourTemplate).transform.SetParent(levelEndCanvas.transform, false);
+        Instantiate(levelEndScreenTemplate).transform.SetParent(levelEndCanvas.transform, false);
 
         // Add the "game over" text, but make sure to keep the right world space position.
         // This can be done by setting the worldPositionStays option (second argument) in
