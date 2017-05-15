@@ -208,16 +208,6 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 224045030543703188, guid: f582f06dee1287646abdfe1b145c3958,
         type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 224045030543703188, guid: f582f06dee1287646abdfe1b145c3958,
-        type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 224045030543703188, guid: f582f06dee1287646abdfe1b145c3958,
-        type: 2}
       propertyPath: m_AnchorMin.x
       value: 0.5
       objectReference: {fileID: 0}

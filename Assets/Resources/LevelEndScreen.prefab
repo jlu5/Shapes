@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 114828817799284184}
   - component: {fileID: 114957486097092334}
   m_Layer: 5
-  m_Name: FadeToColour
+  m_Name: LevelEndScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
