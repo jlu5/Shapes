@@ -26,6 +26,32 @@ public class LevelSelector : MonoBehaviour {
     public List<string> levelPacks { get; set; }
 
     private GameObject levelSelectButtonTemplate;
+    private GameObject welcomeCanvas;
+    private GameObject levelSelectCanvas;
+
+    public void SwitchCanvas(int canvasNum) {
+        // First, hide/disable all canvas objects.
+        foreach (GameObject canvas in GameObject.FindGameObjectsWithTag("ToggleableCanvas"))
+        {
+            canvas.SetActive(false);
+        }
+
+        GameObject target = null;
+
+        switch (canvasNum) {
+            case 0: 
+                target = welcomeCanvas;
+                break;
+            case 1:
+                target = levelSelectCanvas;
+                break;
+            default:
+                break;
+        }
+        if (target != null) {
+            target.SetActive(true);
+        }
+    }
 
     // Loads a level pack and initializes the level choosing screen
     void InitLevelPack(string packPath)
@@ -65,7 +91,14 @@ public class LevelSelector : MonoBehaviour {
         }
     }
 
-	void Awake () {
+    void Awake () {
+        // Initialize object references...
+        welcomeCanvas = GameObject.Find("WelcomeCanvas");
+        levelSelectCanvas = GameObject.Find("LevelSelectCanvas");
+
+        // Enable the welcome canvas and disable the rest. Note: we can't leave the object pre-disabled in the scene because GameObject.Find() doesn't work on inactive objects.
+        SwitchCanvas(0);
+
         // Load our scene asset bundle.
         AssetBundle bundle = AssetBundle.LoadFromFile(Application.streamingAssetsPath + "/LevelAssetBundles/levels");
 
