@@ -1,0 +1,8 @@
+{
+    "levels":
+        [{
+            "name": "Tutorial 1 (Movement)",
+            "path": "Tut1",
+            "thumbnail": "Tut1.png"
+        }]
+}
