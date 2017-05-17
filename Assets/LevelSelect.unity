@@ -74,6 +74,7 @@ LightmapSettings:
     m_MixedBakeMode: 1
     m_BakeBackend: 0
     m_PVRSampling: 1
+    m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 500
     m_PVRBounces: 2
     m_PVRFiltering: 0
@@ -1897,7 +1898,7 @@ Prefab:
     - target: {fileID: 224913932485857408, guid: 54e9027c38469cb4a878d888cfdc1683,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224913932485857408, guid: 54e9027c38469cb4a878d888cfdc1683,
         type: 2}
@@ -1907,7 +1908,7 @@ Prefab:
     - target: {fileID: 224913932485857408, guid: 54e9027c38469cb4a878d888cfdc1683,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224913932485857408, guid: 54e9027c38469cb4a878d888cfdc1683,
         type: 2}
