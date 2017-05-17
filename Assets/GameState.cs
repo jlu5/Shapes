@@ -249,7 +249,7 @@ public sealed class GameState : MonoBehaviour
         // Catch attempts to reload the scene (defaults to Esc key)
         if (Input.GetButtonDown("Reset"))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            RestartLevel();
         }
     }
 
@@ -264,5 +264,11 @@ public sealed class GameState : MonoBehaviour
     void AddScoreTime()
     {
         AddScore(-scoreInterval);
+    }
+
+    // Level selector-based methods.
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
