@@ -47,6 +47,8 @@ public class LevelSelector : MonoBehaviour {
 
     public void SwitchCanvas(int canvasNum) {
         // First, hide/disable all canvas objects.
+        Debug.Log(string.Format("Running SwitchCanvas({0})", canvasNum));
+
         foreach (GameObject canvas in GameObject.FindGameObjectsWithTag("ToggleableCanvas"))
         {
             canvas.SetActive(false);

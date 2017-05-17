@@ -354,7 +354,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 500142161}
+      - m_Target: {fileID: 1592889558}
         m_MethodName: SwitchCanvas
         m_Mode: 3
         m_Arguments:
@@ -475,7 +475,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 270830877}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &270830877
@@ -616,7 +627,6 @@ GameObject:
   - component: {fileID: 500142159}
   - component: {fileID: 500142158}
   - component: {fileID: 500142160}
-  - component: {fileID: 500142161}
   m_Layer: 5
   m_Name: LevelSelectMainPanel
   m_TagString: Untagged
@@ -701,20 +711,6 @@ MonoBehaviour:
   m_Spacing: {x: 50, y: 50}
   m_Constraint: 0
   m_ConstraintCount: 2
---- !u!114 &500142161
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 500142156}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec85f969a005114195150ca3b218f99, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultLevelPack: tutorial.levelpack
-  levelData:
-    levels: []
 --- !u!1 &523958452
 GameObject:
   m_ObjectHideFlags: 0
@@ -1112,7 +1108,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 500142161}
+      - m_Target: {fileID: 1592889558}
         m_MethodName: Quit
         m_Mode: 1
         m_Arguments:
@@ -1496,7 +1492,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 500142161}
+      - m_Target: {fileID: 1592889558}
         m_MethodName: SwitchCanvas
         m_Mode: 3
         m_Arguments:
@@ -1851,7 +1847,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Select Level Pack
+  m_Text: Select Level Pack (placeholder)
 --- !u!222 &1534025869
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2004,6 +2000,49 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224913932485857408, guid: 54e9027c38469cb4a878d888cfdc1683,
     type: 2}
   m_PrefabInternal: {fileID: 1534792030}
+--- !u!1 &1592889557
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1592889559}
+  - component: {fileID: 1592889558}
+  m_Layer: 0
+  m_Name: LevelSelectorCore
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1592889558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1592889557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ec85f969a005114195150ca3b218f99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultLevelPack: tutorial.levelpack
+  levelData:
+    levels: []
+--- !u!4 &1592889559
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1592889557}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 465.5, y: 256, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1719606678
 GameObject:
   m_ObjectHideFlags: 0
