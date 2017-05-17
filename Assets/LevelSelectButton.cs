@@ -10,6 +10,10 @@ public class LevelSelectButton : ClickableOverlay
     {
         if (!string.IsNullOrEmpty(levelName))
         {
+            // Hide all the level selection canvases.
+            LevelSelector.Instance.SwitchCanvas(-1);
+
+            // Set the level position.
             LevelSelector.Instance.lastLevel = levelNum;
             Debug.Log("Trying to load scene " + levelName);
             SceneManager.LoadScene(levelName);

@@ -115,14 +115,28 @@ public class LevelSelector : MonoBehaviour {
         int targetLevel = lastLevel + 1;
         if (targetLevel < levelSelectPanel.transform.childCount) {
             levelSelectPanel.transform.GetChild(targetLevel).gameObject.GetComponent<LevelSelectButton>().OnClick();
+        } else
+        {
+            Debug.Log("No level left, returning to level selector screen");
+            SceneManager.LoadScene("LevelSelect");
         }
     }
 
     void Awake () {
         if (instance == null)
         {
+            // Register our level selector instance if none exists
             instance = this;
+        } else
+        {
+            // A level selector instance already exists, so remove the duplicate.
+            Destroy(gameObject);
+            Instance.SwitchCanvas(1);  // Go to the level list.
+            return;
         }
+
+        // Make the level selector core always available.
+        DontDestroyOnLoad(gameObject);
 
         // Initialize object references...
         welcomeCanvas = GameObject.Find("WelcomeCanvas");
