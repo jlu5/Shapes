@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 222482801704198482}
   - component: {fileID: 114819491644133532}
   - component: {fileID: 114508948112475594}
+  - component: {fileID: 114182311320029542}
   m_Layer: 5
   m_Name: RestartLevelButton
   m_TagString: Untagged
@@ -40,6 +41,7 @@ GameObject:
   - component: {fileID: 222174613758233672}
   - component: {fileID: 114244101658630604}
   - component: {fileID: 114985767733575376}
+  - component: {fileID: 114151744631271904}
   m_Layer: 5
   m_Name: ReturnToLevelSelectorButton
   m_TagString: Untagged
@@ -110,6 +112,7 @@ GameObject:
   - component: {fileID: 222021450307810864}
   - component: {fileID: 114930063995752682}
   - component: {fileID: 114440269683663084}
+  - component: {fileID: 114372418184940856}
   m_Layer: 5
   m_Name: NextLevelButton
   m_TagString: Untagged
@@ -152,6 +155,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &114151744631271904
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1204774086015668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 366de841fb72a3940a12d2ea179f717f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114182311320029542
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1136553090911820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c0cdbea5544efe4cb7c9cd9cddd101d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114244101658630604
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -212,6 +237,17 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Restart Level
+--- !u!114 &114372418184940856
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1583251694188260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ada3291df913a694dbcacfce8257b936, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114395368982503678
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -283,7 +319,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114930063995752682}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: PlayNextLevel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114508948112475594
@@ -324,7 +371,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114819491644133532}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: RestartLevel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114530739368323448
@@ -449,7 +507,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -540,7 +598,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114244101658630604}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: OpenLevelSelector
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!222 &222021450307810864
