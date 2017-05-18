@@ -74,7 +74,6 @@ LightmapSettings:
     m_MixedBakeMode: 3
     m_BakeBackend: 0
     m_PVRSampling: 1
-    m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 500
     m_PVRBounces: 2
     m_PVRFiltering: 0
@@ -203,6 +202,124 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 794043db922474a71803d00d0c3d8d5f, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1001 &150069040
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 14.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -7.79
+      objectReference: {fileID: 0}
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 102590317373944760, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_Text
+      value: 'Corner jump is also a feature. If you''re
+
+        having trouble reaching the finish, try
+
+        moving slightly away from the wall.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 102590317373944760, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_Color.rgba
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 1255114384248696, guid: 27ecead667d041c439d3beeb3b45b374, type: 2}
+      propertyPath: m_Name
+      value: SimpleTextMesh (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 27ecead667d041c439d3beeb3b45b374, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &276530197
 Prefab:
@@ -404,6 +521,122 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: da6bc009983c2734483361e0b08de910, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1001 &985464025
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -1.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -4.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 102590317373944760, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_Text
+      value: 'This level features multiple player characters.
+
+        You can switch between them using the number
+
+        keys (1 and 2), or by using the hotbar on the
+
+        top of the screen.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 102590317373944760, guid: 27ecead667d041c439d3beeb3b45b374,
+        type: 2}
+      propertyPath: m_Color.rgba
+      value: 4294967295
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 27ecead667d041c439d3beeb3b45b374, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1113379600
 Prefab:
