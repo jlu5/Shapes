@@ -14,5 +14,10 @@
             "name": "Tutorial 3 (Seeing Double)",
             "path": "Tut3",
             "thumbnail": "Tut3.png"
+        },
+        {
+            "name": "Mind The Gap",
+            "path": "MindTheGap",
+            "thumbnail": "MindTheGap.png"
         }]
 }
