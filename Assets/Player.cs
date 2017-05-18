@@ -8,7 +8,7 @@ using UnityEngine;
 public class Player : MonoBehaviour {
     // Color presets
     public static Color textLabelColor = new Color(0, 0, 0, 0.5F);
-    public static string[] playerColors = new string[] { "#7CC3FF", "#FFA574", "#74FF92" };
+    public static string[] playerColors = new string[] { "#7CC3FF", "#FFA574", "#74FF92", "#C274FF", "#FCFF74", "#FF798D"};
 
     // Public (editor-exposed) variables
     public float moveSpeed = 10;
