@@ -5,7 +5,7 @@ using UnityEngine;
 public class AutoMaterial : MonoBehaviour {
     public bool isBouncy;
     public bool isIce;
-    public bool enable = true;
+    public bool enableColor = true;
     private bool movable;
     private Color color;
 
@@ -47,10 +47,6 @@ public class AutoMaterial : MonoBehaviour {
     }
 
     public void Run() {
-        if (!enable)
-        {
-            return;
-        }
 
         movable = IsDynamic();
         Collider2D collider = GetComponent<Collider2D>();
@@ -70,7 +66,10 @@ public class AutoMaterial : MonoBehaviour {
         {
             color = movable ? dynamicColor : staticColor;
         }
-        GetComponent<SpriteRenderer>().color = color;
+        if (enableColor)
+        {
+            GetComponent<SpriteRenderer>().color = color;
+        }
     }
 
 	// Use this for initialization
