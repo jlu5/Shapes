@@ -9,6 +9,7 @@
 
     public override void RemoveEffect()
     {
+        base.RemoveEffect();
         targetPlayer.moveSpeed /= speedMultiplier;
     }
 }

@@ -61,7 +61,8 @@ public sealed class GameState : MonoBehaviour
     private GameObject HUDTextLabelTemplate;
 
     // Access to the current HUDCanvas instance.
-    private HUDCanvas playerList;
+    public HUDCanvas playerList;
+    public GameObject powerupsPanel;
 
     void Awake()
     {
@@ -103,10 +104,11 @@ public sealed class GameState : MonoBehaviour
         // Initialize the characters list HUD
         playerList = Instantiate(canvasTemplate).GetComponent<HUDCanvas>();
 
-        // Create a freeform canvas for the score text.
+        // Create a freeform canvas for the score text and powerups panel.
         GameObject freeCanvasObject = Instantiate(simpleCanvasTemplate);
         GameObject scoreTextObject = Instantiate(HUDTextLabelTemplate);
-        // Set the anchor and position of the text object to the top right.
+
+        // Set the anchor and position of the score text object to the top right.
         scoreText = scoreTextObject.GetComponent<Text>();
         scoreText.fontSize = (int) System.Math.Floor(1.5 * scoreText.fontSize);
         RectTransform rt = scoreText.rectTransform;
@@ -117,9 +119,12 @@ public sealed class GameState : MonoBehaviour
         scoreText.transform.position = new Vector3(-0.5f * rt.rect.width,
                                                    -0.5f * rt.rect.height,
                                                    scoreText.transform.position.z);
-
-        scoreText.text = "Score: ";
         scoreTextObject.transform.SetParent(freeCanvasObject.transform, false);
+        scoreText.text = "Score: ";
+
+        // Copy the powerups panel.
+        powerupsPanel = Instantiate(Resources.Load<GameObject>("PowerupsPanel"),
+                                    freeCanvasObject.transform);
     }
 
     void Start()

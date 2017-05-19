@@ -8,6 +8,7 @@
 
     public override void RemoveEffect()
     {
+        base.RemoveEffect();
         targetPlayer.gameObject.transform.localScale /= sizeMultiplier;
     }
 }
