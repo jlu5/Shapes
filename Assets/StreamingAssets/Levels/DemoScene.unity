@@ -74,6 +74,7 @@ LightmapSettings:
     m_MixedBakeMode: 1
     m_BakeBackend: 0
     m_PVRSampling: 1
+    m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 500
     m_PVRBounces: 2
     m_PVRFiltering: 0
@@ -107,6 +108,52 @@ NavMeshSettings:
     tileSize: 256
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &37630989
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4752540211323880, guid: 9ff9e156e6e62fe418fff0c7ce0f4958, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 5.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752540211323880, guid: 9ff9e156e6e62fe418fff0c7ce0f4958, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -2.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752540211323880, guid: 9ff9e156e6e62fe418fff0c7ce0f4958, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752540211323880, guid: 9ff9e156e6e62fe418fff0c7ce0f4958, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752540211323880, guid: 9ff9e156e6e62fe418fff0c7ce0f4958, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752540211323880, guid: 9ff9e156e6e62fe418fff0c7ce0f4958, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752540211323880, guid: 9ff9e156e6e62fe418fff0c7ce0f4958, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752540211323880, guid: 9ff9e156e6e62fe418fff0c7ce0f4958, type: 2}
+      propertyPath: m_RootOrder
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 1157182732432590, guid: 9ff9e156e6e62fe418fff0c7ce0f4958, type: 2}
+      propertyPath: m_Name
+      value: powerup-grow (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 9ff9e156e6e62fe418fff0c7ce0f4958, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &66816331
 Prefab:
   m_ObjectHideFlags: 0
@@ -1897,6 +1944,52 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: da6bc009983c2734483361e0b08de910, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1001 &1445245897
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4752540211323880, guid: 9ff9e156e6e62fe418fff0c7ce0f4958, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 5.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752540211323880, guid: 9ff9e156e6e62fe418fff0c7ce0f4958, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -3.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752540211323880, guid: 9ff9e156e6e62fe418fff0c7ce0f4958, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752540211323880, guid: 9ff9e156e6e62fe418fff0c7ce0f4958, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752540211323880, guid: 9ff9e156e6e62fe418fff0c7ce0f4958, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752540211323880, guid: 9ff9e156e6e62fe418fff0c7ce0f4958, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752540211323880, guid: 9ff9e156e6e62fe418fff0c7ce0f4958, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752540211323880, guid: 9ff9e156e6e62fe418fff0c7ce0f4958, type: 2}
+      propertyPath: m_RootOrder
+      value: 39
+      objectReference: {fileID: 0}
+    - target: {fileID: 1157182732432590, guid: 9ff9e156e6e62fe418fff0c7ce0f4958, type: 2}
+      propertyPath: m_Name
+      value: powerup-grow
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 9ff9e156e6e62fe418fff0c7ce0f4958, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1508032963
 Prefab:
