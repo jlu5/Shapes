@@ -27,7 +27,7 @@ public class BindDisplay : MonoBehaviour {
         lr.sortingOrder = -1;
 
         // Draw a line between this object and the other one (set the line renderer's positions).
-        lr.numPositions = 2;
+        lr.positionCount = 2;
         lr.SetPositions(new Vector3[2] { object1.transform.position, object2.transform.position });
 
     }
