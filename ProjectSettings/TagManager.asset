@@ -15,12 +15,12 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - NoPlayerCollide
+  - Wall
+  - NoWallCollide
+  - Items
+  - NoItemsCollide
   - 
   - 
   - 
