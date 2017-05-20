@@ -23,6 +23,7 @@ public class Player : MonoBehaviour {
     private GameObject bindDisplayTemplate; // BindDisplayObject template
     private GameObject simpleTextMesh;
     private GameObject playerIDLabel;
+    public GameObject feet;
 
     // Jump / Rigidbody basics tracking
     private bool canJump = false;
@@ -92,6 +93,12 @@ public class Player : MonoBehaviour {
         Color myColor = getColor();
         // Use a gradient that slowly fades from the player color to emptiness.
         psmain.startColor = new ParticleSystem.MinMaxGradient(myColor, new Color(myColor.r, myColor.g, myColor.b, 0));
+
+        // The "feet" graphic is used to show the superjump powerup.
+        feet = transform.Find("PlayerFeet").gameObject;
+        // Make it also match the player color.
+        feet.GetComponent<SpriteRenderer>().color = myColor;
+        feet.SetActive(false);
     }
 
     void UpdateCollisionAngles(Collision2D col)
