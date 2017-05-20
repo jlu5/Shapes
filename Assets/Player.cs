@@ -24,6 +24,7 @@ public class Player : MonoBehaviour {
     private GameObject simpleTextMesh;
     private GameObject playerIDLabel;
     public GameObject feet;
+    public GameObject spheresContainer;
 
     // Jump / Rigidbody basics tracking
     private bool canJump = false;
@@ -99,6 +100,9 @@ public class Player : MonoBehaviour {
         // Make it also match the player color.
         feet.GetComponent<SpriteRenderer>().color = myColor;
         feet.SetActive(false);
+
+        // The "spheres" graphic is used to show the speed powerup - its code is in PowerupSpeed.cs
+        spheresContainer = transform.Find("PlayerSpinningSpheres").gameObject;
     }
 
     void UpdateCollisionAngles(Collision2D col)
