@@ -11,6 +11,11 @@ public abstract class ClickableOverlay : MonoBehaviour
     protected virtual void Start()
     {
         button = GetComponent<Button>();
+        if (button == null)
+        {
+            // No button exists, so make a new one
+            button = gameObject.AddComponent<Button>();
+        }
         button.onClick.AddListener(OnClick);
     }
 
