@@ -58,7 +58,7 @@ public sealed class GameState : MonoBehaviour
     private GameObject simpleCanvasTemplate;
     private GameObject stretchedTextLabelTemplate;
     private GameObject levelEndScreenTemplate;
-    private GameObject HUDTextLabelTemplate;
+    public GameObject HUDTextLabelTemplate;
 
     // Access to the current HUDCanvas instance.
     public HUDCanvas playerList;
