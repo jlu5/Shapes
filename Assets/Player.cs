@@ -275,7 +275,8 @@ public class Player : MonoBehaviour {
         }
     }
 
-    void FixedUpdate() {
+    // Update is called once per frame
+    void Update() {
         if (GameState.Instance.currentPlayer == playerID) {
             // Get horizontal and vertical (rotation) movement
             float x_move = Input.GetAxis("Horizontal");
