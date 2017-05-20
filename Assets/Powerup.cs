@@ -33,9 +33,16 @@ public abstract class Powerup : Collidable {
         SetEffect();
 
         // If the powerup length is > 0, set a timer to remove the timer later.
-        if (powerupLength > 0.0F)
+        if (powerupLength > 0)
         {
             Invoke("RemoveEffect", powerupLength);
+
+            // Add a text box in the powerup display to show the time remaining.
+            powerupRemainingTextBox = Instantiate(GameState.Instance.textLabelTemplate, powerupDisplay.transform);
+            powerupRemainingTextBox.transform.position = Vector3.zero;
+            Text text = powerupRemainingTextBox.GetComponent<Text>();
+            text.color = textColor;
+            text.fontStyle = FontStyle.Bold;  // Make the text bold for better readability
         }
         startTime = Time.time;
 
@@ -55,13 +62,6 @@ public abstract class Powerup : Collidable {
         // Make the overlay colour correspond to the player color.
         image.color = player.getColor();
 
-        // Add a text box in the powerup display to show the time remaining.
-        powerupRemainingTextBox = Instantiate(GameState.Instance.textLabelTemplate, powerupDisplay.transform);
-        powerupRemainingTextBox.transform.position = Vector3.zero;
-        Text text = powerupRemainingTextBox.GetComponent<Text>();
-        text.color = textColor;
-        text.fontStyle = FontStyle.Bold;  // Make the text bold for better readability
-
         // Allow clicking on the powerup display to focus on the player.
         PlayerOverlay po = powerupDisplay.AddComponent<PlayerOverlay>();
         po.playerID = player.playerID;
@@ -74,19 +74,25 @@ public abstract class Powerup : Collidable {
     protected virtual void FixedUpdate() {
         // Update the power up display text to show how much time is remaining in the powerup.
         // "F1" in ToString format the float with one decimal place.
-        float timeRemaining = startTime + powerupLength - Time.time;
-        Utils.SetText(powerupRemainingTextBox, (timeRemaining).ToString("F1"));
-        // Warn the player by the text color red if there's little time remaining.
-        if (timeRemaining < warningThreshold)
+        if (powerupLength > 0)
         {
-            try {
-                Text text = powerupRemainingTextBox.GetComponent<Text>();
-                text.color = warningTextColor;
-            }
-            catch (NullReferenceException) {
-                // Ignore errors if the text box got deleted while this function is running.MissingReferenceException
-            }
-            catch (MissingReferenceException) {
+            float timeRemaining = startTime + powerupLength - Time.time;
+            Utils.SetText(powerupRemainingTextBox, (timeRemaining).ToString("F1"));
+            // Warn the player by the text color red if there's little time remaining.
+            if (timeRemaining < warningThreshold)
+            {
+                try
+                {
+                    Text text = powerupRemainingTextBox.GetComponent<Text>();
+                    text.color = warningTextColor;
+                }
+                catch (NullReferenceException)
+                {
+                    // Ignore errors if the text box got deleted while this function is running.MissingReferenceException
+                }
+                catch (MissingReferenceException)
+                {
+                }
             }
         }
     }
