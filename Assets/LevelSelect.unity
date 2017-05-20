@@ -74,7 +74,6 @@ LightmapSettings:
     m_MixedBakeMode: 1
     m_BakeBackend: 0
     m_PVRSampling: 1
-    m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 500
     m_PVRBounces: 2
     m_PVRFiltering: 0
@@ -2027,7 +2026,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ec85f969a005114195150ca3b218f99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultLevelPack: tutorial.levelpack
   levelData:
     levels: []
 --- !u!4 &1592889559

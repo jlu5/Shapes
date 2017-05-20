@@ -30,8 +30,10 @@ public class LevelSelector : MonoBehaviour {
         }
     }
 
+    // Set the default level pack.
+    public static string defaultLevelPack = "default.levelpack";
+
     public string levelsPath { get; set; }
-    public string defaultLevelPack = "demo.levelpack";
     public LevelDataCollection levelData;
     public List<string> levelPacks { get; set; }
     public int lastLevel { get; set; }
