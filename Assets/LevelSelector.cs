@@ -97,16 +97,12 @@ public class LevelSelector : MonoBehaviour {
             lsb.levelName = level.path;
             lsb.levelNum = idx;
 
-            // Get the base path, and the paths of the scene file and thumbnail.
-            //basePath = Path.GetDirectoryName(packPath);
             // TODO: replace the button BG with a thumbnail
-            //thumbnailPath = basePath + level.thumbnail;
 
             // Set the text related to the level entry: the level name and the level count.
             Utils.SetText(newbtn.transform.GetChild(0).gameObject, level.name);
             Utils.SetText(newbtn.transform.GetChild(1).gameObject, (idx+1).ToString());
 
-            //newbtn.GetComponent<Image>();
             newbtn.transform.SetParent(levelSelectPanel.transform);
         }
     }
@@ -144,7 +140,7 @@ public class LevelSelector : MonoBehaviour {
         levelSelectPanel = GameObject.Find("LevelSelectMainPanel");
 
         // Load our scene asset bundle.
-        AssetBundle bundle = AssetBundle.LoadFromFile(Application.streamingAssetsPath + "/LevelAssetBundles/levels");
+        AssetBundle.LoadFromFile(Application.streamingAssetsPath + "/LevelAssetBundles/levels");
 
         levelsPath = Application.streamingAssetsPath + "/Levels/";
         // Initialize our level pack list.
