@@ -85,8 +85,6 @@ public class LevelSelector : MonoBehaviour {
             Destroy(child.gameObject);
         }
 
-        string basePath;
-        string thumbnailPath;
         for (int idx = 0; idx < levelData.levels.Length; idx++)
         {
             LevelData level = levelData.levels[idx];
