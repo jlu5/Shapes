@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 60141464468785330}
   - component: {fileID: 50036295908288284}
   - component: {fileID: 114494904993212450}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: PowerupRocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,6 +106,7 @@ MonoBehaviour:
   warningThreshold: 1
   rocketSpeed: 0.05
   rocketOn: 0
+  idleModeParticlesMultiplier: 0.1
 --- !u!212 &212088210344316092
 SpriteRenderer:
   m_ObjectHideFlags: 1

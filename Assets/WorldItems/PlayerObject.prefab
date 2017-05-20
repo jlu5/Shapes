@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 50584105141607490}
   - component: {fileID: 114563102548606438}
   - component: {fileID: 61113884093332738}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerObject
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4473010217717434}
   - component: {fileID: 212996950775073536}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerFeet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4033972427241374}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerSpinningSpheres
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 4500191962476200}
   - component: {fileID: 199493622978168796}
   - component: {fileID: 198116874734126188}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}

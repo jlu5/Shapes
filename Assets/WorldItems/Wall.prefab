@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 61996371240073680}
   - component: {fileID: 50143096929994442}
   - component: {fileID: 114264158928404904}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall
   m_TagString: Environment
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isBouncy: 0
   isIce: 0
-  enable: 1
+  enableColor: 1
 --- !u!212 &212852761842024844
 SpriteRenderer:
   m_ObjectHideFlags: 1

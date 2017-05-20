@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 60349056113792254}
   - component: {fileID: 50768274573726248}
   - component: {fileID: 114477059532272084}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: PowerupGrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,6 +102,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6ce07d2db1478341a341758e9cfafb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  powerupLength: 5
+  warningThreshold: 1
+  sizeMultiplier: 1.25
+  massMultiplier: 2
 --- !u!212 &212505132750978516
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 60473768827009580}
   - component: {fileID: 50634579371983818}
   - component: {fileID: 114504245179547844}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: PowerupSpeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,6 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerupLength: 5
+  warningThreshold: 1
   speedMultiplier: 2
 --- !u!212 &212546612841569424
 SpriteRenderer:

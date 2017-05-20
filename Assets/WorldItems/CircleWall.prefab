@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 50825179382908412}
   - component: {fileID: 58006134025939422}
   - component: {fileID: 114440195731706822}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CircleWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isBouncy: 0
   isIce: 0
-  enable: 1
+  enableColor: 1
 --- !u!212 &212916600607177492
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 60214367551570152}
   - component: {fileID: 50262469535476016}
   - component: {fileID: 114369886666843098}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: PowerupJump
   m_TagString: Untagged
   m_Icon: {fileID: 0}
