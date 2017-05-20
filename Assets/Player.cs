@@ -19,6 +19,7 @@ public class Player : MonoBehaviour {
 
     // Quick access to components & resources
     public Rigidbody2D rb; // "rb" for RigidBody
+    public ParticleSystem ps;
     private GameObject bindDisplayTemplate; // BindDisplayObject template
     private GameObject simpleTextMesh;
     private GameObject playerIDLabel;
@@ -46,8 +47,10 @@ public class Player : MonoBehaviour {
     // This is so that variables other scripts depend on are always created (step 1) before any
     // cross-script communication is done (step 2).
     void Awake () {
-        // Find our Rigidbody2D object
+        // Find our Rigidbody2D and ParticleSystem components
         rb = GetComponent<Rigidbody2D>();
+        ps = GetComponentInChildren<ParticleSystem>();
+
         bindDisplayTemplate = Resources.Load<GameObject>("BindDisplayObject");
 
         if (playerID == 0) // Player ID should never be zero (this is the prefab default)
@@ -83,6 +86,12 @@ public class Player : MonoBehaviour {
         // Add this player to our global game state.
         GameState.Instance.AddPlayer(playerID, this);
         GameState.Instance.playerCount++;
+
+        // Set the particle system to match the player color.
+        ParticleSystem.MainModule psmain = ps.main;
+        Color myColor = getColor();
+        // Use a gradient that slowly fades from the player color to emptiness.
+        psmain.startColor = new ParticleSystem.MinMaxGradient(myColor, new Color(myColor.r, myColor.g, myColor.b, 0));
     }
 
     void UpdateCollisionAngles(Collision2D col)
@@ -333,8 +342,10 @@ public class Player : MonoBehaviour {
     }
 
     void LateUpdate() {
-        // Force the player ID label to be always upright
-        playerIDLabel.transform.rotation = Quaternion.identity;
+        // Force the player ID label (and other subobjects) to be always upright
+        foreach (Transform child in transform) {
+            child.transform.rotation = Quaternion.identity;
+        }
 
         if (GameState.Instance.currentPlayer == playerID)
         {
