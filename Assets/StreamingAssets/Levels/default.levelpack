@@ -1,22 +1,27 @@
 {
     "levels":
         [{
-            "name": "Tutorial 1 (Movement)",
-            "path": "Tut1",
-            "thumbnail": "Tut1.png"
+            "name": "How to Move",
+            "path": "Tut1Movement",
+            "thumbnail": "Tut1Movement.png"
         },
 		{
-            "name": "Tutorial 2 (Hopping)",
-            "path": "Tut2",
-            "thumbnail": "Tut2.png"
+            "name": "How to Hop",
+            "path": "Tut2Jump",
+            "thumbnail": "Tut2Jump.png"
         },
 		{
-            "name": "Tutorial 3 (Seeing Double)",
-            "path": "Tut3",
+            "name": "Seeing Double",
+            "path": "Tut3MultiplePlayers",
+            "thumbnail": "Tut3.png"
+        },
+		{
+            "name": "Poorly Drawn Powerups",
+            "path": "Tut4Powerups",
             "thumbnail": "Tut3.png"
         },
         {
-            "name": "Seesaw",
+            "name": "Budget Seesaw",
             "path": "Seesaw",
             "thumbnail": "Seesaw.png"
         },
