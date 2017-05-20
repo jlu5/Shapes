@@ -9,13 +9,18 @@ public abstract class Powerup : Collidable {
     // Text colors for the "time remaining" overlay
     public static Color textColor = new Color(0, 0, 0, 0.5f);
     public static Color warningTextColor = new Color(0.8f, 0, 0, 0.5f);
+
     // If the time remaining is under this amount, switch the "time remaining" overlay to warningTextColor.
     public float warningThreshold = 1.0F;
 
+    // Access to other subobjects and the owning player
     protected Player targetPlayer;
     protected GameObject powerupDisplay;
     protected GameObject powerupRemainingTextBox;
+
+    // Track powerup state and time remaining
     protected float startTime;
+    protected bool isUsed;
 
     // Function definitions for inheriting classes
     public abstract void SetEffect();
@@ -31,6 +36,9 @@ public abstract class Powerup : Collidable {
         targetPlayer = player;
         // Apply the effect
         SetEffect();
+
+        // Mark the powerup as used.
+        isUsed = true;
 
         // If the powerup length is > 0, set a timer to remove the timer later.
         if (powerupLength > 0)
@@ -72,10 +80,18 @@ public abstract class Powerup : Collidable {
     }
 
     protected virtual void FixedUpdate() {
-        // Update the power up display text to show how much time is remaining in the powerup.
-        // "F1" in ToString format the float with one decimal place.
+
+        if (isUsed && !targetPlayer)
+        {
+            // The player we're attached to disappeared, so remove the powerup.
+            Destroy(powerupDisplay);
+            Destroy(gameObject);
+        }
+
         if (powerupLength > 0)
         {
+            // Update the power up display text to show how much time is remaining in the powerup.
+            // "F1" in ToString format the float with one decimal place.
             float timeRemaining = startTime + powerupLength - Time.time;
             Utils.SetText(powerupRemainingTextBox, (timeRemaining).ToString("F1"));
             // Warn the player by the text color red if there's little time remaining.
