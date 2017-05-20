@@ -71,7 +71,7 @@ public abstract class Powerup : Collidable {
         Destroy(GetComponent<Collider2D>());
     }
 
-    void FixedUpdate() {
+    protected virtual void FixedUpdate() {
         // Update the power up display text to show how much time is remaining in the powerup.
         // "F1" in ToString format the float with one decimal place.
         float timeRemaining = startTime + powerupLength - Time.time;

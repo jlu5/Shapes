@@ -18,7 +18,7 @@ public class Player : MonoBehaviour {
     public int playerID = 0;
 
     // Quick access to components & resources
-    private Rigidbody2D rb; // "rb" for RigidBody
+    public Rigidbody2D rb; // "rb" for RigidBody
     private GameObject bindDisplayTemplate; // BindDisplayObject template
     private GameObject simpleTextMesh;
     private GameObject playerIDLabel;
