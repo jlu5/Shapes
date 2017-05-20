@@ -5,6 +5,12 @@ public abstract class Powerup : Collidable {
     // How long does the powerup last?
     public float powerupLength = 5.0F;
 
+    // Text colors for the "time remaining" overlay
+    public static Color textColor = new Color(0, 0, 0, 0.5f);
+    public static Color warningTextColor = new Color(0.8f, 0, 0, 0.5f);
+    // If the time remaining is under this amount, switch the "time remaining" overlay to warningTextColor.
+    public float warningThreshold = 1.0F;
+
     protected Player targetPlayer;
     protected GameObject powerupDisplay;
     protected GameObject powerupRemainingTextBox;
@@ -45,11 +51,18 @@ public abstract class Powerup : Collidable {
         // Give the powerup display the same sprite as the current object, and set the size to 48x48.
         image.sprite = renderer.sprite;
         image.rectTransform.sizeDelta = new Vector2(48, 48);
+        // Make the overlay colour correspond to the player color.
+        image.color = player.getColor();
 
         // Add a text box in the powerup display to show the time remaining.
         powerupRemainingTextBox = Instantiate(GameState.Instance.HUDTextLabelTemplate, powerupDisplay.transform);
         powerupRemainingTextBox.transform.position = Vector3.zero;
-        powerupRemainingTextBox.GetComponent<Text>().color = new Color(0, 0, 0, 0.5f);
+        powerupRemainingTextBox.GetComponent<Text>().color = textColor;
+
+        // Allow clicking on the powerup display to focus on the player.
+        PlayerOverlay po = powerupDisplay.AddComponent<PlayerOverlay>();
+        po.playerID = player.playerID;
+        po.showPlayerID = false; // The player ID text clashes with the "time remaining" display, so turn it off.
 
         // Disable future collisions.
         Destroy(GetComponent<Collider2D>());
@@ -58,6 +71,16 @@ public abstract class Powerup : Collidable {
     void FixedUpdate() {
         // Update the power up display text to show how much time is remaining in the powerup.
         // "F1" in ToString format the float with one decimal place.
-        Utils.SetText(powerupRemainingTextBox, (startTime + powerupLength - Time.time).ToString("F1"));
+        float timeRemaining = startTime + powerupLength - Time.time;
+        Utils.SetText(powerupRemainingTextBox, (timeRemaining).ToString("F1"));
+        // Warn the player by the text color red if there's little time remaining.
+        if (timeRemaining < warningThreshold)
+        {
+            Text text = powerupRemainingTextBox.GetComponent<Text>();
+            if (text)
+            {
+                text.color = warningTextColor;
+            }
+        }
     }
 }
