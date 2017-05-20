@@ -42,14 +42,14 @@ public abstract class Powerup : Collidable {
         powerupDisplay = new GameObject();
         powerupDisplay.transform.SetParent(GameState.Instance.powerupsPanel.transform);
         Image image = powerupDisplay.AddComponent<Image>();
-        // Give the powerup display the same sprite as the current object, and set the size to 32x32.
+        // Give the powerup display the same sprite as the current object, and set the size to 48x48.
         image.sprite = renderer.sprite;
-        image.rectTransform.sizeDelta = new Vector2(32, 32);
+        image.rectTransform.sizeDelta = new Vector2(48, 48);
 
         // Add a text box in the powerup display to show the time remaining.
         powerupRemainingTextBox = Instantiate(GameState.Instance.HUDTextLabelTemplate, powerupDisplay.transform);
         powerupRemainingTextBox.transform.position = Vector3.zero;
-        powerupRemainingTextBox.GetComponent<Text>().color = Color.black;
+        powerupRemainingTextBox.GetComponent<Text>().color = new Color(0, 0, 0, 0.5f);
 
         // Disable future collisions.
         Destroy(GetComponent<Collider2D>());
