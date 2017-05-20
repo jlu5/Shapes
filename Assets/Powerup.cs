@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public abstract class Powerup : Collidable {
     // How long does the powerup last?
@@ -55,11 +56,11 @@ public abstract class Powerup : Collidable {
         image.color = player.getColor();
 
         // Add a text box in the powerup display to show the time remaining.
-        powerupRemainingTextBox = Instantiate(GameState.Instance.HUDTextLabelTemplate, powerupDisplay.transform);
+        powerupRemainingTextBox = Instantiate(GameState.Instance.textLabelTemplate, powerupDisplay.transform);
         powerupRemainingTextBox.transform.position = Vector3.zero;
         Text text = powerupRemainingTextBox.GetComponent<Text>();
         text.color = textColor;
-        text.fontStyle = FontStyle.Bold;
+        text.fontStyle = FontStyle.Bold;  // Make the text bold for better readability
 
         // Allow clicking on the powerup display to focus on the player.
         PlayerOverlay po = powerupDisplay.AddComponent<PlayerOverlay>();
@@ -78,10 +79,12 @@ public abstract class Powerup : Collidable {
         // Warn the player by the text color red if there's little time remaining.
         if (timeRemaining < warningThreshold)
         {
-            Text text = powerupRemainingTextBox.GetComponent<Text>();
-            if (text)
-            {
+            try {
+                Text text = powerupRemainingTextBox.GetComponent<Text>();
                 text.color = warningTextColor;
+            }
+            catch (NullReferenceException) {
+                // Ignore errors if the text box got deleted while this function is running.
             }
         }
     }

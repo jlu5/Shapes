@@ -58,10 +58,10 @@ public sealed class GameState : MonoBehaviour
     private GameObject simpleCanvasTemplate;
     private GameObject stretchedTextLabelTemplate;
     private GameObject levelEndScreenTemplate;
-    public GameObject HUDTextLabelTemplate;
+    public GameObject textLabelTemplate;
 
     // Access to the current HUDCanvas instance.
-    public HUDCanvas playerList;
+    public PlayerList playerList;
     public GameObject powerupsPanel;
 
     void Awake()
@@ -95,18 +95,17 @@ public sealed class GameState : MonoBehaviour
         sim.submitButton = "ClickOnly";
 
         // Load our relevant resources
-        canvasTemplate = Resources.Load<GameObject>("HUDCanvas");
         simpleCanvasTemplate = Resources.Load<GameObject>("SimpleHUDCanvas");
         stretchedTextLabelTemplate = Resources.Load<GameObject>("StretchedTextLabel");
         levelEndScreenTemplate = Resources.Load<GameObject>("LevelEndScreen");
-        HUDTextLabelTemplate = Resources.Load<GameObject>("HUDTextLabel");
+        textLabelTemplate = Resources.Load<GameObject>("CanvasTextLabel");
 
         // Initialize the characters list HUD
-        playerList = Instantiate(canvasTemplate).GetComponent<HUDCanvas>();
+        playerList = Instantiate(Resources.Load<GameObject>("PlayerListCanvas")).GetComponent<PlayerList>();
 
         // Create a freeform canvas for the score text and powerups panel.
         GameObject freeCanvasObject = Instantiate(simpleCanvasTemplate);
-        GameObject scoreTextObject = Instantiate(HUDTextLabelTemplate);
+        GameObject scoreTextObject = Instantiate(textLabelTemplate);
 
         // Set the anchor and position of the score text object to the top right.
         scoreText = scoreTextObject.GetComponent<Text>();

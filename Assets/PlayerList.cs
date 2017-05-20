@@ -1,22 +1,20 @@
 ﻿/* Shapes Game (c) 2017 James Lu. All rights reserved.
- * HUDCanvas.cs: Implements a canvas displaying a list of player characters
+ * PlayerList.cs: Implements a canvas displaying a list of player characters
  */
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HUDCanvas : MonoBehaviour {
-	private GameObject HUDTextLabelTemplate;
+public class PlayerList : MonoBehaviour {
     private PlayerOverlay playerOverlay;
     private Dictionary<int, PlayerOverlay> overlays = new Dictionary<int, PlayerOverlay>();
     private GameObject playerListLabel;
 
     // Initialization: fill in resources and create the player list label
     void Awake () {
-		HUDTextLabelTemplate = Resources.Load<GameObject>("HUDTextLabel");
         playerOverlay = Resources.Load<PlayerOverlay>("PlayerOverlay");
 
-        playerListLabel = Instantiate(HUDTextLabelTemplate);
+        playerListLabel = Instantiate(GameState.Instance.textLabelTemplate);
         playerListLabel.GetComponent<Text>().text = "Select character: ";
         playerListLabel.transform.SetParent(transform);
 	}
@@ -46,7 +44,7 @@ public class HUDCanvas : MonoBehaviour {
             PlayerOverlay overlay = child.gameObject.GetComponent<PlayerOverlay>();
             if (overlay != null)
             {
-                Debug.Log(string.Format("HUDCanvas: sorting PlayerOverlay {0} to position {0}", overlay.playerID));
+                Debug.Log(string.Format("PlayerList: sorting PlayerOverlay {0} to position {0}", overlay.playerID));
                 child.SetSiblingIndex(overlay.playerID-1);
             }
         }

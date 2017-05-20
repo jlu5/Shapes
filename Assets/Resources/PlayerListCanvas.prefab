@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 114221422576827194}
   - component: {fileID: 114688101004959262}
   m_Layer: 5
-  m_Name: HUDCanvas
+  m_Name: PlayerListCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

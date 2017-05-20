@@ -8,7 +8,6 @@ public class PlayerOverlay : ClickableOverlay
 {
     public int playerID;
     public bool showPlayerID = true;
-    private GameObject HUDTextLabelTemplate;
     private GameObject label;
 
     protected override void Start()
@@ -18,8 +17,7 @@ public class PlayerOverlay : ClickableOverlay
         if (showPlayerID)
         {
             // Label which player this overlay corresponds to
-            HUDTextLabelTemplate = Resources.Load<GameObject>("HUDTextLabel");
-            label = Instantiate(HUDTextLabelTemplate);
+            label = Instantiate(GameState.Instance.textLabelTemplate);
             Text labeltext = label.GetComponent<Text>();
             labeltext.text = playerID.ToString();
 
