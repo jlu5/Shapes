@@ -108,6 +108,7 @@ public class Player : MonoBehaviour {
         if (collidable != null)
         {
             collidable.PlayerHit(this);
+            return; // Stop processing here.
         }
 
         // Collision with other players are tracked separately; this is used to process player
