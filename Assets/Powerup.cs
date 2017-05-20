@@ -40,20 +40,6 @@ public abstract class Powerup : Collidable {
         // Mark the powerup as used.
         isUsed = true;
 
-        // If the powerup length is > 0, set a timer to remove the timer later.
-        if (powerupLength > 0)
-        {
-            Invoke("RemoveEffect", powerupLength);
-
-            // Add a text box in the powerup display to show the time remaining.
-            powerupRemainingTextBox = Instantiate(GameState.Instance.textLabelTemplate, powerupDisplay.transform);
-            powerupRemainingTextBox.transform.position = Vector3.zero;
-            Text text = powerupRemainingTextBox.GetComponent<Text>();
-            text.color = textColor;
-            text.fontStyle = FontStyle.Bold;  // Make the text bold for better readability
-        }
-        startTime = Time.time;
-
         // Disable the renderer to act like the powerup has disappeared.
         // We don't use SetActive(false) or Destroy() because that would turn
         // off the scripts needed for RemoveEffect.
@@ -69,6 +55,20 @@ public abstract class Powerup : Collidable {
         image.rectTransform.sizeDelta = new Vector2(48, 48);
         // Make the overlay colour correspond to the player color.
         image.color = player.getColor();
+
+        // If the powerup length is > 0, set a timer to remove the timer later.
+        if (powerupLength > 0)
+        {
+            Invoke("RemoveEffect", powerupLength);
+
+            // Add a text box in the powerup display to show the time remaining.
+            powerupRemainingTextBox = Instantiate(GameState.Instance.textLabelTemplate, powerupDisplay.transform);
+            powerupRemainingTextBox.transform.position = Vector3.zero;
+            Text text = powerupRemainingTextBox.GetComponent<Text>();
+            text.color = textColor;
+            text.fontStyle = FontStyle.Bold;  // Make the text bold for better readability
+        }
+        startTime = Time.time;
 
         // Allow clicking on the powerup display to focus on the player.
         PlayerOverlay po = powerupDisplay.AddComponent<PlayerOverlay>();
