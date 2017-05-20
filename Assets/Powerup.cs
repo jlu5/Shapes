@@ -84,7 +84,9 @@ public abstract class Powerup : Collidable {
                 text.color = warningTextColor;
             }
             catch (NullReferenceException) {
-                // Ignore errors if the text box got deleted while this function is running.
+                // Ignore errors if the text box got deleted while this function is running.MissingReferenceException
+            }
+            catch (MissingReferenceException) {
             }
         }
     }

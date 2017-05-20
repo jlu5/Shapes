@@ -35,16 +35,16 @@ public static class Utils {
         // Try to look up the UI-based text element.
         try {
             uiText = gameObject.GetComponent<Text>();
-        } catch (NullReferenceException)
-        {
             // Ignore if the component is missing.
+        } catch (NullReferenceException) {
+        } catch (MissingReferenceException) {
         }
 
         // Try to find the in-world TextMesh object.
         try {
             meshText = gameObject.GetComponent<TextMesh>();
-        } catch (NullReferenceException)
-        {
+        } catch (NullReferenceException) {
+        } catch (MissingReferenceException) {
         }
 
         if (uiText != null)
