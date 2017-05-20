@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class PlayerOverlay : ClickableOverlay
 {
     public int playerID;
+    public bool showPlayerID = true;
     private GameObject HUDTextLabelTemplate;
     private GameObject label;
 
@@ -14,18 +15,20 @@ public class PlayerOverlay : ClickableOverlay
     {
         base.Start(); // Initialize the base ClickableOverlay class
 
-        // Label which player this overlay corresponds to
-		HUDTextLabelTemplate = Resources.Load<GameObject>("HUDTextLabel");
-        label = Instantiate(HUDTextLabelTemplate);
-        Text labeltext = label.GetComponent<Text>();
-        labeltext.text = playerID.ToString();
+        if (showPlayerID)
+        {
+            // Label which player this overlay corresponds to
+            HUDTextLabelTemplate = Resources.Load<GameObject>("HUDTextLabel");
+            label = Instantiate(HUDTextLabelTemplate);
+            Text labeltext = label.GetComponent<Text>();
+            labeltext.text = playerID.ToString();
 
-        // Use the same colour as the player object's overlay (for consistency)
-        labeltext.color = Player.textLabelColor;
+            // Use the same colour as the player object's overlay (for consistency)
+            labeltext.color = Player.textLabelColor;
 
-        // Move the label under the player overlay
-        label.transform.SetParent(transform);
-
+            // Move the label under the player overlay
+            label.transform.SetParent(transform);
+        }
     }
 
     // When clicked, set the current player to this one.
