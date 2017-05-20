@@ -29,10 +29,30 @@ public static class Utils {
     // Updates the text of a GameObject with either UI.Text or TextMesh.
     public static void SetText(GameObject gameObject, string text)
     {
-        Text uiText = gameObject.GetComponent<Text>();
+        Text uiText = null;
+        TextMesh meshText = null;
+
+        // Try to look up the UI-based text element.
+        try {
+            uiText = gameObject.GetComponent<Text>();
+        } catch (NullReferenceException)
+        {
+            // Ignore if the component is missing.
+        }
+
+        // Try to find the in-world TextMesh object.
+        try {
+            meshText = gameObject.GetComponent<TextMesh>();
+        } catch (NullReferenceException)
+        {
+        }
+
         if (uiText != null)
         {
             uiText.text = text;
+        } else if (meshText != null)
+        {
+            meshText.text = text;
         }
     }
 }
