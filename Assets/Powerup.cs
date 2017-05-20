@@ -57,7 +57,9 @@ public abstract class Powerup : Collidable {
         // Add a text box in the powerup display to show the time remaining.
         powerupRemainingTextBox = Instantiate(GameState.Instance.HUDTextLabelTemplate, powerupDisplay.transform);
         powerupRemainingTextBox.transform.position = Vector3.zero;
-        powerupRemainingTextBox.GetComponent<Text>().color = textColor;
+        Text text = powerupRemainingTextBox.GetComponent<Text>();
+        text.color = textColor;
+        text.fontStyle = FontStyle.Bold;
 
         // Allow clicking on the powerup display to focus on the player.
         PlayerOverlay po = powerupDisplay.AddComponent<PlayerOverlay>();
