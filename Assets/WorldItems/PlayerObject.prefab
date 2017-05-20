@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 50584105141607490}
   - component: {fileID: 114563102548606438}
   - component: {fileID: 61113884093332738}
-  - component: {fileID: 123322380038783784}
   m_Layer: 0
   m_Name: PlayerObject
   m_TagString: Player
@@ -198,22 +197,8 @@ MonoBehaviour:
   rb: {fileID: 0}
   ps: {fileID: 0}
   feet: {fileID: 0}
+  spheresContainer: {fileID: 0}
   activeTriggers: []
---- !u!123 &123322380038783784
-LensFlare:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1326100810625570}
-  m_Enabled: 1
-  m_Flare: {fileID: 0}
-  m_Color: {r: 0.4044118, g: 0.20815313, b: 0.20815313, a: 0}
-  m_Brightness: 1
-  m_FadeSpeed: 3
-  m_IgnoreLayers:
-    serializedVersion: 2
-    m_Bits: 6
-  m_Directional: 0
 --- !u!198 &198116874734126188
 ParticleSystem:
   m_ObjectHideFlags: 1
