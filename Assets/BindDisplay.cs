@@ -16,10 +16,12 @@ public class BindDisplay : MonoBehaviour {
     } 
 
     // Update is called once per frame
-    void Update () {
+    void LateUpdate () {
         // The bind display needs two objects two draw between; nothing is displayed otherwise.
         if (object1 == null || object2 == null)
         {
+            Destroy(gameObject);
+            Debug.Log(string.Format("Destroying bind display {0} as a linked object has been removed.", name));
             return;
         }
         // Make lines draw over characters, so that they're actually visible.
