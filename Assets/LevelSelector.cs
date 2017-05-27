@@ -1,6 +1,8 @@
 ﻿using System.IO;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 // Structures to help deserialize level data from JSON
@@ -35,13 +37,13 @@ public class LevelSelector : MonoBehaviour {
 
     public string levelsPath { get; set; }
     public LevelDataCollection levelData;
-    public List<string> levelPacks { get; set; }
     public int lastLevel { get; set; }
 
     private GameObject levelSelectButtonTemplate;
     private GameObject welcomeCanvas;
     private GameObject levelSelectCanvas;
     private GameObject levelSelectPanel;
+    private GameObject levelPackSelector;
 
     public void Quit() {
         Application.Quit();
@@ -138,22 +140,30 @@ public class LevelSelector : MonoBehaviour {
         welcomeCanvas = GameObject.Find("WelcomeCanvas");
         levelSelectCanvas = GameObject.Find("LevelSelectCanvas");
         levelSelectPanel = GameObject.Find("LevelSelectMainPanel");
+        levelPackSelector = GameObject.Find("LevelPackSelector");
+        levelSelectButtonTemplate = Resources.Load<GameObject>("LevelSelectButton");
 
         // Load our scene asset bundle.
         AssetBundle.LoadFromFile(Application.streamingAssetsPath + "/LevelAssetBundles/levels");
-
+ 
+        // Load all available level packs and add them into the dropdown menu.
         levelsPath = Application.streamingAssetsPath + "/Levels/";
-        // Initialize our level pack list.
-        levelPacks = new List<string>();
+        // Note: use the filename and not the long, complete path.
+        List<string> levelPacks = new List<string>(from path in Directory.GetFiles(levelsPath, "*.levelpack", SearchOption.AllDirectories)
+                                                   select Path.GetFileName(path));
+        Dropdown dropdown = levelPackSelector.GetComponent<Dropdown>();
+        dropdown.ClearOptions();
+        dropdown.AddOptions(levelPacks);
+        // Add a listener to change the levels list when a new level pack is selected.
+        dropdown.onValueChanged.AddListener(
+            delegate (int packIndex)
+            {
+                InitLevelPack(levelPacks[packIndex]);
+            }
+        );
+        Utils.SetText(levelPackSelector.transform.GetChild(0).gameObject, "Select Level Pack");
 
-        levelSelectButtonTemplate = Resources.Load<GameObject>("LevelSelectButton");
-        // Load all available level packs.
-        foreach (string path in Directory.GetFiles(levelsPath, "*.levelpack", SearchOption.AllDirectories))
-        {
-            Debug.Log("Found level pack " + path);
-            levelPacks.Add(path);
-        }
-
+        // Initialize the default level pack.
         InitLevelPack(defaultLevelPack);
 
         // Enable the welcome canvas and disable the rest. Note: we can't leave the object pre-disabled in the scene because GameObject.Find() doesn't work on inactive objects.
