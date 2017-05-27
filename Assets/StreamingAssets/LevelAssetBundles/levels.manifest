@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3502534940
+CRC: 279576728
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 40fd6fdb375c4b3759fec75cc7300262
+    Hash: 57a1d6ee9658ae74d0502e3f0cd247af
   TypeTreeHash:
     serializedVersion: 2
     Hash: 31d6cfe0d16ae931b73c59d7e0c089c0
@@ -11,6 +11,7 @@ HashAppended: 0
 ClassTypes: []
 Assets:
 - Assets/StreamingAssets/Levels/Tut2Jump.unity
+- Assets/StreamingAssets/Levels/Tut4Powerups.unity
 - Assets/StreamingAssets/Levels/Tut1Movement.unity
 - Assets/StreamingAssets/Levels/DemoScene.unity
 - Assets/StreamingAssets/Levels/Tut3MultiplePlayers.unity
