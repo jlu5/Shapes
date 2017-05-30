@@ -143,12 +143,12 @@ public class Player : MonoBehaviour {
     // Attempts to attach to all colliding players.
     public void Attach()
     {
-        ContactPoint2D[] collisions = new ContactPoint2D[MaxCollisionCount];
+        Collider2D[] collisions = new Collider2D[MaxCollisionCount];
         rb.GetContacts(collisions);
 
-        foreach (ContactPoint2D contactPoint in collisions)
+        foreach (Collider2D collider in collisions)
         {
-            GameObject playerObject = contactPoint.otherCollider.gameObject;
+            GameObject playerObject = collider.gameObject;
 
             // Create a relative (angle and distance preserving) joint between the two objects.
             RelativeJoint2D joint = gameObject.AddComponent<RelativeJoint2D>();
@@ -161,6 +161,10 @@ public class Player : MonoBehaviour {
             // Track which player has the RelativeJoint2D, so that other players
             // can unbind themselves.
             Player otherPlayer = playerObject.GetComponent<Player>();
+            if (otherPlayer.playerID == playerID)
+            {
+                continue;
+            }
             otherPlayer.masterPlayers.Add(gameObject);
 
             // Make sure we're keeping track of the number of players bounded.
