@@ -354,7 +354,10 @@ public class Player : MonoBehaviour {
         foreach (Transform child in transform) {
             child.transform.rotation = Quaternion.identity;
         }
+    }
 
+    void FixedUpdate()
+    {
         if (GameState.Instance.currentPlayer == playerID)
         {
             // Handle camera pans
