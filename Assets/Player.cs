@@ -32,7 +32,7 @@ public class Player : MonoBehaviour {
     // Jump / Rigidbody basics tracking
     private bool canJump = false;
 
-    // These lists are going away...
+    // Track the triggers we're interacting with. This list is updated by Collidable class instances.
     public List<GameObject> activeTriggers;
 
     // Track player objects and the joints binding them to one another.
@@ -43,7 +43,6 @@ public class Player : MonoBehaviour {
     // Tracks which player GameObject is leading the current player attachment (i.e. which player
     // has the RelativeJoint2D component).
     protected List<GameObject> masterPlayers = new List<GameObject>();
-    protected int bindCount = 0;
 
     // Initialization is done in two steps here: Awake, which runs first, and Start, which runs second.
     // This is so that variables other scripts depend on are always created (step 1) before any
@@ -106,40 +105,6 @@ public class Player : MonoBehaviour {
         spheresContainer = transform.Find("PlayerSpinningSpheres").gameObject;
     }
 
-    /*
-    void OnCollisionStay2D(Collision2D col)
-    {
-        /* Make jump realistic: whenever the player collides with the environment, set the
-         * jump direction perpendicular to the surface(s) the player is touching.
-         * This is in contrast to making jump always point upwards, which is incorrect
-         * when colliding with slanted platforms or the bottom of floating objects.
-         * Since directions are expressed as a vector, we can sum all the collision normal
-         * vectors if the player is touching multiple points at once (i.e. corner jump is possible).        
-        Vector2 normalSum = Vector2.zero;
-        ContactPoint2D[] collisions = new ContactPoint2D[MaxCollisionCount];
-        rb.GetContacts(collisions);
-
-        foreach (ContactPoint2D contactPoint in collisions)
-        {
-            if (contactPoint.otherRigidbody == null)
-            {
-                // World items should always have a rigid body attached for jump processing to work.
-                // If this is missing, warn the user.
-                Debug.LogWarning(string.Format("Player: Skipping processing collision with object with no rigidbody! (Player ID: {0})",
-                                               playerID));
-                continue;
-            }
-
-            // Do some math to make heavier objects count for more when calculating jump forces.
-            normalSum += (contactPoint.normal * contactPoint.otherRigidbody.mass);
-        }
-        
-        // Normalize the resulting vector so we don't get super jumps when colliding with multiple
-        // objects at the same angle (e.g. when resting on the crack between two parallel platforms).
-        normalSum.Normalize();
-        nextJumpVector = normalSum;
-    }*/
-
     // Attempts to attach to all colliding players.
     public void Attach()
     {
@@ -161,15 +126,11 @@ public class Player : MonoBehaviour {
             // Track which player has the RelativeJoint2D, so that other players
             // can unbind themselves.
             Player otherPlayer = playerObject.GetComponent<Player>();
-            if (otherPlayer.playerID == playerID)
+            if (otherPlayer == null || otherPlayer.playerID == playerID)
             {
                 continue;
             }
             otherPlayer.masterPlayers.Add(gameObject);
-
-            // Make sure we're keeping track of the number of players bounded.
-            bindCount++;
-            otherPlayer.bindCount++;
 
             // Create a new bind display object from our prefab, if one
             // doesn't exist already.
@@ -209,7 +170,6 @@ public class Player : MonoBehaviour {
                 // The joint went missing, ignore
             }
             masterPlayerBinds.Remove(gameObject);
-            masterPlayer.bindCount--;
 
             // Remove any bind displays for us if they exist.
             if (masterPlayer.bindDisplays.ContainsKey(playerID))
@@ -226,7 +186,6 @@ public class Player : MonoBehaviour {
             GameObject otherObject = joint.connectedBody.gameObject;
             playerBinds.Remove(otherObject);
             Destroy(joint);
-            otherObject.GetComponent<Player>().bindCount--;
         }
 
         foreach (KeyValuePair<int, GameObject> kvp in bindDisplays)
@@ -262,15 +221,6 @@ public class Player : MonoBehaviour {
             collidable.PlayerHit(this);
             return; // Stop processing here.
         }
-
-        /*
-        // Collision with other players are tracked separately; this is used to process player
-        // attachment.
-        if (col.gameObject.CompareTag("Player")) {
-            collidingPlayers.Add(col.gameObject);
-        }
-        */
-        
         canJump = true;
     }
 
