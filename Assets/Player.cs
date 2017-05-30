@@ -319,7 +319,7 @@ public class Player : MonoBehaviour {
                     // when we jump (if that object has a rigid body).
                     if (contactPoint.otherRigidbody)
                     {
-                        contactPoint.otherRigidbody.AddForce(-nextJumpVector * jumpRecoilStrength * rb.mass);
+                        contactPoint.otherRigidbody.AddForce(-jumpVector * jumpRecoilStrength * rb.mass);
                     }
                 }
 
