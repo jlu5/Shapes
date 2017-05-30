@@ -10,11 +10,14 @@ public class Player : MonoBehaviour {
     public static Color textLabelColor = new Color(0, 0, 0, 0.5F);
     public static string[] playerColors = new string[] { "#7CC3FF", "#FFA574", "#74FF92", "#C274FF", "#FCFF74", "#FF798D"};
 
+    // Max amount of collisions to fetch at a given time.
+    public const int MaxCollisionCount = 64;
+
     // Public (editor-exposed) variables
     public float moveSpeed = 10;
-    public float jumpStrength = 700;
+    public float jumpStrength = 5.0f; // Jump strength force relative to player mass 
     public float rotationSpeed = 3;
-    public float jumpRecoilStrength = 100;
+    public float jumpRecoilStrength = 1.0f;
     public int playerID = 0;
 
     // Quick access to components & resources
@@ -28,12 +31,9 @@ public class Player : MonoBehaviour {
 
     // Jump / Rigidbody basics tracking
     private bool canJump = false;
-    private Vector2 nextJumpVector;
-    private Dictionary<GameObject, Vector2> collidingObjects = new Dictionary<GameObject, Vector2>();
-    public List<GameObject> activeTriggers;
 
-    // Tracking for player attachments
-    private List<GameObject> collidingPlayers = new List<GameObject>();
+    // These lists are going away...
+    public List<GameObject> activeTriggers;
 
     // Track player objects and the joints binding them to one another.
     protected Dictionary<GameObject, RelativeJoint2D> playerBinds = new Dictionary<GameObject, RelativeJoint2D>();
@@ -84,7 +84,8 @@ public class Player : MonoBehaviour {
         renderer.sortingOrder = -1;
     }
 
-    void Start () {
+    void Start()
+    {
         // Add this player to our global game state.
         GameState.Instance.AddPlayer(playerID, this);
         GameState.Instance.playerCount++;
@@ -105,99 +106,50 @@ public class Player : MonoBehaviour {
         spheresContainer = transform.Find("PlayerSpinningSpheres").gameObject;
     }
 
-    void UpdateCollisionAngles(Collision2D col)
-    {
-        // Track the objects we're currently colliding with along with the collision
-        // angle. This is used to process jump.
-        Vector2 normal = new Vector2();
-        // XXX: ugly but IEnumerable.Sum() only allows summing numbers AFAIK.
-        foreach (ContactPoint2D contact in col.contacts)
-        {
-            normal += contact.normal;
-        }
-        collidingObjects[col.gameObject] = normal;
-    }
-
-    // Collision handlers
-    void OnCollisionEnter2D(Collision2D col)
-    {
-        // Objects with specific collision routines are (e.g. finishes) called here.
-        // These each have a script component deriving from the Collidable class,
-        // and override PlayerHit() to make this work.
-        Collidable collidable = col.gameObject.GetComponent<Collidable>();
-        if (collidable != null)
-        {
-            collidable.PlayerHit(this);
-            return; // Stop processing here.
-        }
-
-        // Collision with other players are tracked separately; this is used to process player
-        // attachment.
-        if (col.gameObject.CompareTag("Player")) {
-            collidingPlayers.Add(col.gameObject);
-        }
-
-        // Track which objects we're colliding with.
-        UpdateCollisionAngles(col);
-        canJump = true;
-    }
-
-    void OnCollisionExit2D(Collision2D col)
-    {
-        // Remove the other object from the list of objects we're colliding with.
-        collidingObjects.Remove(col.gameObject);
-
-        if (collidingObjects.Count == 0)
-        {
-            // Disable jump when leaving all collisions, so that we can't magically gain momentum in mid air.
-            canJump = false;
-        }
-
-        if (col.gameObject.CompareTag("Player"))
-        {
-            collidingPlayers.Remove(col.gameObject);
-        }
-    }
-
+    /*
     void OnCollisionStay2D(Collision2D col)
     {
-        UpdateCollisionAngles(col);
         /* Make jump realistic: whenever the player collides with the environment, set the
          * jump direction perpendicular to the surface(s) the player is touching.
          * This is in contrast to making jump always point upwards, which is incorrect
          * when colliding with slanted platforms or the bottom of floating objects.
          * Since directions are expressed as a vector, we can sum all the collision normal
-         * vectors if the player is touching multiple points at once (i.e. corner jump is possible).
-         */
+         * vectors if the player is touching multiple points at once (i.e. corner jump is possible).        
         Vector2 normalSum = Vector2.zero;
+        ContactPoint2D[] collisions = new ContactPoint2D[MaxCollisionCount];
+        rb.GetContacts(collisions);
 
-        // Sum up the vectors at which we're colliding with all other objects.
-        foreach (KeyValuePair<GameObject, Vector2> kvp in collidingObjects)
+        foreach (ContactPoint2D contactPoint in collisions)
         {
-            // Find the rigid body of the colliding object.
-            Rigidbody2D otherRb = kvp.Key.GetComponent<Rigidbody2D>();
-            if (otherRb == null)
+            if (contactPoint.otherRigidbody == null)
             {
-                // This shouldn't ever happen, but just in case...
-                Debug.LogWarning(string.Format("Player: Skipping processing collision with object with no rigidbody! (Player ID: {0}, Object name: {1})", playerID, kvp.Key.name));
+                // World items should always have a rigid body attached for jump processing to work.
+                // If this is missing, warn the user.
+                Debug.LogWarning(string.Format("Player: Skipping processing collision with object with no rigidbody! (Player ID: {0})",
+                                               playerID));
                 continue;
             }
 
             // Do some math to make heavier objects count for more when calculating jump forces.
-            normalSum += (kvp.Value * otherRb.mass);
+            normalSum += (contactPoint.normal * contactPoint.otherRigidbody.mass);
         }
-        nextJumpVector = normalSum;
-
+        
         // Normalize the resulting vector so we don't get super jumps when colliding with multiple
         // objects at the same angle (e.g. when resting on the crack between two parallel platforms).
-        nextJumpVector.Normalize();
-    }
+        normalSum.Normalize();
+        nextJumpVector = normalSum;
+    }*/
 
     // Attempts to attach to all colliding players.
     public void Attach()
     {
-        foreach (GameObject playerObject in collidingPlayers)
+        ContactPoint2D[] collisions = new ContactPoint2D[MaxCollisionCount];
+        rb.GetContacts(collisions);
+
+        foreach (ContactPoint2D contactPoint in collisions)
         {
+            GameObject playerObject = contactPoint.otherCollider.gameObject;
+
             // Create a relative (angle and distance preserving) joint between the two objects.
             RelativeJoint2D joint = gameObject.AddComponent<RelativeJoint2D>();
             joint.connectedBody = playerObject.GetComponent<Rigidbody2D>();
@@ -295,6 +247,30 @@ public class Player : MonoBehaviour {
         }
     }
 
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        // Objects with specific collision routines are (e.g. finishes) called here.
+        // These each have a script component deriving from the Collidable class,
+        // and override PlayerHit() to make this work.
+        Collidable collidable = col.gameObject.GetComponent<Collidable>();
+        if (collidable != null)
+        {
+            collidable.PlayerHit(this);
+            return; // Stop processing here.
+        }
+
+        /*
+        // Collision with other players are tracked separately; this is used to process player
+        // attachment.
+        if (col.gameObject.CompareTag("Player")) {
+            collidingPlayers.Add(col.gameObject);
+        }
+        */
+        
+        canJump = true;
+    }
+
+
     // Update is called once per frame
     void Update() {
         if (GameState.Instance.currentPlayer == playerID) {
@@ -304,27 +280,46 @@ public class Player : MonoBehaviour {
 
             if (Input.GetButtonDown("Jump") && canJump)
             {
+                Vector2 jumpVector = Vector2.zero;
+
+                Debug.Log("Player " + playerID + " jumped");
+                ContactPoint2D[] collisions = new ContactPoint2D[MaxCollisionCount];
+                rb.GetContacts(collisions);
+
+                foreach (ContactPoint2D contactPoint in collisions)
+                {
+                    if (contactPoint.otherRigidbody == null)
+                    {
+                        // World items should always have a rigid body attached for jump processing to work.
+                        // If this is missing, warn the user.
+                        Debug.LogWarning(string.Format("Player: Skipping processing collision with object with no rigidbody! (Player ID: {0})",
+                                                       playerID));
+                        continue;
+                    }
+
+                    // Do some math to make heavier objects count for more when calculating jump forces.
+                    jumpVector += (contactPoint.normal * contactPoint.otherRigidbody.mass);
+                }
+
+                // Normalize the resulting vector so we don't get super jumps when colliding with multiple
+                // objects at the same angle (e.g. when resting on the crack between two parallel platforms).
+                jumpVector.Normalize();
+
+                Debug.Log("Jump vector: " + jumpVector.ToString());
+
                 // Add a force on the player character to propel it perpendicular to the
                 // surface(s) it's touching.
-                Vector2 jumpForce = nextJumpVector * jumpStrength * rb.mass;
+                Vector2 jumpForce = jumpVector * jumpStrength;
                 Debug.Log(string.Format("Player {0} jumps with a force of {1}", playerID, jumpForce));
-                rb.AddForce(jumpForce);
+                rb.AddForce(jumpForce, ForceMode2D.Impulse);
 
-                foreach (KeyValuePair<GameObject, Vector2> objpair in collidingObjects.ToList())
+                foreach (ContactPoint2D contactPoint in collisions)
                 {
-                    if (objpair.Key != null)
+                    // For each object that we're colliding with, exert an opposing force
+                    // when we jump (if that object has a rigid body).
+                    if (contactPoint.otherRigidbody)
                     {
-                        // For each object that we're colliding with, exert an opposing force
-                        // when we jump (if that object has a rigid body).
-                        Rigidbody2D other_rb = objpair.Key.GetComponent<Rigidbody2D>();
-                        if (other_rb != null)
-                        {
-                            other_rb.AddForce(-nextJumpVector * jumpRecoilStrength * rb.mass);
-                        }
-                    } else
-                    {
-                        // The other object was destroyed while we collided with it; remove it.
-                        collidingObjects.Remove(objpair.Key);
+                        contactPoint.otherRigidbody.AddForce(-nextJumpVector * jumpRecoilStrength * rb.mass);
                     }
                 }
 
@@ -350,9 +345,7 @@ public class Player : MonoBehaviour {
             // Up rotates clockwise, down rotates counterclockwise.
             rb.AddTorque(r_move * rotationSpeed);
         }
-    }
 
-    void LateUpdate() {
         // Force the player ID label (and other subobjects) to be always upright
         foreach (Transform child in transform) {
             child.transform.rotation = Quaternion.identity;
