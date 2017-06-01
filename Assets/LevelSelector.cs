@@ -44,6 +44,7 @@ public class LevelSelector : MonoBehaviour {
     private GameObject levelSelectCanvas;
     private GameObject levelSelectPanel;
     private GameObject levelPackSelector;
+    private List<string> levelPacks = new List<string>();
 
     public void Quit() {
         Application.Quit();
@@ -145,15 +146,27 @@ public class LevelSelector : MonoBehaviour {
 
         // Load our scene asset bundle.
         AssetBundle.LoadFromFile(Application.streamingAssetsPath + "/LevelAssetBundles/levels");
- 
+
+        // Disable the level pack selector while we load its available options.
+        levelPackSelector.SetActive(false);
+
         // Load all available level packs and add them into the dropdown menu.
         levelsPath = Application.streamingAssetsPath + "/Levels/";
-        // Note: use the filename and not the long, complete path.
-        List<string> levelPacks = new List<string>(from path in Directory.GetFiles(levelsPath, "*.levelpack", SearchOption.AllDirectories)
-                                                   select Path.GetFileName(path));
+        
+        // Add the default level pack first.
+        levelPacks.Add(defaultLevelPack);
+        foreach (string fullpath in Directory.GetFiles(levelsPath, "*.levelpack", SearchOption.AllDirectories)) {
+            // Note: use the filename and not the long, complete path.
+            string path = Path.GetFileName(fullpath);
+            if (path != defaultLevelPack) // Don't add the default level pack twice.
+            {
+                levelPacks.Add(path);
+            }
+        }
         Dropdown dropdown = levelPackSelector.GetComponent<Dropdown>();
         dropdown.ClearOptions();
         dropdown.AddOptions(levelPacks);
+
         // Add a listener to change the levels list when a new level pack is selected.
         dropdown.onValueChanged.AddListener(
             delegate (int packIndex)
@@ -162,6 +175,7 @@ public class LevelSelector : MonoBehaviour {
             }
         );
         Utils.SetText(levelPackSelector.transform.GetChild(0).gameObject, "Select Level Pack");
+        levelPackSelector.SetActive(true);
 
         // Initialize the default level pack.
         InitLevelPack(defaultLevelPack);
