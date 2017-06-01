@@ -206,6 +206,57 @@ public class Player : MonoBehaviour {
         bindDisplays.Clear();
     }
 
+    void Jump(bool skipJumpCheck=false) {
+        if (!canJump && !skipJumpCheck)
+        {
+            // We are in mid air, so don't allow the jump to happen!
+            return;
+        }
+        Vector2 jumpVector = Vector2.zero;
+
+        Debug.Log("Player " + playerID + " jumped");
+        ContactPoint2D[] collisions = new ContactPoint2D[MaxCollisionCount];
+        rb.GetContacts(collisions);
+
+        foreach (ContactPoint2D contactPoint in collisions)
+        {
+            if (contactPoint.otherRigidbody == null)
+            {
+                // Ignore items that don't have a rigid body.
+                continue;
+            }
+
+            // Do some math to make heavier objects count for more when calculating jump forces.
+            jumpVector += (contactPoint.normal * contactPoint.otherRigidbody.mass);
+        }
+
+        // Normalize the resulting vector so we don't get super jumps when colliding with multiple
+        // objects at the same angle (e.g. when resting on the crack between two parallel platforms).
+        jumpVector.Normalize();
+
+        Debug.Log("Jump vector: " + jumpVector.ToString());
+
+        // Add a force on the player character to propel it perpendicular to the
+        // surface(s) it's touching.
+        Vector2 jumpForce = jumpVector * jumpStrength;
+        Debug.Log(string.Format("Player {0} jumps with a force of {1}", playerID, jumpForce));
+        rb.AddForce(jumpForce, ForceMode2D.Impulse);
+
+        foreach (ContactPoint2D contactPoint in collisions)
+        {
+            // For each object that we're colliding with, exert an opposing force
+            // when we jump (if that object has a rigid body).
+            if (contactPoint.otherRigidbody)
+            {
+                contactPoint.otherRigidbody.AddForce(-jumpVector * jumpRecoilStrength * rb.mass);
+            }
+        }
+
+        // Disable jump while we're in mid-air (this is reset in OnCollisionEnter2D).
+        canJump = false;
+        Debug.Log("canJump set to false for player ID " + playerID);
+    }
+
     // Interact with all triggered Collidables (for collidables that have trigger-based rigid bodies
     // instead of physical collisions)
     public void InteractAll()
@@ -234,7 +285,6 @@ public class Player : MonoBehaviour {
         canJump = true;
     }
 
-
     // Update is called once per frame
     void Update() {
         if (GameState.Instance.currentPlayer == playerID) {
@@ -242,51 +292,9 @@ public class Player : MonoBehaviour {
             float x_move = Input.GetAxis("Horizontal");
             float r_move = Input.GetAxis("Vertical");
 
-            if (Input.GetButtonDown("Jump") && canJump)
+            if (Input.GetButtonDown("Jump"))
             {
-                Vector2 jumpVector = Vector2.zero;
-
-                Debug.Log("Player " + playerID + " jumped");
-                ContactPoint2D[] collisions = new ContactPoint2D[MaxCollisionCount];
-                rb.GetContacts(collisions);
-
-                foreach (ContactPoint2D contactPoint in collisions)
-                {
-                    if (contactPoint.otherRigidbody == null)
-                    {
-                        // Ignore items that don't have a rigid body.
-                        continue;
-                    }
-
-                    // Do some math to make heavier objects count for more when calculating jump forces.
-                    jumpVector += (contactPoint.normal * contactPoint.otherRigidbody.mass);
-                }
-
-                // Normalize the resulting vector so we don't get super jumps when colliding with multiple
-                // objects at the same angle (e.g. when resting on the crack between two parallel platforms).
-                jumpVector.Normalize();
-
-                Debug.Log("Jump vector: " + jumpVector.ToString());
-
-                // Add a force on the player character to propel it perpendicular to the
-                // surface(s) it's touching.
-                Vector2 jumpForce = jumpVector * jumpStrength;
-                Debug.Log(string.Format("Player {0} jumps with a force of {1}", playerID, jumpForce));
-                rb.AddForce(jumpForce, ForceMode2D.Impulse);
-
-                foreach (ContactPoint2D contactPoint in collisions)
-                {
-                    // For each object that we're colliding with, exert an opposing force
-                    // when we jump (if that object has a rigid body).
-                    if (contactPoint.otherRigidbody)
-                    {
-                        contactPoint.otherRigidbody.AddForce(-jumpVector * jumpRecoilStrength * rb.mass);
-                    }
-                }
-
-                // Disable jump while we're in mid-air (this is reset in OnCollisionEnter2D).
-                canJump = false;
-                Debug.Log("canJump set to false for player ID " + playerID);
+                Jump();
             }
             else if (Input.GetButtonDown("Attach"))
             {
