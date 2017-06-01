@@ -190,9 +190,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  jumpStrength: 600
+  jumpStrength: 20
   rotationSpeed: 3
-  jumpRecoilStrength: 100
+  jumpRecoilStrength: 0.2
   playerID: 0
   rb: {fileID: 0}
   ps: {fileID: 0}

@@ -244,10 +244,7 @@ public class Player : MonoBehaviour {
                 {
                     if (contactPoint.otherRigidbody == null)
                     {
-                        // World items should always have a rigid body attached for jump processing to work.
-                        // If this is missing, warn the user.
-                        Debug.LogWarning(string.Format("Player: Skipping processing collision with object with no rigidbody! (Player ID: {0})",
-                                                       playerID));
+                        // Ignore items that don't have a rigid body.
                         continue;
                     }
 
