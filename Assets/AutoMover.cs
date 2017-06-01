@@ -10,7 +10,7 @@ public class AutoMover : MonoBehaviour
     public float endY;
 
     // Determines how long the animation should last in one direction.
-    public float animationLength;
+    public float animationLength = 1f;
 
     void Start()
     {
