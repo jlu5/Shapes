@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using System;
 
-public enum AutoMoverValue { positionX, positionY }
-
 public class AutoMover : MonoBehaviour
 {
     // Defines the target X and Y position values for the object.
