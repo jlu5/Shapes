@@ -146,12 +146,19 @@ public sealed class GameState : MonoBehaviour
         text.fontSize *= 4;  // Make the text bigger
 
         // Add a fade out image.
-        Instantiate(levelEndScreenTemplate).transform.SetParent(levelEndCanvas.transform, false);
+        GameObject levelEndScreen = Instantiate(levelEndScreenTemplate);
+        levelEndScreen.transform.SetParent(levelEndCanvas.transform, false);
 
         // Add the "game over" text, but make sure to keep the right world space position.
         // This can be done by setting the worldPositionStays option (second argument) in
         // setParent to false.
         levelEndText.transform.SetParent(levelEndCanvas.transform, false);
+
+        if (!LevelSelector.Instance)
+        {
+            // If no level selector instance is present, disable the level selection buttons.
+            levelEndScreen.transform.GetChild(0).gameObject.SetActive(false);
+        }
     }
 
     // Adds a player into the current scene.
