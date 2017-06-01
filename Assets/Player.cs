@@ -113,6 +113,11 @@ public class Player : MonoBehaviour {
 
         foreach (Collider2D collider in collisions)
         {
+            if (collider == null)
+            {
+                continue;
+            }
+
             GameObject playerObject = collider.gameObject;
 
             // Create a relative (angle and distance preserving) joint between the two objects.
@@ -183,6 +188,10 @@ public class Player : MonoBehaviour {
         foreach (RelativeJoint2D joint in GetComponents<RelativeJoint2D>())
         {
             // Remove any old player binds belonging to this character.
+            if (joint == null)
+            {
+                continue;
+            }
             GameObject otherObject = joint.connectedBody.gameObject;
             playerBinds.Remove(otherObject);
             Destroy(joint);
