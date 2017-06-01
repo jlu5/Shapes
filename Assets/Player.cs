@@ -119,6 +119,12 @@ public class Player : MonoBehaviour {
             }
 
             GameObject playerObject = collider.gameObject;
+            Player otherPlayer = playerObject.GetComponent<Player>();
+            if (otherPlayer == null || otherPlayer.playerID == playerID)
+            {
+                // Only allow binding to be made to other players, not generic objects.
+                continue;
+            }
 
             // Create a relative (angle and distance preserving) joint between the two objects.
             RelativeJoint2D joint = gameObject.AddComponent<RelativeJoint2D>();
@@ -130,11 +136,6 @@ public class Player : MonoBehaviour {
 
             // Track which player has the RelativeJoint2D, so that other players
             // can unbind themselves.
-            Player otherPlayer = playerObject.GetComponent<Player>();
-            if (otherPlayer == null || otherPlayer.playerID == playerID)
-            {
-                continue;
-            }
             otherPlayer.masterPlayers.Add(gameObject);
 
             // Create a new bind display object from our prefab, if one
