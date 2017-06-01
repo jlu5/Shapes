@@ -5,43 +5,12 @@ public enum AutoMoverValue { positionX, positionY }
 
 public class AutoMover : MonoBehaviour
 {
-
-    // Defines the start and end position values for the target.
-    //public float startX;
+    // Defines the target X and Y position values for the object.
     public float endX;
-    //public float startY;
     public float endY;
 
     // Determines how long the animation should last in one direction.
     public float animationLength;
-
-    /*
-    // Fetch Unity's internal animation variable given the friendly value.
-    public string GetAnimationAttribute(AutoMoverValue value)
-    {
-        switch (value)
-        {
-            case (AutoMoverValue.positionx):
-                return "localPosition.x";
-            case (AutoMoverValue.positiony):
-                return "localPosition.y";
-        }
-        return null;
-    }
-    */
-
-    // Fetch the starting animation value (e.g. the X or Y position) given the value name.
-    public float GetStartValue(AutoMoverValue value)
-    {
-        switch (value)
-        {
-            case (AutoMoverValue.positionX):
-                return transform.position.x;
-            case (AutoMoverValue.positionY):
-                return transform.position.y;
-        }
-        throw new ArgumentException("Unknown value " + value.ToString());
-    }
 
     void Start()
     {
@@ -50,18 +19,20 @@ public class AutoMover : MonoBehaviour
         AnimatorOverrideController controller = new AnimatorOverrideController(anim.runtimeAnimatorController);
         anim.runtimeAnimatorController = controller;
 
-        // Fetch the starting X and Y values based off the object's initial position.
-        float startX = GetStartValue(AutoMoverValue.positionX);
-        float startY = GetStartValue(AutoMoverValue.positionY);
+        // Fetch the starting X and Y values from the object's initial position.
+        float startX = transform.position.x;
+        float startY = transform.position.y;
 
-        // Create X and Y coordinate animation curves.
-        // First argument: start time, second argument: start value, third: animation length, fourth: end value
-        // https://docs.unity3d.com/ScriptReference/AnimationCurve.Linear.html
-        AnimationCurve Xcurve = AnimationCurve.Linear(0, startX, animationLength, endX);
-        AnimationCurve Ycurve = AnimationCurve.Linear(0, startY, animationLength, endY);
-        AnimationClip clip = new AnimationClip();
+        /* Create X and Y coordinate animation curves. With AutoMover, the animation begins at the object's
+         * initial position.
+         * 
+         * https://docs.unity3d.com/ScriptReference/AnimationCurve.Linear.html
+         * First argument: start time, second argument: start value, third: animation length, fourth: end value
+         */
+        AnimationCurve Xcurve = AnimationCurve.Linear(0, transform.position.x, animationLength, endX);
+        AnimationCurve Ycurve = AnimationCurve.Linear(0, transform.position.y, animationLength, endY);
 
-        /* Use the animation curve created above to animate the target property.
+        /* Use the animation curves created above to animate the target properties.
          * 
          * https://docs.unity3d.com/ScriptReference/AnimationClip.SetCurve.html
          * First argument: the game object name to apply to (blank means the current object),
@@ -69,6 +40,7 @@ public class AutoMover : MonoBehaviour
          * Third: the Unity internal attribute name (hardcoded)
          * Fourth: the animation curve
          */
+        AnimationClip clip = new AnimationClip();
         clip.SetCurve("", typeof(Transform), "localPosition.x", Xcurve);
         clip.SetCurve("", typeof(Transform), "localPosition.y", Ycurve);
 
