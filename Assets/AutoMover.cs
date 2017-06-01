@@ -12,19 +12,17 @@ public class AutoMover : MonoBehaviour
     // Determines how long the animation should last in one direction.
     public float animationLength = 1f;
 
-    void Start()
+    void Awake()
     {
-        // Retrieve the animator and create an override for it.
-        Animator anim = GetComponent<Animator>();
+        // Retrieve the animation component, and create a new one if none exists. This uses Unity's legacy
+        // animation component because unfortunately, the new Mecanim/Animator system cannot be scripted
+        // on runtime: https://forum.unity3d.com/threads/animationclip-setcurve-doesnt-work-with-mecanim-animations-at-runtime.396547/
+        Animation anim = GetComponent<Animation>();
         if (anim == null)
         {
-            Debug.LogError(string.Format("AutoMover instance on object {0} is missing Animator component! Please add one in the editor, set it to use \"AutoMover\" as controller, and reload.",
-                                         name));
-            return;
+            anim = gameObject.AddComponent<Animation>();
         }
-
-        AnimatorOverrideController controller = new AnimatorOverrideController(anim.runtimeAnimatorController);
-        anim.runtimeAnimatorController = controller;
+        anim.animatePhysics = true; // Always use the physically accurate animation mode
 
         /* Create X and Y coordinate animation curves. With AutoMover, the animation begins at the object's
          * initial position.
@@ -44,11 +42,13 @@ public class AutoMover : MonoBehaviour
          * Fourth: the animation curve
          */
         AnimationClip clip = new AnimationClip();
+        clip.legacy = true;
         clip.SetCurve("", typeof(Transform), "localPosition.x", Xcurve);
         clip.SetCurve("", typeof(Transform), "localPosition.y", Ycurve);
+        clip.wrapMode = WrapMode.PingPong; // Make the animation loop forever
 
-        // Replace the dummy animation placeholders in the animation controller, and play.
-        controller["AutoMoverPlaceholder"] = clip;
+        // Add the animation clip to the animator and play.
+        anim.AddClip(clip, "AutoMover");
         anim.Play("AutoMover");
     }
 }
