@@ -85,9 +85,14 @@ public class Player : MonoBehaviour {
 
     void Start()
     {
-        // Add this player to our global game state.
-        GameState.Instance.AddPlayer(playerID, this);
-        GameState.Instance.playerCount++;
+        if (GameState.Instance)
+        {
+            // Add this player to our global game state.
+            GameState.Instance.AddPlayer(playerID, this);
+            GameState.Instance.playerCount++;
+        } else {
+            Debug.LogError("Player object added with no GameState in scene! Good luck moving *anything*");
+        }
 
         // Set the particle system to match the player color.
         ParticleSystem.MainModule psmain = ps.main;
@@ -287,7 +292,7 @@ public class Player : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (GameState.Instance.currentPlayer == playerID) {
+        if (GameState.Instance && GameState.Instance.currentPlayer == playerID) {
             // Get horizontal and vertical (rotation) movement
             float x_move = Input.GetAxis("Horizontal");
             float r_move = Input.GetAxis("Vertical");
@@ -323,7 +328,7 @@ public class Player : MonoBehaviour {
 
     void FixedUpdate()
     {
-        if (GameState.Instance.currentPlayer == playerID)
+        if (GameState.Instance && GameState.Instance.currentPlayer == playerID)
         {
             // Handle camera pans
             {
@@ -341,7 +346,10 @@ public class Player : MonoBehaviour {
     // Handles mouse clicks on the player, which sets it to the current one.
     void OnMouseUp()
     {
-        GameState.Instance.currentPlayer = playerID;
+        if (GameState.Instance)
+        {
+            GameState.Instance.currentPlayer = playerID;
+        }
     }
 
     // Returns the color object of the player. TODO: just make color a public attribute...
