@@ -74,7 +74,6 @@ LightmapSettings:
     m_MixedBakeMode: 3
     m_BakeBackend: 0
     m_PVRSampling: 1
-    m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 500
     m_PVRBounces: 2
     m_PVRFiltering: 0
@@ -1287,12 +1286,7 @@ Prefab:
     - target: {fileID: 114494904993212450, guid: 9adc15789b4774fdabf98ce5c969ee58,
         type: 2}
       propertyPath: rocketSpeed
-      value: 0.07
-      objectReference: {fileID: 0}
-    - target: {fileID: 50036295908288284, guid: 9adc15789b4774fdabf98ce5c969ee58,
-        type: 2}
-      propertyPath: m_AngularDrag
-      value: 0.0654321
+      value: 0.05
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9adc15789b4774fdabf98ce5c969ee58, type: 2}
