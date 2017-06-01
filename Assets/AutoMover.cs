@@ -29,11 +29,11 @@ public class AutoMover : MonoBehaviour
         /* Create X and Y coordinate animation curves. With AutoMover, the animation begins at the object's
          * initial position.
          * 
-         * https://docs.unity3d.com/ScriptReference/AnimationCurve.Linear.html
+         * https://docs.unity3d.com/ScriptReference/AnimationCurve.EaseInOut.html
          * First argument: start time, second argument: start value, third: animation length, fourth: end value
          */
-        AnimationCurve Xcurve = AnimationCurve.Linear(0, transform.position.x, animationLength, endX);
-        AnimationCurve Ycurve = AnimationCurve.Linear(0, transform.position.y, animationLength, endY);
+        AnimationCurve Xcurve = AnimationCurve.EaseInOut(0, transform.position.x, animationLength, endX);
+        AnimationCurve Ycurve = AnimationCurve.EaseInOut(0, transform.position.y, animationLength, endY);
 
         /* Use the animation curves created above to animate the target properties.
          * 
