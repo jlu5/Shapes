@@ -16,6 +16,13 @@ public class AutoMover : MonoBehaviour
     {
         // Retrieve the animator and create an override for it.
         Animator anim = GetComponent<Animator>();
+        if (anim == null)
+        {
+            Debug.LogError(string.Format("AutoMover instance on object {0} is missing Animator component! Please add one in the editor, set it to use \"AutoMover\" as controller, and reload.",
+                                         name));
+            return;
+        }
+
         AnimatorOverrideController controller = new AnimatorOverrideController(anim.runtimeAnimatorController);
         anim.runtimeAnimatorController = controller;
 
