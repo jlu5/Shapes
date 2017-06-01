@@ -104,7 +104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerupLength: 15
   warningThreshold: 1
-  rocketSpeed: 0.05
+  rocketSpeed: 0.03
   rocketOn: 0
   idleModeParticlesMultiplier: 0.1
 --- !u!212 &212088210344316092
