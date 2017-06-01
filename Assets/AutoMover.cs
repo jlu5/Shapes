@@ -26,10 +26,6 @@ public class AutoMover : MonoBehaviour
         AnimatorOverrideController controller = new AnimatorOverrideController(anim.runtimeAnimatorController);
         anim.runtimeAnimatorController = controller;
 
-        // Fetch the starting X and Y values from the object's initial position.
-        float startX = transform.position.x;
-        float startY = transform.position.y;
-
         /* Create X and Y coordinate animation curves. With AutoMover, the animation begins at the object's
          * initial position.
          * 
