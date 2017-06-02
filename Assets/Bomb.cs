@@ -22,11 +22,9 @@ public class Bomb : Collidable
                 float force = Mathf.Min(1 / distance, distance) * explosionForce;
 
                 // Fetch the angle between the bomb and the target object.
-                //float explosionAngle = Vector2.Angle(transform.position, collider.transform.position) * Mathf.Deg2Rad;
                 float explosionAngle = Mathf.Atan2(differenceVector.y, differenceVector.x);
 
                 // Create a new vector based off this angle.
-                // Note: Unity is ridiculous... it takes degrees in Mathf.Cos/Sin but returns radians?
                 Vector2 targetVector = new Vector2(force * Mathf.Cos(explosionAngle), force * Mathf.Sin(explosionAngle));
 
                 collider.attachedRigidbody.AddForce(targetVector, ForceMode2D.Impulse);
