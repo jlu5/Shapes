@@ -247,23 +247,6 @@ MonoBehaviour:
   endX: -5
   endY: -4
   animationLength: 3
---- !u!95 &113874862
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 113874860}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 92bdb791593cf5d4a8431ca3deba60e8, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 1
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1001 &153917668
 Prefab:
   m_ObjectHideFlags: 0
@@ -325,7 +308,6 @@ GameObject:
   m_Component:
   - component: {fileID: 394188708}
   - component: {fileID: 394188707}
-  - component: {fileID: 394188709}
   m_Layer: 0
   m_Name: CoinWrapper (2)
   m_TagString: Untagged
@@ -361,23 +343,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &394188709
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 394188706}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 92bdb791593cf5d4a8431ca3deba60e8, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1001 &496632737
 Prefab:
   m_ObjectHideFlags: 0
@@ -499,7 +464,6 @@ GameObject:
   m_Component:
   - component: {fileID: 587013853}
   - component: {fileID: 587013852}
-  - component: {fileID: 587013851}
   m_Layer: 0
   m_Name: CoinWrapper (5)
   m_TagString: Untagged
@@ -507,23 +471,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!95 &587013851
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 587013850}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 92bdb791593cf5d4a8431ca3deba60e8, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &587013852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -623,23 +570,6 @@ MonoBehaviour:
   endX: -1
   endY: 4
   animationLength: 1
---- !u!95 &709308715
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 709308713}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 92bdb791593cf5d4a8431ca3deba60e8, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 1
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!4 &1029296893 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4655290398413274, guid: 98bd860b733cb0d4e8c42f5babf9c22d,
@@ -654,7 +584,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1155096273}
   - component: {fileID: 1155096272}
-  - component: {fileID: 1155096271}
   m_Layer: 0
   m_Name: CoinWrapper (4)
   m_TagString: Untagged
@@ -662,23 +591,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!95 &1155096271
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1155096270}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 92bdb791593cf5d4a8431ca3deba60e8, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &1155096272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -881,7 +793,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1629406601}
   - component: {fileID: 1629406600}
-  - component: {fileID: 1629406602}
   m_Layer: 0
   m_Name: CoinWrapper (3)
   m_TagString: Untagged
@@ -917,23 +828,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &1629406602
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1629406599}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 92bdb791593cf5d4a8431ca3deba60e8, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1001 &1645901353
 Prefab:
   m_ObjectHideFlags: 0
@@ -1230,23 +1124,6 @@ MonoBehaviour:
   endX: 3
   endY: 0
   animationLength: 2
---- !u!95 &1976172253
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1976172251}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 92bdb791593cf5d4a8431ca3deba60e8, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 1
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1001 &1988423310
 Prefab:
   m_ObjectHideFlags: 0
