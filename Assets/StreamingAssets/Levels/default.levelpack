@@ -29,5 +29,11 @@
             "name": "Mind The Gap",
             "path": "MindTheGap",
             "thumbnail": "MindTheGap.png"
-        }]
+        },
+        {
+            "name": "Evil Platforms",
+            "path": "MovingPlatforms",
+            "thumbnail": "MindTheGap.png"
+        }
+        ]
 }
