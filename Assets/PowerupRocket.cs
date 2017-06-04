@@ -31,7 +31,7 @@ public class PowerupRocket : Powerup {
             float movement = Input.GetAxis("PowerupMove");
 
             // Calculate a target force based off a portion of the current gravity.
-            Vector2 force = rocketSpeed * -Physics2D.gravity * targetPlayer.rb.gravityScale * targetPlayer.rb.mass;
+            Vector2 force = rocketSpeed * -Physics2D.gravity * Mathf.Abs(targetPlayer.rb.gravityScale) * targetPlayer.rb.mass;
 
             Debug.Log("PowerupRocket: moving by " + (movement * force).ToString());
             targetPlayer.rb.AddForce(force*movement, ForceMode2D.Impulse);
