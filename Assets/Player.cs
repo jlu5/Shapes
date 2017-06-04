@@ -21,19 +21,19 @@ public class Player : MonoBehaviour {
     public int playerID = 0;
 
     // Quick access to components & resources
-    public Rigidbody2D rb; // "rb" for RigidBody
-    public ParticleSystem ps;
+    public Rigidbody2D rb {get; set;} // "rb" for RigidBody
+    public ParticleSystem ps {get; set;}
     private GameObject bindDisplayTemplate; // BindDisplayObject template
     private GameObject simpleTextMesh;
     private GameObject playerIDLabel;
-    public GameObject feet;
-    public GameObject spheresContainer;
+    public GameObject feet {get; set;}
+    public GameObject spheresContainer {get; set;}
 
     // Jump / Rigidbody basics tracking
     private bool canJump = false;
 
     // Track the triggers we're interacting with. This list is updated by Collidable class instances.
-    public List<GameObject> activeTriggers;
+    public List<GameObject> activeTriggers {get; set;}
 
     // Track player objects and the joints binding them to one another.
     protected Dictionary<GameObject, RelativeJoint2D> playerBinds = new Dictionary<GameObject, RelativeJoint2D>();
@@ -93,6 +93,8 @@ public class Player : MonoBehaviour {
         } else {
             Debug.LogError("Player object added with no GameState in scene! Good luck moving *anything*");
         }
+
+        activeTriggers = new List<GameObject>();
 
         // Set the particle system to match the player color.
         ParticleSystem.MainModule psmain = ps.main;
