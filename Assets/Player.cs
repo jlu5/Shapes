@@ -29,7 +29,7 @@ public class Player : MonoBehaviour {
     public GameObject feet {get; set;}
     public GameObject spheresContainer {get; set;}
 
-    /* Track whether jumping and flying/swimming are enabled.
+    /* Track whether jumping and flying / swimming (these share the same code) are allowed.
      * Jump is disabled in mid-air, and enabled when the player hits the ground or any solid object.
      * Flying is a number that essentially counts the number of "reasons" why a player can fly at any given time;
      * if the value is > 0, it is considered enabled (water adds 1 when the player is underwater while rockets add 1
@@ -252,6 +252,12 @@ public class Player : MonoBehaviour {
         // Normalize the resulting vector so we don't get super jumps when colliding with multiple
         // objects at the same angle (e.g. when resting on the crack between two parallel platforms).
         jumpVector.Normalize();
+
+        if (jumpVector == Vector2.zero)
+        {
+            // The jump vector turned out to be zero (e.g. if we're on water), so set a default of jumping upwards.
+            jumpVector = Vector2.up;
+        }
 
         Debug.Log("Jump vector: " + jumpVector.ToString());
 
