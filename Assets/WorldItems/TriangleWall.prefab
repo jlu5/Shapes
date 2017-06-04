@@ -105,6 +105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isBouncy: 0
   isIce: 0
+  isSticky: 0
   enableColor: 1
 --- !u!212 &212075015651958910
 SpriteRenderer:
@@ -135,8 +136,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -787774027
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: cabf1aabb15281c42a71518f27fb2048, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
