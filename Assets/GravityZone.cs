@@ -15,6 +15,9 @@ public class GravityZone : Collidable {
             Debug.LogError("Removing GravityZone with invalid gravity multiplier of 0");
             Destroy(this);
         }
+
+        // Make sure the collider matches the size of the object after tiling.
+        GetComponent<BoxCollider2D>().size = GetComponent<SpriteRenderer>().size;
     }
 
     protected override void OnTriggerEnter2D(Collider2D other)
