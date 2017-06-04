@@ -29,8 +29,20 @@ public class Player : MonoBehaviour {
     public GameObject feet {get; set;}
     public GameObject spheresContainer {get; set;}
 
-    // Jump / Rigidbody basics tracking
-    private bool canJump = false;
+    /* Track whether jumping and flying/swimming are enabled.
+     * Jump is disabled in mid-air, and enabled when the player hits the ground or any solid object.
+     * Flying is a number that essentially counts the number of "reasons" why a player can fly at any given time;
+     * if the value is > 0, it is considered enabled (water adds 1 when the player is underwater while rockets add 1
+     * as long as the powerup is active).
+     */
+    public bool canJump {get; set;}
+    public int canFly {get; set;}
+    // Sets the flying/swimming speed: Water and rockets add to this so speed for e.g. having a rocket underwater stacks
+    public float flySpeed { get; set; }
+
+    // Tracking for the rocket powerup's graphical effects.
+    public float idleModeParticlesMultiplier = 0.1F;
+    private bool idleMode;
 
     // Track the triggers we're interacting with. This list is updated by Collidable class instances.
     public List<GameObject> activeTriggers {get; set;}
@@ -264,6 +276,33 @@ public class Player : MonoBehaviour {
         Debug.Log("canJump set to false for player ID " + playerID);
     }
 
+    void Fly() {
+        float movement = Input.GetAxis("Fly");
+
+        // Calculate a target force based off a portion of the current gravity.
+        Vector2 force = flySpeed * -Physics2D.gravity * Mathf.Abs(rb.gravityScale) * rb.mass;
+
+        Debug.Log("Player: flying by " + (movement * force).ToString());
+        rb.AddForce(force*movement, ForceMode2D.Impulse);
+
+        // Set the player's particle system to emit fewer or more particles based on whether
+        // the rocket is enabled.
+        ParticleSystem.EmissionModule emission = ps.emission;
+        if (movement == 0 && !idleMode)
+        {
+            emission.rateOverTimeMultiplier *= idleModeParticlesMultiplier;
+            Debug.Log("emission.rateOverTimeMultiplier after idleMode enable: " + emission.rateOverTimeMultiplier.ToString());
+            idleMode = true;
+        }
+        else if (idleMode)
+        {
+            emission.rateOverTimeMultiplier /= idleModeParticlesMultiplier;
+            Debug.Log("emission.rateOverTimeMultiplier after idleMode disable: " + emission.rateOverTimeMultiplier.ToString());
+            idleMode = false;
+        }
+    }
+
+
     // Interact with all triggered Collidables (for collidables that have trigger-based rigid bodies
     // instead of physical collisions)
     public void InteractAll()
@@ -320,6 +359,11 @@ public class Player : MonoBehaviour {
             rb.AddForce(vector_move * moveSpeed * rb.mass);
             // Up rotates clockwise, down rotates counterclockwise.
             rb.AddTorque(r_move * rotationSpeed);
+
+            if (canFly >= 1)
+            {
+                Fly();
+            }
         }
 
         // Force the player ID label (and other subobjects) to be always upright

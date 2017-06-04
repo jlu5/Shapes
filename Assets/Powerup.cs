@@ -46,7 +46,7 @@ public abstract class Powerup : Collidable {
         SpriteRenderer renderer = gameObject.GetComponent<SpriteRenderer>();
         renderer.enabled = false;
 
-        // Show a copy of the powerup in the gamestate's powerups panel.
+        // Show the powerup in the GameState's powerups panel.
         powerupDisplay = new GameObject();
         powerupDisplay.transform.SetParent(GameState.Instance.powerupsPanel.transform);
         Image image = powerupDisplay.AddComponent<Image>();
@@ -102,9 +102,10 @@ public abstract class Powerup : Collidable {
                     Text text = powerupRemainingTextBox.GetComponent<Text>();
                     text.color = warningTextColor;
                 }
+
+                // Ignore errors if the text box got deleted while this function is running.
                 catch (NullReferenceException)
                 {
-                    // Ignore errors if the text box got deleted while this function is running.MissingReferenceException
                 }
                 catch (MissingReferenceException)
                 {
