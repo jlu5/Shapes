@@ -38,7 +38,7 @@ Transform:
   m_GameObject: {fileID: 1339290124917794}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 12.5, y: 12.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -62,7 +62,7 @@ PolygonCollider2D:
     oldSize: {x: 0.32, y: 0.32}
     newSize: {x: 4, y: 4}
     adaptiveTilingThreshold: 0.5
-    drawMode: 1
+    drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 1
   m_Points:
@@ -82,7 +82,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7365124848b147d9a7a9089923750ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowJump: 1
+  allowJump: 0
   swimSpeed: 0.02
   allowSwim: 1
 --- !u!212 &212088149779407440
@@ -121,7 +121,7 @@ SpriteRenderer:
   m_Color: {r: 0.49264705, g: 0.68509126, b: 1, a: 0.484}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 1
+  m_DrawMode: 0
   m_Size: {x: 4, y: 4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
@@ -136,7 +136,7 @@ BuoyancyEffector2D:
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_SurfaceLevel: 0
+  m_SurfaceLevel: 0.03
   m_Density: 2
   m_LinearDrag: 5
   m_AngularDrag: 5
