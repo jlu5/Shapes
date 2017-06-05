@@ -28,13 +28,16 @@ public sealed class GameState : MonoBehaviour
     public int initialScore = 1000;
 
     // TODO: make the current player configurable in via level data
-    [Tooltip("Sets the player ID for the game to initially start at. This will be changed by the game in runtime as the current player is updated.")]
-    public int currentPlayer = 1;
+    [Tooltip("Sets the player ID for the game to initially start at.")]
+    public int initialPlayer = 1;
+    public int currentPlayer { get; set; }
 
     // Score tracking stuff
     [SerializeField] // Make the 'score' variable show in the editor even though it is marked private
     private int score;
     private Text scoreText; // Stores the score display object
+
+    [SerializeField]
     [Tooltip("Sets the amount of time to wait before increasing the score based on elapsed time")]
     private int scoreInterval = 1;
 
@@ -133,6 +136,9 @@ public sealed class GameState : MonoBehaviour
 
         // Start the score updater in a loop.
         InvokeRepeating("AddScoreTime", scoreInterval, scoreInterval);
+
+        // Set the initial player defined in the config.
+        currentPlayer = initialPlayer;
     }
 
     // Method called to end the current level.
