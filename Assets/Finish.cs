@@ -38,13 +38,17 @@ public class Finish : Collidable {
     // Method called when a player hits the finish
     public override void PlayerHit(Player player)
     {
-        playersNeeded -= 1;
+        playersNeeded--;
         // Remove the player.
         GameState.Instance.RemovePlayer(player.playerID);
 
         if (playersNeeded < 1)
         {
-            GameState.Instance.LevelEnd();
+            GameState.Instance.finishCount++;
+            if (GameState.Instance.finishesNeeded > 0 && GameState.Instance.finishCount >= GameState.Instance.finishesNeeded) {
+                // End the level now if we've reached the amount of finishes needed.
+                GameState.Instance.LevelEnd();
+            }
             // The finish has received all players needed, so destroy it.
             Destroy(finishWrapper);
             return;

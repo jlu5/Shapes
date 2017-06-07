@@ -10,6 +10,14 @@ public class Coin : Collidable {
         if (other.gameObject.GetComponent<Player>() != null)
         {
             GameState.Instance.AddScore(value);
+            GameState.Instance.coinCount++;
+            if (GameState.Instance.coinsNeeded > 0 && GameState.Instance.coinCount >= GameState.Instance.coinsNeeded)
+            {
+                // End the level if we've reached the amount of coins needed.
+                GameState.Instance.LevelEnd();
+            }
+
+            // Remove the coin; they're single use.
             Destroy(gameObject);
         }
     }

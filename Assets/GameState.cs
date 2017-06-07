@@ -26,9 +26,8 @@ public sealed class GameState : MonoBehaviour
     }
 
     public int initialScore = 1000;
-
-    // TODO: make the current player configurable in via level data
-    [Tooltip("Sets the player ID for the game to initially start at.")]
+    
+    [Tooltip("Sets the player ID for the game to initially start at.")]  // Tooltips are basically comments visible in Unity Editor too
     public int initialPlayer = 1;
     public int currentPlayer { get; set; }
 
@@ -36,6 +35,16 @@ public sealed class GameState : MonoBehaviour
     [SerializeField] // Make the 'score' variable show in the editor even though it is marked private
     private int score;
     private Text scoreText; // Stores the score display object
+
+    [Tooltip("Sets the amount of finishes needed to complete the level")]
+    public int finishesNeeded = 1;
+    // Sets the amount of finishes already completed.
+    public int finishCount { get; set; }
+
+    [Tooltip("Sets the amount of coins needed to complete the level")]
+    public int coinsNeeded = 0;
+    // Sets the amount of coins taken so far.
+    public int coinCount { get; set; }
 
     [SerializeField]
     [Tooltip("Sets the amount of time to wait before increasing the score based on elapsed time")]
