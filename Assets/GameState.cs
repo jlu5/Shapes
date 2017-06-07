@@ -25,45 +25,40 @@ public sealed class GameState : MonoBehaviour
         }
     }
 
+    // EDITOR OPTIONS
+    [Tooltip("Sets the initial score amount")]
     public int initialScore = 1000;
-    
-    [Tooltip("Sets the player ID for the game to initially start at.")]  // Tooltips are basically comments visible in Unity Editor too
+    [Tooltip("Sets the amount of time to wait before increasing the score based on elapsed time")]
+    public int scoreInterval = 1;
+    [Tooltip("Sets the player ID for the game to initially start at.")]
     public int initialPlayer = 1;
-    public int currentPlayer { get; set; }
-
-    // Score tracking stuff
-    [SerializeField] // Make the 'score' variable show in the editor even though it is marked private
-    private int score;
-    private Text scoreText; // Stores the score display object
-
     [Tooltip("Sets the amount of finishes needed to complete the level")]
     public int finishesNeeded = 1;
-    // Sets the amount of finishes already completed.
-    public int finishCount { get; set; }
-
     [Tooltip("Sets the amount of coins needed to complete the level")]
     public int coinsNeeded = 0;
+    [Tooltip("How quickly should the camera pan?")]
+    public float cameraPanTime = 0.1F;
+    [Tooltip("How quickly should we zoom the camera?")]
+    public float cameraZoomSpeed = 1F;
+    [Tooltip("What is the biggest camera view allowed?")]
+    public float cameraMaxSize = 15.0F;
+    [Tooltip("What is the smallest camera view allowed?")]
+    public float cameraMinSize = 5.0F;
+
+    // GAME STATE VARIABLES
+    // Sets the amount of finishes already completed.
+    public int finishCount { get; set; }
     // Sets the amount of coins taken so far.
     public int coinCount { get; set; }
-
-    [SerializeField]
-    [Tooltip("Sets the amount of time to wait before increasing the score based on elapsed time")]
-    private int scoreInterval = 1;
-
-    // Player/Level state tracking
-    public int playerCount { get; set; }  // Automatically incremented with every addPlayer call
+    // Tracks the current player
+    public int currentPlayer { get; set; }
+    // Tracks the amount of players added to the level; this is automatically incremented with every addPlayer call
+    public int playerCount { get; set; }
+    // Tracks whether the game is over.
     public bool gameEnded { get; set; }
+    // Track lists of players and collidables based on their ID.
     private Dictionary<int, Player> players = new Dictionary<int, Player>();
     private Dictionary<System.Type, Dictionary<int, Collidable>> collidables = new Dictionary<System.Type, Dictionary<int, Collidable>>();
-
-    // How quickly should the camera pan?
-    public float cameraPanTime = 0.1F;
-    // How quickly should we zoom the camera?
-    public float cameraZoomSpeed = 1F;
-    // What is the biggest camera view allowed?
-    public float cameraMaxSize = 15.0F;
-    // What is the smallest camera view allowed?
-    public float cameraMinSize = 5.0F;
 
     // Resource templates, used by Instantiate()
     private GameObject canvasTemplate;
@@ -72,9 +67,16 @@ public sealed class GameState : MonoBehaviour
     private GameObject levelEndScreenTemplate;
     public GameObject textLabelTemplate;
 
-    // Access to the current HUDCanvas instance.
+    // Quick attribute access to the current player list.
     public PlayerList playerList;
     public GameObject powerupsPanel;
+
+    // Score tracking
+    [Tooltip("The current score")]
+    public int score;
+    public static Color scoreWarningTextColor = new Color(1f, 0.2f, 0, 1f);
+    // Stores the score text display object
+    private Text scoreText;
 
     void Awake()
     {
