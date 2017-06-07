@@ -30,6 +30,10 @@ public sealed class GameState : MonoBehaviour
     public int initialScore = 1000;
     [Tooltip("Sets the amount of time to wait before increasing the score based on elapsed time")]
     public int scoreInterval = 1;
+    [Tooltip("Sets whether the game should end when score reaches 0.")]
+    public bool gameOverOnZeroScore;
+    [Tooltip("Sets the time remaining before we should warn the player that they're about to run out of time (if Death On Zero Score is on)")]
+    public int scoreWarningThreshold = 15;
     [Tooltip("Sets the player ID for the game to initially start at.")]
     public int initialPlayer = 1;
     [Tooltip("Sets the amount of finishes needed to complete the level")]
@@ -74,7 +78,7 @@ public sealed class GameState : MonoBehaviour
     // Score tracking
     [Tooltip("The current score")]
     public int score;
-    public static Color scoreWarningTextColor = new Color(1f, 0.2f, 0, 1f);
+    public static Color scoreWarningTextColor = new Color(1f, 0.5f, 0.2f, 1f);
     // Stores the score text display object
     private Text scoreText;
 
@@ -301,6 +305,18 @@ public sealed class GameState : MonoBehaviour
     {
         score += amount;
         scoreText.text = "Score: " + score.ToString();
+        if (gameOverOnZeroScore)
+        {
+            if (score <= 0)
+            {
+                // Don't let time flow negative if the level is timed.
+                LevelEnd(false);
+            }
+            else if (score <= scoreWarningThreshold)
+            {   // Warn that the player is running out of time once score gets below a certain amount.
+                scoreText.color = scoreWarningTextColor;
+            }
+        }
         return score;
     }
     // Update the score based on time - this is a simple, parameter free wrapper around AddScore()
