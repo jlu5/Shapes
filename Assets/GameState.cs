@@ -247,6 +247,16 @@ public sealed class GameState : MonoBehaviour
                     {
                         Debug.Log("Current player set to " + btnNum);
                         currentPlayer = btnNum;
+                        Player player = GetPlayer(currentPlayer);
+
+                        // If we've already tried panning to the player, but it's still invisible, force-update
+                        // the position to match the player: this prevents long waits.
+                        if (player.triedPanning && !player.visible)
+                        {
+                            Camera.main.transform.position = new Vector3(player.transform.position.x, player.transform.position.y,
+                                Camera.main.transform.position.z);
+                        }
+                        player.triedPanning = true;
                     }
                 }
                 catch (System.ArgumentException)

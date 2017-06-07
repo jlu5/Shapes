@@ -56,6 +56,10 @@ public class Player : MonoBehaviour {
     // has the RelativeJoint2D component).
     protected List<GameObject> masterPlayers = new List<GameObject>();
 
+    // Track whether the player is visible on camera (used for quick switching between players off screen)
+    public bool visible { get; protected set; }
+    public bool triedPanning { get; set; }
+
     // Initialization is done in two steps here: Awake, which runs first, and Start, which runs second.
     // This is so that variables other scripts depend on are always created (step 1) before any
     // cross-script communication is done (step 2).
@@ -402,6 +406,17 @@ public class Player : MonoBehaviour {
         {
             GameState.Instance.currentPlayer = playerID;
         }
+    }
+
+    void OnBecameVisible()
+    {
+        visible = true;
+        triedPanning = false;
+    }
+
+    void OnBecameInvisible()
+    {
+        visible = false;
     }
 
     // Returns the color object of the player. TODO: just make color a public attribute...
