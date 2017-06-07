@@ -28,6 +28,7 @@ public class Player : MonoBehaviour {
     private GameObject playerIDLabel;
     public GameObject feet {get; set;}
     public GameObject spheresContainer {get; set;}
+    public Color color { get; protected set; }
 
     /* Track whether jumping and flying / swimming (these share the same code) are allowed.
      * Jump is disabled in mid-air, and enabled when the player hits the ground or any solid object.
@@ -81,6 +82,7 @@ public class Player : MonoBehaviour {
             Debug.Log(string.Format("Setting color of player {0} to {1}", playerID, hexcolor));
             GetComponent<SpriteRenderer>().color = Utils.HexColor(hexcolor);
         }
+        color = GetComponent<SpriteRenderer>().color;  // Set our color attribute for other scripts
 
         simpleTextMesh = Resources.Load<GameObject>("SimpleTextMesh");
 
@@ -114,14 +116,13 @@ public class Player : MonoBehaviour {
 
         // Set the particle system to match the player color.
         ParticleSystem.MainModule psmain = ps.main;
-        Color myColor = getColor();
         // Use a gradient that slowly fades from the player color to emptiness.
-        psmain.startColor = new ParticleSystem.MinMaxGradient(myColor, new Color(myColor.r, myColor.g, myColor.b, 0));
+        psmain.startColor = new ParticleSystem.MinMaxGradient(color, new Color(color.r, color.g, color.b, 0));
 
         // The "feet" graphic is used to show the superjump powerup.
         feet = transform.Find("PlayerFeet").gameObject;
         // Make it also match the player color.
-        feet.GetComponent<SpriteRenderer>().color = myColor;
+        feet.GetComponent<SpriteRenderer>().color = color;
         feet.SetActive(false);
 
         // The "spheres" graphic is used to show the speed powerup - its code is in PowerupSpeed.cs
@@ -417,11 +418,5 @@ public class Player : MonoBehaviour {
     void OnBecameInvisible()
     {
         visible = false;
-    }
-
-    // Returns the color object of the player. TODO: just make color a public attribute...
-    public Color getColor()
-    {
-        return GetComponent<SpriteRenderer>().color;
     }
 }

@@ -54,7 +54,7 @@ public abstract class Powerup : Collidable {
         image.sprite = renderer.sprite;
         image.rectTransform.sizeDelta = new Vector2(48, 48);
         // Make the overlay colour correspond to the player color.
-        image.color = player.getColor();
+        image.color = player.color;
 
         // If the powerup length is > 0, set a timer to remove the timer later.
         if (powerupLength > 0)

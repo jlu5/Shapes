@@ -28,7 +28,7 @@ public class PlayerList : MonoBehaviour {
 
         // Set the object name and sprite color
         newObj.name = "Player Overlay for Player " + id;
-        newObj.GetComponent<Image>().color = player.getColor();
+        newObj.GetComponent<Image>().color = player.color;
 
         // Move the object into the Canvas.
         newObj.transform.SetParent(transform);
