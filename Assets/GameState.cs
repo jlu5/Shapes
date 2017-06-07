@@ -234,6 +234,11 @@ public sealed class GameState : MonoBehaviour
             // This means that Fire1 switches to the 1st player, Fire2 switches to the 2nd player, etc.
             for (int btnNum = 1; btnNum <= playerCount; btnNum++)
             {
+                if (!players.ContainsKey(btnNum))
+                {
+                    // Don't allow switching to a player that has been removed.
+                    continue;
+                }
                 string keyName = "Fire" + btnNum;
 
                 try
