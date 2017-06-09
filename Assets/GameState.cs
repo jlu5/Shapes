@@ -48,6 +48,8 @@ public sealed class GameState : MonoBehaviour
     public float cameraMaxSize = 15.0F;
     [Tooltip("What is the smallest camera view allowed?")]
     public float cameraMinSize = 5.0F;
+    [Tooltip("Sets the game speed")]
+    public float timeScale = 1.0F;
 
     // GAME STATE VARIABLES
     // Sets the amount of finishes already completed.
@@ -111,6 +113,10 @@ public sealed class GameState : MonoBehaviour
 
         // Use a separate input key for overlay buttons to not override keys like Enter and Space
         sim.submitButton = "ClickOnly";
+
+        // Set the time scale to what's defined in the level data. This also unpauses the game if it was
+        // previously paused.
+        Time.timeScale = timeScale;
 
         // Load our relevant resources
         simpleCanvasTemplate = Resources.Load<GameObject>("SimpleHUDCanvas");
@@ -293,8 +299,9 @@ public sealed class GameState : MonoBehaviour
             }
         }
 
-        // Catch attempts to reload the scene (defaults to Esc key)
-        if (Input.GetButtonDown("Reset"))
+        // Catch attempts to reload the scene (defaults to Esc key), but only if the level selector interface isn't loaded.
+        // (Otherwise, LevelSelector will handle this and pop up a navigation menu)
+        if (!LevelSelector.Instance && Input.GetButtonDown("Reset"))
         {
             RestartLevel();
         }

@@ -51,28 +51,19 @@ public class LevelSelector : MonoBehaviour {
     }
 
     public void SwitchCanvas(int canvasNum) {
-        // First, hide/disable all canvas objects.
         Debug.Log(string.Format("Running SwitchCanvas({0})", canvasNum));
 
+        // First, hide/disable all canvas objects.
         foreach (GameObject canvas in GameObject.FindGameObjectsWithTag("ToggleableCanvas"))
         {
             canvas.SetActive(false);
         }
 
-        GameObject target = null;
-
-        switch (canvasNum) {
-            case 0: 
-                target = welcomeCanvas;
-                break;
-            case 1:
-                target = levelSelectCanvas;
-                break;
-            default:
-                break;
-        }
-        if (target != null) {
-            target.SetActive(true);
+        // Then, enable the one requested.
+        if (canvasNum >= 0) {
+            transform.GetChild(canvasNum).gameObject.SetActive(true);
+            // Reset the time scale if it was previously changed.
+            Time.timeScale = 1.0F;
         }
     }
 
@@ -112,9 +103,12 @@ public class LevelSelector : MonoBehaviour {
 
     public void PlayNextLevel() {
         int targetLevel = lastLevel + 1;
+        // Find the button representing the next level, and emulate a click 
+        // (this is lazy but it means we don't have to track a list of levels manually)
         if (targetLevel < levelSelectPanel.transform.childCount) {
             levelSelectPanel.transform.GetChild(targetLevel).gameObject.GetComponent<LevelSelectButton>().OnClick();
-        } else
+        }
+        else
         {
             Debug.Log("No level left, returning to level selector screen");
             SceneManager.LoadScene("LevelSelect");
@@ -182,5 +176,15 @@ public class LevelSelector : MonoBehaviour {
 
         // Enable the welcome canvas and disable the rest. Note: we can't leave the object pre-disabled in the scene because GameObject.Find() doesn't work on inactive objects.
         SwitchCanvas(0);
+    }
+
+    void Update()
+    {
+        // Handle the Reset action (defaults to the Esc key): pause the game and show a menu of navigation buttons.
+        if (Input.GetButtonDown("Reset") && GameState.Instance)
+        {
+            SwitchCanvas(2);
+            Time.timeScale = 0;
+        }
     }
 }
