@@ -87,15 +87,15 @@ public class LevelSelector : MonoBehaviour {
             GameObject newbtn = Instantiate(levelSelectButtonTemplate);
 
             // Set up the button corresponding to that level.
-            LevelSelectButton lsb = newbtn.GetComponent<LevelSelectButton>();
+            LevelSelectButton lsb = newbtn.GetComponentInChildren<LevelSelectButton>();
             lsb.levelName = level.path;
             lsb.levelNum = idx;
 
             // TODO: replace the button BG with a thumbnail
 
             // Set the text related to the level entry: the level name and the level count.
-            Utils.SetText(newbtn.transform.GetChild(0).gameObject, level.name);
-            Utils.SetText(newbtn.transform.GetChild(1).gameObject, (idx+1).ToString());
+            Utils.SetText(newbtn.transform.GetChild(0).GetChild(0).gameObject, (idx+1).ToString());
+            Utils.SetText(newbtn.transform.GetChild(1).gameObject, level.name);
 
             newbtn.transform.SetParent(levelSelectPanel.transform);
         }
