@@ -183,8 +183,18 @@ public class LevelSelector : MonoBehaviour {
         // Handle the Reset action (defaults to the Esc key): pause the game and show a menu of navigation buttons.
         if (Input.GetButtonDown("Reset") && GameState.Instance)
         {
-            SwitchCanvas(2);
-            Time.timeScale = 0;
+            if (!transform.GetChild(2).gameObject.activeInHierarchy)
+            {
+                // Enable the canvas and pause the game if not already.
+                SwitchCanvas(2);
+                Time.timeScale = 0;
+            }
+            else
+            {
+                // Otherwise, do the reverse.
+                SwitchCanvas(-1);
+                Time.timeScale = GameState.Instance.timeScale;
+            }
         }
     }
 }
