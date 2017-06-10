@@ -48,8 +48,12 @@ public sealed class GameState : MonoBehaviour
     public float cameraMaxSize = 15.0F;
     [Tooltip("What is the smallest camera view allowed?")]
     public float cameraMinSize = 5.0F;
-    [Tooltip("Sets the game speed")]
+    [Tooltip("Sets the game speed.")]
     public float timeScale = 1.0F;
+    [Tooltip("Sets the text to display when the player wins the level.")]
+    public string winText = "You win!";
+    [Tooltip("Sets the text to display when the player loses the level.")]
+    public string loseText = "Game Over";
 
     // GAME STATE VARIABLES
     // Sets the amount of finishes already completed.
@@ -169,7 +173,7 @@ public sealed class GameState : MonoBehaviour
         GameObject levelEndCanvas = Instantiate(simpleCanvasTemplate);
         GameObject levelEndText = Instantiate(stretchedTextLabelTemplate);
         Text text = levelEndText.GetComponent<Text>();
-        text.text = "You win!"; // TODO: implement the win boolean with alternative losing text
+        text.text = win ? winText : loseText;
         text.fontSize *= 4;  // Make the text bigger
 
         // Add a fade out image.
