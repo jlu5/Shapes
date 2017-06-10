@@ -183,7 +183,7 @@ MonoBehaviour:
   jumpStrength: 20
   jumpRecoilStrength: 0.2
   rotationSpeed: 10
-  playerID: 5
+  playerID: 0
   flyInCardinalDirections: 0
   idleModeParticlesMultiplier: 0.1
 --- !u!198 &198224548190216998
