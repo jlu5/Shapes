@@ -40,7 +40,7 @@ public class Finish : Collidable {
     {
         playersNeeded--;
         // Remove the player.
-        GameState.Instance.RemovePlayer(player.playerID);
+        Destroy(player);
 
         if (playersNeeded < 1)
         {

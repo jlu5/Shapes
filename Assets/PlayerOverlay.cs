@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class PlayerOverlay : ClickableOverlay
 {
-    public int playerID;
     public bool showPlayerID = true;
+    public Player player { get; set; }
     private GameObject label;
 
     protected override void Start()
@@ -19,7 +19,7 @@ public class PlayerOverlay : ClickableOverlay
             // Label which player this overlay corresponds to
             label = Instantiate(GameState.Instance.textLabelTemplate);
             Text labeltext = label.GetComponent<Text>();
-            labeltext.text = playerID.ToString();
+            labeltext.text = player.playerID.ToString();
 
             // Use the same colour as the player object's overlay (for consistency)
             labeltext.color = Player.textLabelColor;
@@ -32,14 +32,20 @@ public class PlayerOverlay : ClickableOverlay
     // When clicked, set the current player to this one.
     public override void OnClick()
     {
-        if (playerID != 0)
+        if (player.playerID != 0)
         {
-            Debug.Log("Clicked player overlay of player ID " + playerID);
-            GameState.Instance.currentPlayer = playerID;
+            Debug.Log("Clicked player overlay of player ID " + player.playerID);
+            GameState.Instance.currentPlayer = player.playerID;
         }
         else
         {
             Debug.LogWarning("PlayerOverlay clicked but not bound to a player ID!");
         }
+    }
+
+    void Update() {
+        if (player == null)
+            // If the player object disappears, remove the overlay.
+            Destroy(gameObject);
     }
 }

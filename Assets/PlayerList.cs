@@ -34,7 +34,7 @@ public class PlayerList : MonoBehaviour {
         newObj.transform.SetParent(transform);
 
         // Bind the new object to the player ID.
-        newObj.playerID = id;
+        newObj.player = player;
         overlays[id] = newObj;
 
         // Sort the player overlays: for each child object with a PlayerOverlay script, set its
@@ -44,8 +44,8 @@ public class PlayerList : MonoBehaviour {
             PlayerOverlay overlay = child.gameObject.GetComponent<PlayerOverlay>();
             if (overlay != null)
             {
-                Debug.Log(string.Format("PlayerList: sorting PlayerOverlay {0} to position {0}", overlay.playerID));
-                child.SetSiblingIndex(overlay.playerID-1);
+                Debug.Log(string.Format("PlayerList: sorting PlayerOverlay {0} to position {0}", overlay.player.playerID));
+                child.SetSiblingIndex(overlay.player.playerID-1);
             }
         }
         playerListLabel.transform.SetSiblingIndex(0);

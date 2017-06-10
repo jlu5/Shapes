@@ -108,12 +108,20 @@ public class Player : MonoBehaviour {
         renderer.sortingOrder = -1;
     }
 
+    void OnDestroy() {
+        if (GameState.Instance && GameState.Instance.playerDeathFatal && !GameState.Instance.gameEnded && !finished)
+            // The player never reached a finish before being destroyed, so end the game.
+            GameState.Instance.LevelEnd(false);
+            GameState.Instance.players.Remove(playerID);
+    }
+
     void Start()
     {
         if (GameState.Instance)
         {
             // Add this player to our global game state.
-            GameState.Instance.AddPlayer(playerID, this);
+            GameState.Instance.players[playerID] = this;
+            GameState.Instance.playerList.AddPlayer(playerID, this);
             GameState.Instance.playerCount++;
         } else {
             Debug.LogError("Player object added with no GameState in scene! Good luck moving *anything*");

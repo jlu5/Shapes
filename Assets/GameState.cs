@@ -67,7 +67,7 @@ public sealed class GameState : MonoBehaviour
     // Tracks whether the game is over.
     public bool gameEnded { get; set; }
     // Track lists of players and collidables based on their ID.
-    private Dictionary<int, Player> players = new Dictionary<int, Player>();
+    public Dictionary<int, Player> players = new Dictionary<int, Player>();
     private Dictionary<System.Type, Dictionary<int, Collidable>> collidables = new Dictionary<System.Type, Dictionary<int, Collidable>>();
 
     // Resource templates, used by Instantiate()
@@ -192,35 +192,6 @@ public sealed class GameState : MonoBehaviour
         }
     }
 
-    // Adds a player into the current scene.
-    public void AddPlayer(int id, Player player)
-    {
-        // Register the player into the player list. TODO: make sure
-        // the key doesn't already exist.
-        players[id] = player;
-
-        // Add the player to the player list canvas.
-        playerList.AddPlayer(id, player);
-    }
-
-    // Returns the requested player by ID.
-    public Player GetPlayer(int id)
-    {
-        return players[id];
-    }
-
-    // Removes a player from the current scene.
-    public void RemovePlayer(int id)
-    {
-        // First, remove our player overlay.
-        playerList.RemovePlayer(id);
-
-        // Then, destroy the gameobject and storage related to it.
-        Player player = players[id];
-        Destroy(player.gameObject);
-        players.Remove(id);
-    }
-
     // Registers a collidable with a given ID.
     public void RegisterCollidable(int id, Collidable obj)
     {
@@ -272,7 +243,7 @@ public sealed class GameState : MonoBehaviour
                     {
                         Debug.Log("Current player set to " + btnNum);
                         currentPlayer = btnNum;
-                        Player player = GetPlayer(currentPlayer);
+                        Player player = players[currentPlayer];
 
                         // If we've already tried panning to the player, but it's still invisible, force-update
                         // the position to match the player: this prevents long waits.
