@@ -14,11 +14,18 @@ public class Player : MonoBehaviour {
     public const int MaxCollisionCount = 64;
 
     // Public (editor-exposed) variables
+    [Tooltip("Sets the speed of the player's movement.")]
     public float moveSpeed = 10;
-    public float jumpStrength = 5.0f; // Jump strength force relative to player mass 
+    [Tooltip("Sets the strength of the player's jump, relative to player mass.")]
+    public float jumpStrength = 5;
+    [Tooltip("Sets the strength of the player's jump recoil; i.e. what force should be applied on the objects the player is jumping off of.")]
+    public float jumpRecoilStrength = 1;
+    [Tooltip("Sets the rotation strength of the player (torque).")]
     public float rotationSpeed = 3;
-    public float jumpRecoilStrength = 1.0f;
+    [Tooltip("Sets the the player ID. This should NOT be set to zero or duplicated (i.e. each player must have a unique ID!).")]
     public int playerID = 0;
+    [Tooltip("Sets whether the player should swim or fly in the cardinal up/down directions if this is set to false, the player flies in the direction it is facing based on its current rotation.")]
+    public bool flyInCardinalDirections = false;
 
     // Quick access to components & resources
     public Rigidbody2D rb {get; set;} // "rb" for RigidBody
@@ -291,12 +298,14 @@ public class Player : MonoBehaviour {
         float movement = Input.GetAxis("Fly");
 
         /* Calculate a target force based off:
-         * 1) The object's current rotation
+         * 1) The object's current rotation, if cardinal directions are disabled.
          * 2) The fly/swim speed
          * 3) The current conditions of gravity
          * 4) The player's mass
          */
-        Vector2 force = transform.localRotation * (flySpeed * -Physics2D.gravity * Mathf.Abs(Mathf.Max(rb.gravityScale, 1)) * rb.mass);
+        // Note: we must put the base force first because "Quaternion (rotation) * Vector2/3" is defined, but the opposite is not.
+        Vector3 baseForce = flyInCardinalDirections ? Vector3.up : transform.localRotation * Vector3.up;
+        Vector2 force = (Vector2) baseForce * flySpeed * -Physics2D.gravity.y * Mathf.Abs(Mathf.Max(rb.gravityScale, 1)) * rb.mass;
 
         Debug.Log("Player: flying by " + (movement * force).ToString());
         rb.AddForce(force*movement, ForceMode2D.Impulse);
