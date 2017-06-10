@@ -40,8 +40,6 @@ public class LevelSelector : MonoBehaviour {
     public int lastLevel { get; set; }
 
     private GameObject levelSelectButtonTemplate;
-    private GameObject welcomeCanvas;
-    private GameObject levelSelectCanvas;
     private GameObject levelSelectPanel;
     private GameObject levelPackSelector;
     private List<string> levelPacks = new List<string>();
@@ -132,8 +130,6 @@ public class LevelSelector : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
 
         // Initialize object references...
-        welcomeCanvas = GameObject.Find("WelcomeCanvas");
-        levelSelectCanvas = GameObject.Find("LevelSelectCanvas");
         levelSelectPanel = GameObject.Find("LevelSelectMainPanel");
         levelPackSelector = GameObject.Find("LevelPackSelector");
         levelSelectButtonTemplate = Resources.Load<GameObject>("LevelSelectButton");
