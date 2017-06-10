@@ -39,7 +39,8 @@ public class Finish : Collidable {
     public override void PlayerHit(Player player)
     {
         playersNeeded--;
-        // Remove the player.
+        // Remove the player, but after setting its "finished" attribute to True.
+        player.finished = true;
         Destroy(player);
 
         if (playersNeeded < 1)

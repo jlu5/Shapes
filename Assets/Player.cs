@@ -52,6 +52,9 @@ public class Player : MonoBehaviour {
     public float idleModeParticlesMultiplier = 0.1F;
     private bool idleMode;
 
+    // Track whether this player has entered a finish prior to being removed.
+    public bool finished {get; set;}
+
     // Track the triggers we're interacting with. This list is updated by Collidable class instances.
     public List<GameObject> activeTriggers {get; set;}
 

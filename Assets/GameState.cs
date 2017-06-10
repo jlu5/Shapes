@@ -54,6 +54,8 @@ public sealed class GameState : MonoBehaviour
     public string winText = "You win!";
     [Tooltip("Sets the text to display when the player loses the level.")]
     public string loseText = "Game Over";
+    [Tooltip("Sets whether any player dying (e.g. by falling off the screen) will trigger a game over.")]
+    public bool playerDeathFatal = true;
 
     // GAME STATE VARIABLES
     // Sets the amount of finishes already completed.
