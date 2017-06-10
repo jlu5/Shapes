@@ -106,7 +106,7 @@ public class LevelSelector : MonoBehaviour {
         // Find the button representing the next level, and emulate a click 
         // (this is lazy but it means we don't have to track a list of levels manually)
         if (targetLevel < levelSelectPanel.transform.childCount) {
-            levelSelectPanel.transform.GetChild(targetLevel).gameObject.GetComponent<LevelSelectButton>().OnClick();
+            levelSelectPanel.transform.GetChild(targetLevel).gameObject.GetComponentInChildren<LevelSelectButton>().OnClick();
         }
         else
         {
