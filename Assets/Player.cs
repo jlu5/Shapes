@@ -291,7 +291,7 @@ public class Player : MonoBehaviour {
         float movement = Input.GetAxis("Fly");
 
         // Calculate a target force based off a portion of the current gravity.
-        Vector2 force = flySpeed * -Physics2D.gravity * Mathf.Abs(rb.gravityScale) * rb.mass;
+        Vector2 force = flySpeed * -Physics2D.gravity * Mathf.Abs(Mathf.Max(rb.gravityScale, 1)) * rb.mass;
 
         Debug.Log("Player: flying by " + (movement * force).ToString());
         rb.AddForce(force*movement, ForceMode2D.Impulse);
