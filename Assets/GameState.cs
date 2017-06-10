@@ -312,6 +312,7 @@ public sealed class GameState : MonoBehaviour
     // Level selector-based methods.
     public void RestartLevel()
     {
+        gameEnded = true;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
