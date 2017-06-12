@@ -9,9 +9,9 @@ public class DoorKey : Collidable {
 
     // Note: this start method requires the "Door" script to be executed before it! (Unity Script Execution Order)
     void Start() {
-        // Explicitly cast this from Collidable to Door.
-        // XXX: look into making GetCollidable explicitly return items with their specific types.
-        myDoor = (Door) GameState.Instance.GetCollidable<Door>(doorID);
+        // Explicitly cast this from MonoBehaviour to Door.
+        // XXX: look into making GetGameScript explicitly return items with their specific types.
+        myDoor = (Door) GameState.Instance.GetGameScript<Door>(doorID);
 
         // Sanity checks to make sure the existance of this key makes sense.
         if (myDoor == null)

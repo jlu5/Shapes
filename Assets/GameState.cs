@@ -68,9 +68,9 @@ public sealed class GameState : MonoBehaviour
     public int playerCount { get; set; }
     // Tracks whether the game is over.
     public bool gameEnded { get; set; }
-    // Track lists of players and collidables based on their ID.
+    // Track lists of players and game scripts based on their ID.
     public Dictionary<int, Player> players = new Dictionary<int, Player>();
-    private Dictionary<System.Type, Dictionary<int, Collidable>> collidables = new Dictionary<System.Type, Dictionary<int, Collidable>>();
+    private Dictionary<System.Type, Dictionary<int, MonoBehaviour>> gameScripts = new Dictionary<System.Type, Dictionary<int, MonoBehaviour>>();
 
     // Resource templates, used by Instantiate()
     private GameObject canvasTemplate;
@@ -194,27 +194,27 @@ public sealed class GameState : MonoBehaviour
         }
     }
 
-    // Registers a collidable with a given ID.
-    public void RegisterCollidable(int id, Collidable obj)
+    // Registers a game script with a given ID.
+    public void RegisterGameScript(int id, MonoBehaviour obj)
     {
         // Internally (to prevent a ton of variables from being used), this stores objects as a
         // dictionary of dictionaries: first by their type, and then by their ID.
 
         System.Type type = obj.GetType();
-        if (!collidables.ContainsKey(type))
+        if (!gameScripts.ContainsKey(type))
         { // Fill in the type key corresponding to the object if it doesn't exist
-            collidables[type] = new Dictionary<int, Collidable>();
+            gameScripts[type] = new Dictionary<int, MonoBehaviour>();
         }
 
-        collidables[type][id] = obj;
+        gameScripts[type][id] = obj;
     }
 
-    // Fetches a registered collidable, returning null if it is missing.
-    public Collidable GetCollidable<T>(int id)
+    // Fetches a registered game script, returning null if it is missing.
+    public MonoBehaviour GetGameScript<T>(int id)
     {
         try
         {
-            return collidables[typeof(T)][id];
+            return gameScripts[typeof(T)][id];
         }
         catch (KeyNotFoundException)
         {

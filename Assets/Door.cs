@@ -28,7 +28,7 @@ public class Door : Collidable {
             Debug.LogError(string.Format("Door {0} has target of itself; removing!", ID));
             Destroy(gameObject);
         }
-        GameState.Instance.RegisterCollidable(ID, this);
+        GameState.Instance.RegisterGameScript(ID, this);
 
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		color = spriteRenderer.color;
@@ -71,7 +71,7 @@ public class Door : Collidable {
         // Hint at where the door goes by tinting the color of the source and color doors. This is
         // subtle enough to not give away rough locations if the target door is off the screen
         // anyways.
-        Door otherDoor = (Door) GameState.Instance.GetCollidable<Door>(targetDoor);
+        Door otherDoor = (Door) GameState.Instance.GetGameScript<Door>(targetDoor);
         if (otherDoor != null && useHints && !isHinted)
         {
 			isHinted = true;
@@ -94,7 +94,7 @@ public class Door : Collidable {
 			return;
 		}
 
-        Door otherDoor = (Door)GameState.Instance.GetCollidable<Door>(targetDoor);
+        Door otherDoor = (Door)GameState.Instance.GetGameScript<Door>(targetDoor);
 		if (isHinted)
         {
             // Unset hinting door coloring if it is set.
@@ -113,7 +113,7 @@ public class Door : Collidable {
     public override void PlayerInteract(Player player)
     {
         // Find the other door collidable (registered in GameState).
-        Collidable otherDoor = GameState.Instance.GetCollidable<Door>(targetDoor);
+        Door otherDoor = (Door) GameState.Instance.GetGameScript<Door>(targetDoor);
 
         if (otherDoor == null)
         {
