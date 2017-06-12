@@ -35,14 +35,18 @@ public class LevelSelector : MonoBehaviour {
     // Set the default level pack.
     public static string defaultLevelPack = "default.levelpack";
 
+    // Track level packs and their levels internally
     public string levelsPath { get; set; }
+    private List<string> levelPacks = new List<string>();
     public LevelDataCollection levelData;
+
+    // Track the ID of the last level (this allows the "Next level" button to work
     public int lastLevel { get; set; }
 
+    // References to various game elements
     private GameObject levelSelectButtonTemplate;
     private GameObject levelSelectPanel;
     private GameObject levelPackSelector;
-    private List<string> levelPacks = new List<string>();
 
     public void Quit() {
         Application.Quit();
