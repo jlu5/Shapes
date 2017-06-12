@@ -3346,6 +3346,7 @@ MonoBehaviour:
   endX: -20
   endY: -3
   animationLength: 1
+  ID: 1
 --- !u!1001 &1701017829
 Prefab:
   m_ObjectHideFlags: 0
@@ -4435,7 +4436,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03cb31b7190480847a8faecf01b3be4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isOn: 0
+  isOn: 1
+  targetID: 1
   sprites:
   - {fileID: 21300000, guid: d0571718d15ca73499bfc138c6f5455b, type: 3}
   - {fileID: 21300000, guid: 64e775019b67e0c45816d8cbae4a7dc9, type: 3}

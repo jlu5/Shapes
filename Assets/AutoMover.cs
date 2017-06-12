@@ -3,19 +3,26 @@ using System;
 
 public class AutoMover : MonoBehaviour
 {
-    // Defines the target X and Y position values for the object.
+    [Tooltip("Defines the target X position value for the object.")]
     public float endX;
+    [Tooltip("Defines the target Y position value for the object.")]
     public float endY;
 
-    // Determines how long the animation should last in one direction.
+    [Tooltip("Determines how long the animation should last in one direction.")]
     public float animationLength = 1f;
+
+    [Tooltip("Sets the door ID (for levers, etc.)")]
+    public int ID;
+
+    // Access to the animator component
+    public Animation anim { get; set; }
 
     void Awake()
     {
         // Retrieve the animation component, and create a new one if none exists. This uses Unity's legacy
         // animation component because unfortunately, the new Mecanim/Animator system cannot be scripted
         // on runtime: https://forum.unity3d.com/threads/animationclip-setcurve-doesnt-work-with-mecanim-animations-at-runtime.396547/
-        Animation anim = GetComponent<Animation>();
+        anim = GetComponent<Animation>();
         if (anim == null)
         {
             anim = gameObject.AddComponent<Animation>();
@@ -48,5 +55,13 @@ public class AutoMover : MonoBehaviour
         // Add the animation clip to the animator and play.
         anim.AddClip(clip, "AutoMover");
         anim.Play("AutoMover");
+    }
+
+    void Start()
+    {
+        if (ID != 0)
+        {
+            GameState.Instance.RegisterGameScript(ID, this);
+        }
     }
 }
