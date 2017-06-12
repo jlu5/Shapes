@@ -44,6 +44,7 @@ public class LevelSelector : MonoBehaviour {
     public int lastLevel { get; set; }
 
     // References to various game elements
+    public GameObject gamePausedText { get; protected set; }
     private GameObject levelSelectButtonTemplate;
     private GameObject levelSelectPanel;
     private GameObject levelPackSelector;
@@ -137,6 +138,7 @@ public class LevelSelector : MonoBehaviour {
         levelSelectPanel = GameObject.Find("LevelSelectMainPanel");
         levelPackSelector = GameObject.Find("LevelPackSelector");
         levelSelectButtonTemplate = Resources.Load<GameObject>("LevelSelectButton");
+        gamePausedText = GameObject.Find("GamePausedText");
 
         // Load our scene asset bundle.
         AssetBundle.LoadFromFile(Application.streamingAssetsPath + "/LevelAssetBundles/levels");

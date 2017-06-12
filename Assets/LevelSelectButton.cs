@@ -19,6 +19,9 @@ public class LevelSelectButton : ClickableOverlay
             SceneManager.LoadScene(levelName);
             Scene scene = SceneManager.GetSceneByName(levelName);
             SceneManager.SetActiveScene(scene);
+
+            // Update the level name in the Game Paused text
+            Utils.SetText(LevelSelector.Instance.gamePausedText, string.Format("Game Paused (level: {0})", scene.name));
         }
     }
 }
