@@ -1,4 +1,4 @@
-- FIX powerup + gameboundary conflict
-- make levels involving gravity zones, water, rockets+binding, levers
+- [x] FIX powerup + gameboundary conflict
 - show amt. of coins taken in HUD
+- make levels involving gravity zones, water, rockets+binding, levers
 - general cleanup and add code headers
