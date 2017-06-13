@@ -129,9 +129,9 @@ public sealed class GameState : MonoBehaviour
         stretchedTextLabelTemplate = Resources.Load<GameObject>("StretchedTextLabel");
         levelEndScreenTemplate = Resources.Load<GameObject>("LevelEndScreen");
         textLabelTemplate = Resources.Load<GameObject>("CanvasTextLabel");
-        playerList = Instantiate(Resources.Load<GameObject>("PlayerListCanvas")).GetComponent<PlayerList>();
-        scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
-        powerupsPanel = GameObject.Find("PowerupsPanel");
+        playerList = transform.Find("PlayerListCanvas").GetComponent<PlayerList>();
+        scoreText = transform.Find("HUDCanvas/ScoreText").GetComponent<Text>();
+        powerupsPanel = transform.Find("HUDCanvas/PowerupsPanel").gameObject;
     }
 
     void Start()
