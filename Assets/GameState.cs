@@ -124,36 +124,14 @@ public sealed class GameState : MonoBehaviour
         // previously paused.
         Time.timeScale = timeScale;
 
-        // Load our relevant resources
+        // Load our relevant resources and game objects
         simpleCanvasTemplate = Resources.Load<GameObject>("SimpleHUDCanvas");
         stretchedTextLabelTemplate = Resources.Load<GameObject>("StretchedTextLabel");
         levelEndScreenTemplate = Resources.Load<GameObject>("LevelEndScreen");
         textLabelTemplate = Resources.Load<GameObject>("CanvasTextLabel");
-
-        // Initialize the characters list HUD
         playerList = Instantiate(Resources.Load<GameObject>("PlayerListCanvas")).GetComponent<PlayerList>();
-
-        // Create a freeform canvas for the score text and powerups panel.
-        GameObject freeCanvasObject = Instantiate(simpleCanvasTemplate);
-        GameObject scoreTextObject = Instantiate(textLabelTemplate);
-
-        // Set the anchor and position of the score text object to the top right.
-        scoreText = scoreTextObject.GetComponent<Text>();
-        scoreText.fontSize = (int) System.Math.Floor(1.5 * scoreText.fontSize);
-        RectTransform rt = scoreText.rectTransform;
-        rt.anchorMin = new Vector2(1, 1);
-        rt.anchorMax = new Vector2(1, 1);
-        // Scale the text box to fit its contents better.
-        rt.sizeDelta = new Vector2(200, 50);
-        scoreText.transform.position = new Vector3(-0.5f * rt.rect.width,
-                                                   -0.5f * rt.rect.height,
-                                                   scoreText.transform.position.z);
-        scoreTextObject.transform.SetParent(freeCanvasObject.transform, false);
-        scoreText.text = "Score: ";
-
-        // Copy the powerups panel.
-        powerupsPanel = Instantiate(Resources.Load<GameObject>("PowerupsPanel"),
-                                    freeCanvasObject.transform);
+        scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
+        powerupsPanel = GameObject.Find("PowerupsPanel");
     }
 
     void Start()
