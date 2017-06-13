@@ -21,17 +21,18 @@ public class AutoMaterial : MonoBehaviour {
     private PhysicsMaterial2D materialSticky;
 
     // Color definitions. 
-    protected Color staticColor;
-    protected Color dynamicColor;
-    protected Color staticBouncyColor;
-    protected Color dynamicBouncyColor;
-    protected Color staticIceColor;
-    protected Color dynamicIceColor;
-    protected Color stickyColor;
+    public Color staticColor { get; set; }
+    public Color dynamicColor { get; set; }
+    public Color staticBouncyColor { get; set; }
+    public Color dynamicBouncyColor { get; set; }
+    public Color staticIceColor { get; set; }
+    public Color dynamicIceColor { get; set; }
+    public Color stickyColor { get; set; }
+    public Color deadlyColorDifference { get; set; }
 
-    // I personally prefer working with hex colors over rgb values, because they're easier to tweak/replace.
-    // See Run() below for a rough description of what each color corresponds to.
     void Awake() {
+        // Load color definitions. Note: Utils.HexColor must be called after class initialization,
+        // so these can't be statically defined.
         staticColor = Utils.HexColor("#FFFFFF");
         dynamicColor = Utils.HexColor("#FF955C");
         staticBouncyColor = Utils.HexColor("#FFD62D");
@@ -39,17 +40,20 @@ public class AutoMaterial : MonoBehaviour {
         staticIceColor = Utils.HexColor("#C9FDFF");
         dynamicIceColor = Utils.HexColor("#9EE3EF");
         stickyColor = Utils.HexColor("#A18454");
+        deadlyColorDifference = Utils.HexColor("#059797");
 
+        // Load our material resources.
         materialBouncy = Resources.Load<PhysicsMaterial2D>("materialBouncy");
         materialIce = Resources.Load<PhysicsMaterial2D>("materialIce");
         materialSticky = Resources.Load<PhysicsMaterial2D>("materialSticky");
     }
 
+    // Returns whether the object is dynamic (ie affected by forces)
     bool IsDynamic() {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         if (rb == null)
         {
-            return false;
+            return false;  // No rigid body automatically implies false
         }
         else
         {
@@ -57,8 +61,8 @@ public class AutoMaterial : MonoBehaviour {
         }
     }
 
+    // Runs the AutoMaterial engine
     public void Run() {
-
         movable = IsDynamic();
         Collider2D collider = GetComponent<Collider2D>();
 
@@ -84,6 +88,12 @@ public class AutoMaterial : MonoBehaviour {
         } else
         { // For regular objects, use the generic white color for static walls and orange for moving objects.
             color = movable ? dynamicColor : staticColor;
+        }
+
+        if (gameObject.GetComponent<KillOnTouch>())
+        {
+            // Make the object red if it's marked as deadly.
+            color = Utils.ColorDifference(color, deadlyColorDifference);
         }
 
         // Automatic colour updating is optional!
