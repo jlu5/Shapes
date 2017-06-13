@@ -3992,28 +3992,39 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114610039191569476, guid: a9b54c735d8584914aedfab4a988bc7c,
         type: 2}
-      propertyPath: finishesNeeded
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114610039191569476, guid: a9b54c735d8584914aedfab4a988bc7c,
-        type: 2}
-      propertyPath: gameOverOnZeroScore
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114610039191569476, guid: a9b54c735d8584914aedfab4a988bc7c,
-        type: 2}
-      propertyPath: initialScore
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 114610039191569476, guid: a9b54c735d8584914aedfab4a988bc7c,
-        type: 2}
       propertyPath: playerDeathFatal
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114610039191569476, guid: a9b54c735d8584914aedfab4a988bc7c,
-        type: 2}
-      propertyPath: coinsNeeded
+    - target: {fileID: 1456355418521578, guid: a9b54c735d8584914aedfab4a988bc7c, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4115131122618556, guid: a9b54c735d8584914aedfab4a988bc7c, type: 2}
+      propertyPath: m_LocalScale.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 61475514020146214, guid: a9b54c735d8584914aedfab4a988bc7c,
+        type: 2}
+      propertyPath: m_AutoTiling
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 61475514020146214, guid: a9b54c735d8584914aedfab4a988bc7c,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 61475514020146214, guid: a9b54c735d8584914aedfab4a988bc7c,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4115131122618556, guid: a9b54c735d8584914aedfab4a988bc7c, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4115131122618556, guid: a9b54c735d8584914aedfab4a988bc7c, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a9b54c735d8584914aedfab4a988bc7c, type: 2}
