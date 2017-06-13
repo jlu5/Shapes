@@ -73,8 +73,6 @@ public sealed class GameState : MonoBehaviour
     private Dictionary<System.Type, Dictionary<int, MonoBehaviour>> gameScripts = new Dictionary<System.Type, Dictionary<int, MonoBehaviour>>();
 
     // Resource templates, used by Instantiate()
-    private GameObject canvasTemplate;
-    private GameObject simpleCanvasTemplate;
     private GameObject stretchedTextLabelTemplate;
     private GameObject levelEndScreenTemplate;
     public GameObject textLabelTemplate;
@@ -125,7 +123,6 @@ public sealed class GameState : MonoBehaviour
         Time.timeScale = timeScale;
 
         // Load our relevant resources and game objects
-        simpleCanvasTemplate = Resources.Load<GameObject>("SimpleHUDCanvas");
         stretchedTextLabelTemplate = Resources.Load<GameObject>("StretchedTextLabel");
         levelEndScreenTemplate = Resources.Load<GameObject>("LevelEndScreen");
         textLabelTemplate = Resources.Load<GameObject>("CanvasTextLabel");
@@ -150,7 +147,7 @@ public sealed class GameState : MonoBehaviour
     public void LevelEnd(bool win=true)
     {
         gameEnded = true;
-        GameObject levelEndCanvas = Instantiate(simpleCanvasTemplate);
+        // Create a text object showing "You win" or "Game Over"
         GameObject levelEndText = Instantiate(stretchedTextLabelTemplate);
         Text text = levelEndText.GetComponent<Text>();
         text.text = win ? winText : loseText;
@@ -158,12 +155,12 @@ public sealed class GameState : MonoBehaviour
 
         // Add a fade out image.
         GameObject levelEndScreen = Instantiate(levelEndScreenTemplate);
-        levelEndScreen.transform.SetParent(levelEndCanvas.transform, false);
+        levelEndScreen.transform.SetParent(transform.Find("HUDCanvas"), false);
 
-        // Add the "game over" text, but make sure to keep the right world space position.
+        // Add the "game over" text to the canvas, but make sure to keep the right world space position.
         // This can be done by setting the worldPositionStays option (second argument) in
         // setParent to false.
-        levelEndText.transform.SetParent(levelEndCanvas.transform, false);
+        levelEndText.transform.SetParent(levelEndScreen.transform, false);
 
         if (!LevelSelector.Instance)
         {
