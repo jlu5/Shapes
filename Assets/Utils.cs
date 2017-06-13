@@ -17,6 +17,21 @@ public static class Utils {
         Debug.Log(string.Format("sum: {0}, {1}, {2}, {3}", r, g, b, a));
         return new Color(r, g, b, a);
     }
+    
+    // Returns a normalized difference of two colors.
+    public static Color ColorDifference(Color first, Color second)
+    {
+        // Separate the components, subtract them, and cap them at 0.
+        Debug.Log(string.Format("first color values: {0}, {1}, {2}, {3}", first.r, first.g, first.b, first.a));
+        Debug.Log(string.Format("second color values: {0}, {1}, {2}, {3}", second.r, second.g, second.b, second.a));
+        float r = Math.Max(0, first.r - second.r);
+        float g = Math.Max(0, first.g - second.g);
+        float b = Math.Max(0, first.b - second.b);
+
+        // Note: transparency is left alone for now...
+        Debug.Log(string.Format("difference: {0}, {1}, {2}, {3}", r, g, b, first.a));
+        return new Color(r, g, b, first.a);
+    }
 
     // Returns a hex color given a hex string (or HTML color code).
     public static Color HexColor(string hexstring) {
