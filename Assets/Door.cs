@@ -5,20 +5,26 @@ using UnityEngine;
 using System;
 
 public class Door : Collidable {
-    public int ID;  // Internal door ID
+    [Tooltip("Sets the internal door ID.")]
+    public int ID;
+    [Tooltip("Sets the target door ID.")]
     public int targetDoor;
+    [Tooltip("Sets the whether the door is locked.")]
     public bool isLocked;
-    public bool useHints = true;  // Defines whether we should use the target door hint.
-    public Color color;  // Color of the door
+    [Tooltip("Sets the whether a target door hint should be shown.")]
+    public bool useHints = true;
 
-	protected bool isHinted;  // Defines whether we're showing the target door hint right now
-	private GameObject doorLock;  // Points to the attached door lock sprite
-	private SpriteRenderer spriteRenderer;
+    // Color of the door
+    public Color color {get; set;}
+
+    protected bool isHinted;  // Defines whether we're showing the target door hint right now
+    private GameObject doorLock;  // Points to the attached door lock sprite
+    private SpriteRenderer spriteRenderer;
 
     // Offset color used to display hints when the player hits the door.
-    protected Color hintOffsetColor = new Color(0.1F, 0.1F, 0.1F, 0);
+    public static Color hintOffsetColor = new Color(0.1F, 0.1F, 0.1F, 0);
     // Offset color used for displaying locks (so they don't blend in completely with the door)
-    protected Color lockOffsetColor = new Color(0.2F, 0.2F, 0.2F, -0.2F);
+    public static Color lockOffsetColor = new Color(0.2F, 0.2F, 0.2F, -0.2F);
 
     void Start()
     {
@@ -28,10 +34,11 @@ public class Door : Collidable {
             Debug.LogError(string.Format("Door {0} has target of itself; removing!", ID));
             Destroy(gameObject);
         }
-        GameState.Instance.RegisterGameScript(ID, this);
 
-		spriteRenderer = GetComponent<SpriteRenderer>();
-		color = spriteRenderer.color;
+        GameState.Instance.RegisterGameScript(ID, this);
+	spriteRenderer = GetComponent<SpriteRenderer>();
+	color = spriteRenderer.color;
+
         if (isLocked)
         {
             // If the door is locked, show a lock overlay.
@@ -43,9 +50,9 @@ public class Door : Collidable {
 
     }
 
-	public void UpdateColor(Color newColor) {
-		spriteRenderer.color = newColor;
-	}
+    public void UpdateColor(Color newColor) {
+        spriteRenderer.color = newColor;
+    }
 
     // Method to unlock the door.
     public void Unlock() {
@@ -63,10 +70,10 @@ public class Door : Collidable {
         base.OnTriggerEnter2D(other);
 
         // Only process this trigger if it's a player that we're colliding with
-		if (other.gameObject.GetComponent<Player>() == null)
-		{
-			return;
-		}
+        if (other.gameObject.GetComponent<Player>() == null)
+        {
+            return;
+        }
 
         // Hint at where the door goes by tinting the color of the source and color doors. This is
         // subtle enough to not give away rough locations if the target door is off the screen
@@ -74,38 +81,38 @@ public class Door : Collidable {
         Door otherDoor = (Door) GameState.Instance.GetGameScript<Door>(targetDoor);
         if (otherDoor != null && useHints && !isHinted)
         {
-			isHinted = true;
+	    isHinted = true;
             // For both the source and target doors, add the current door color and the
             // hint offset color.
             Color mycolor = Utils.ColorSum(color, hintOffsetColor);
             UpdateColor(mycolor);
 
-            Color theircolor = Utils.ColorSum(otherDoor.color, otherDoor.hintOffsetColor);
+            Color theircolor = Utils.ColorSum(otherDoor.color, Door.hintOffsetColor);
             otherDoor.UpdateColor(theircolor);
         }
-	}
+    }
 
     protected override void OnTriggerExit2D(Collider2D other)
     {
         base.OnTriggerExit2D(other);
 
-		if (other.gameObject.GetComponent<Player>() == null)
-		{
-			return;
-		}
+        if (other.gameObject.GetComponent<Player>() == null)
+        {
+            return;
+        }
 
         Door otherDoor = (Door)GameState.Instance.GetGameScript<Door>(targetDoor);
-		if (isHinted)
+        if (isHinted)
         {
             // Unset hinting door coloring if it is set.
             if (otherDoor != null)
-			{
-				otherDoor.isHinted = false;
+            {
+                otherDoor.isHinted = false;
                 // Door.color is the original color, so we can simply reset it back to that.
-				otherDoor.UpdateColor(otherDoor.color);
-			}
-			isHinted = false;
-			UpdateColor(color);
+                otherDoor.UpdateColor(otherDoor.color);
+            }
+            isHinted = false;
+            UpdateColor(color);
         }
     }
 
