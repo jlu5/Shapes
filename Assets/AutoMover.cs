@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿/* Shapes Game (c) 2017 James Lu. All rights reserved.
+ * AutoMover.cs: Animate game objects such as coins and walls.
+ */
+
+using UnityEngine;
 using System;
 
 public class AutoMover : MonoBehaviour
