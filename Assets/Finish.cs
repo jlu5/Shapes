@@ -41,7 +41,7 @@ public class Finish : Collidable {
         playersNeeded--;
         // Remove the player, but after setting its "finished" attribute to True.
         player.finished = true;
-        Destroy(player);
+        Destroy(player.gameObject);
 
         if (playersNeeded < 1)
         {
