@@ -1,6 +1,7 @@
 ﻿/* Shapes Game (c) 2017 James Lu. All rights reserved.
- * GameState.cs: Implements global game state tracking
+ * GameState.cs: Implements global game state tracking - the core of the game.
  */
+
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;

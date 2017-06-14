@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿/* Shapes Game (c) 2017 James Lu. All rights reserved.
+ * GameBoundary.cs: Creates boundaries for the level, destroying all objects that go past its bounds.
+ */
+
+using UnityEngine;
 
 public class GameBoundary : MonoBehaviour {
     private Collider2D col;

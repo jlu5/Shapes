@@ -1,4 +1,8 @@
-﻿using System.IO;
+﻿/* Shapes Game (c) 2017 James Lu. All rights reserved.
+ * LevelSelector.cs: Implements the core of MainScene's level selector/manager.
+ */
+
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;

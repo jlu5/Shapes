@@ -1,4 +1,8 @@
-﻿public class PowerupJump : Powerup {
+﻿/* Shapes Game (c) 2017 James Lu. All rights reserved.
+ * PowerupJump.cs: Implements the superjump powerup.
+ */
+
+public class PowerupJump : Powerup {
     public float jumpMultiplier = 1.25F;
 
     public override void SetEffect()

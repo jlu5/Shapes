@@ -1,4 +1,8 @@
-﻿using System;
+﻿/* Shapes Game (c) 2017 James Lu. All rights reserved.
+ * Utils.cs: Miscellaneous utilities for the Shapes Game.
+ */
+
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 

@@ -1,5 +1,5 @@
 /* Shapes Game (c) 2017 James Lu. All rights reserved.
- * ClickableOverlay.cs: Generic class for clickable canvas sprites.
+ * ClickableOverlay.cs: Generic base class for clickable canvas sprites.
  */
 using UnityEngine;
 using UnityEngine.UI;

@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿/* Shapes Game (c) 2017 James Lu. All rights reserved.
+ * PowerupRocket.cs: Implements the rocket powerup.
+ */
+
+using UnityEngine;
 
 public class PowerupRocket : Powerup {
     public float rocketSpeed = 0.03F;

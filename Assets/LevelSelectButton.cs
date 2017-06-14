@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿/* Shapes Game (c) 2017 James Lu. All rights reserved.
+ * LevelSelectButton.cs: Implements the buttons used in the level selector to load levels.
+ */
+
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelSelectButton : ClickableOverlay

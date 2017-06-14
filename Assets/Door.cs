@@ -1,5 +1,5 @@
 ﻿/* Shapes Game (c) 2017 James Lu. All rights reserved.
- * Door.cs: Lockable doors for Shapes, teleporting the player to its target on interact
+ * Door.cs: Lockable doors for Shapes, teleporting the player to its target on interact.
  */
 using UnityEngine;
 using System;

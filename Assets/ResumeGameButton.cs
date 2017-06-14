@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿/* Shapes Game (c) 2017 James Lu. All rights reserved.
+ * ResumeLevelButton.cs: Implements the button to resume the game/current level.
+ */
+
+using UnityEngine;
 
 public class ResumeGameButton : ClickableOverlay
 {

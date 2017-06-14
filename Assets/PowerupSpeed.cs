@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿/* Shapes Game (c) 2017 James Lu. All rights reserved.
+ * PowerupSpeed.cs: Implements the speed-up powerup.
+ */
+
+using UnityEngine;
 using System.Collections.Generic;
 
 public class PowerupSpeed : Powerup

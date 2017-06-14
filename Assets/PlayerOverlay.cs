@@ -1,6 +1,7 @@
 ﻿/* Shapes Game (c) 2017 James Lu. All rights reserved.
- * PlayerOverlay.cs: Implements clickable player sprites for HUDCanvas instances
+ * PlayerOverlay.cs: Implements clickable player sprites for the Shapes Game.
  */
+
 using UnityEngine;
 using UnityEngine.UI;
 

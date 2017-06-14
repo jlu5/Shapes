@@ -1,5 +1,5 @@
 ﻿/* Shapes Game (c) 2017 James Lu. All rights reserved.
- * FadeToColour.cs: Implements a simple fade to arbitrary colours (e.g. fade to black); used for ending levels
+ * FadeToColour.cs: Implements a simple fade to an arbitrary colour (e.g. fade to black). This is used in the game to end levels.
  */
 using UnityEngine;
 using UnityEngine.UI;

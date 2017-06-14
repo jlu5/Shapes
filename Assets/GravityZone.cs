@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿/* Shapes Game (c) 2017 James Lu. All rights reserved.
+ * GravityZone.cs: Implements gravity zones that change gravity controls when entering.
+ */
+
+using UnityEngine;
 using System.Collections.Generic;
 
 public class GravityZone : Collidable {

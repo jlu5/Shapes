@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿/* Shapes Game (c) 2017 James Lu. All rights reserved.
+ * KillOnTouch.cs: Creates "deadly" objects that kill players on contact.
+ */
+
+using UnityEngine;
 
 public class KillOnTouch : Collidable {
 

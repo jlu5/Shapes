@@ -1,5 +1,5 @@
 ﻿/* Shapes Game (c) 2017 James Lu. All rights reserved.
- * Finish.cs: Implements a finish object
+ * Finish.cs: Implements a finish object.
  */
 using UnityEngine;
 

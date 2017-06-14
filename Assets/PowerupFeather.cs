@@ -1,4 +1,8 @@
-﻿public class PowerupFeather : Powerup
+﻿/* Shapes Game (c) 2017 James Lu. All rights reserved.
+ * PowerupFeather.cs: Implements the feather (low gravity) powerup.
+ */
+
+public class PowerupFeather : Powerup
 {
     public float gravityMultiplier = 0.5F;
 

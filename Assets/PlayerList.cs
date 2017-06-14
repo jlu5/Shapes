@@ -1,6 +1,7 @@
 ﻿/* Shapes Game (c) 2017 James Lu. All rights reserved.
- * PlayerList.cs: Implements a canvas displaying a list of player characters
+ * PlayerList.cs: Implements a canvas displaying a list of player characters.
  */
+
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;

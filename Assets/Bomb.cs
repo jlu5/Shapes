@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿/* Shapes Game (c) 2017 James Lu. All rights reserved.
+ * Bomb.cs: Creates an in-game bomb object that explodes on player contact.
+ */
+
+using UnityEngine;
 
 public class Bomb : Collidable
 {

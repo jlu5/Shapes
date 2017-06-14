@@ -1,4 +1,8 @@
-﻿using System.Collections;
+﻿/* Shapes Game (c) 2017 James Lu. All rights reserved.
+ * AutoMaterial.cs: Automatically colours and sets material of walls and objects.
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

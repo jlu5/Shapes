@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿/* Shapes Game (c) 2017 James Lu. All rights reserved.
+ * Powerup.cs: Implements the base powerup class.
+ */
+
+using UnityEngine;
 using UnityEngine.UI;
 using System;
 

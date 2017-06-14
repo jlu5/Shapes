@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿/* Shapes Game (c) 2017 James Lu. All rights reserved.
+ * Trigger.cs: Implements triggers (levers) for turning on/off AutoMover instances.
+ */
+
+using UnityEngine;
 
 public class TriggerButton : Collidable {
     [Tooltip("Sets whether the trigger is currently on.")]

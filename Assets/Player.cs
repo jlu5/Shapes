@@ -1,6 +1,7 @@
 ﻿/* Shapes Game (c) 2017 James Lu. All rights reserved.
- * Player.cs: Implements the base player character
+ * Player.cs: Implements the player character.
  */
+
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;

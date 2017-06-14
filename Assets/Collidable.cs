@@ -1,5 +1,5 @@
 ﻿/* Shapes Game (c) 2017 James Lu. All rights reserved.
- * Collidable.cs: Base class implementing hooks for player collision and interaction
+ * Collidable.cs: Base class implementing hooks for player collision and interaction.
  */
 using UnityEngine;
 
