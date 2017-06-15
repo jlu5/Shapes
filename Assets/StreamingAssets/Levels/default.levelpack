@@ -40,6 +40,10 @@
             "name": "Lava Pool",
             "path": "LavaPool"
         },
+		{
+            "name": "Fun With Gravity",
+            "path": "Gravity"
+        },
         {
             "name": "Mind The Gap",
             "path": "MindTheGap"
