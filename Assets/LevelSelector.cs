@@ -39,6 +39,9 @@ public class LevelSelector : MonoBehaviour {
     // Set the default level pack.
     public static string defaultLevelPack = "default.levelpack";
 
+    // Sets the name of the main scene
+    public static string mainSceneName = "MainScene";
+
     // Track level packs and their levels internally
     public string levelsPath { get; set; }
     private List<string> levelPacks = new List<string>();
@@ -118,7 +121,7 @@ public class LevelSelector : MonoBehaviour {
         else
         {
             Debug.Log("No level left, returning to level selector screen");
-            SceneManager.LoadScene("LevelSelect");
+            SceneManager.LoadScene(mainSceneName);
         }
     }
 

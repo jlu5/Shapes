@@ -8,6 +8,6 @@ public class OpenLevelSelectorButton : ClickableOverlay
 {
     public override void OnClick()
     {
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene(LevelSelector.mainSceneName);
     }
 }
