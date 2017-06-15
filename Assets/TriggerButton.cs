@@ -4,7 +4,8 @@
 
 using UnityEngine;
 
-public class TriggerButton : Collidable {
+public class TriggerButton : Collidable
+{
     [Tooltip("Sets whether the trigger is currently on.")]
     public bool isOn;
 
@@ -37,9 +38,23 @@ public class TriggerButton : Collidable {
         target.anim["AutoMover"].speed = isOn ? 1 : 0;
     }
 
-	public override void PlayerInteract(Player player) {
+    public override void PlayerInteract(Player player)
+    {
         isOn = !isOn;  // Flip the isOn bool.
         spriteRenderer.sprite = sprites[isOn ? 1 : 0];
         UpdateAnimation();
+    }
+
+    // In button mode, the trigger is one use (it only turns on).
+    public void OnCollisionEnter2D(Collision2D col)
+    {
+        // Only respond to objects with dynamic rigid bodies.
+        if (col.rigidbody && (col.rigidbody.bodyType == RigidbodyType2D.Dynamic))
+        {
+            isOn = true;
+            spriteRenderer.sprite = sprites[1];
+            UpdateAnimation();
+            Destroy(GetComponent<Collider2D>());  // Remove the collider, as it isn't needed anymore.
+        }
     }
 }
