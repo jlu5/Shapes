@@ -1,9 +1,6 @@
 ﻿using UnityEngine;
 
 public class Water : Collidable {
-    // Should jumping in water be allowed?
-    public bool allowJump = true;
-
     // What swimming speed should we add to the player when underwater?
     public float swimSpeed = 0.02F;
 
@@ -15,11 +12,6 @@ public class Water : Collidable {
         Player player = other.gameObject.GetComponent<Player>();
         if (player)
         {
-            if (allowJump)
-            {
-                // Let the player jump on water.
-                player.canJump = true;
-            }
             if (allowSwim)
             {
                 // Let the player swim (this actually borrows the flying code).
