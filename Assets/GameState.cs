@@ -79,9 +79,9 @@ public sealed class GameState : MonoBehaviour
     public GameObject textLabelTemplate;
 
     // Access to various game objects
-    public PlayerList playerList {get; protected set; }
-    public GameObject powerupsPanel {get; protected set; }
-    public GameObject coinCountText {get; protected set; }
+    public PlayerList playerList {get; private set; }
+    public GameObject powerupsPanel {get; private set; }
+    public GameObject coinCountText {get; private set; }
 
     // Score tracking
     [Tooltip("The current score")]
