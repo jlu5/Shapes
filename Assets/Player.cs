@@ -29,14 +29,15 @@ public class Player : MonoBehaviour {
     public bool flyInCardinalDirections = false;
 
     // Quick access to components & resources
-    public Rigidbody2D rb {get; set;} // "rb" for RigidBody
-    public ParticleSystem ps {get; set;}
+    public Rigidbody2D rb {get; protected set;} // "rb" for RigidBody
+    public ParticleSystem ps {get; protected set;}
     private GameObject bindDisplayTemplate; // BindDisplayObject template
     private GameObject simpleTextMesh;
     private GameObject playerIDLabel;
-    public GameObject feet {get; set;}
-    public GameObject spheresContainer {get; set;}
+    public GameObject feet {get; protected set;}
+    public GameObject spheresContainer {get; protected set;}
     public Color color { get; protected set; }
+    public Sprite sprite {get; protected set; }
 
     /* Track whether jumping and flying / swimming (these share the same code) are allowed.
      * Jump is disabled in mid-air, and enabled when the player hits the ground or any solid object.
@@ -81,6 +82,7 @@ public class Player : MonoBehaviour {
         ps = GetComponentInChildren<ParticleSystem>();
 
         bindDisplayTemplate = Resources.Load<GameObject>("BindDisplayObject");
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
 
         if (playerID == 0) // Player ID should never be zero (this is the prefab default)
         {
@@ -91,9 +93,10 @@ public class Player : MonoBehaviour {
             // Set the player color to the preset color for the current player ID, if one exists.
             string hexcolor = playerColors[playerID-1];
             Debug.Log(string.Format("Setting color of player {0} to {1}", playerID, hexcolor));
-            GetComponent<SpriteRenderer>().color = Utils.HexColor(hexcolor);
+            spriteRenderer.color = Utils.HexColor(hexcolor);
         }
-        color = GetComponent<SpriteRenderer>().color;  // Set our color attribute for other scripts
+        color = spriteRenderer.color;  // Set our color attribute for other scripts
+        sprite = spriteRenderer.sprite;  // Ditto for our current sprite
 
         simpleTextMesh = Resources.Load<GameObject>("SimpleTextMesh");
 

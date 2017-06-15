@@ -15,6 +15,9 @@ public class PlayerOverlay : ClickableOverlay
     {
         base.Start(); // Initialize the base ClickableOverlay class
 
+        // Make our sprite match the player's
+        GetComponent<Image>().sprite = player.sprite;
+
         if (showPlayerID)
         {
             // Label which player this overlay corresponds to
