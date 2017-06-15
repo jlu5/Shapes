@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1277795967
+CRC: 1558013263
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 0575f4c16e76820aa56a303c74c9400a
+    Hash: 865bb34def561d0fb430c0864eb3ee6a
   TypeTreeHash:
     serializedVersion: 2
     Hash: 31d6cfe0d16ae931b73c59d7e0c089c0
@@ -11,11 +11,16 @@ HashAppended: 0
 ClassTypes: []
 Assets:
 - Assets/StreamingAssets/Levels/Tut2Jump.unity
+- Assets/StreamingAssets/Levels/Tut6Doors.unity
 - Assets/StreamingAssets/Levels/Tut4Powerups.unity
 - Assets/StreamingAssets/Levels/Tut1Movement.unity
 - Assets/StreamingAssets/Levels/DemoScene.unity
 - Assets/StreamingAssets/Levels/Tut3MultiplePlayers.unity
+- Assets/StreamingAssets/Levels/GrabTheCoins.unity
 - Assets/StreamingAssets/Levels/Seesaw.unity
 - Assets/StreamingAssets/Levels/MindTheGap.unity
+- Assets/StreamingAssets/Levels/Tut5Water.unity
 - Assets/StreamingAssets/Levels/MovingPlatforms.unity
+- Assets/StreamingAssets/Levels/LavaPool.unity
+- Assets/StreamingAssets/Levels/RocketPickup.unity
 Dependencies: []

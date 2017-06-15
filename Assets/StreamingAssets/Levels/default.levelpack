@@ -2,38 +2,51 @@
     "levels":
         [{
             "name": "How to Move",
-            "path": "Tut1Movement",
-            "thumbnail": "Tut1Movement.png"
+            "path": "Tut1Movement"
         },
 		{
             "name": "How to Hop",
-            "path": "Tut2Jump",
-            "thumbnail": "Tut2Jump.png"
+            "path": "Tut2Jump"
         },
 		{
             "name": "Seeing Double",
-            "path": "Tut3MultiplePlayers",
-            "thumbnail": "Tut3.png"
+            "path": "Tut3MultiplePlayers"
         },
 		{
             "name": "Poorly Drawn Powerups",
-            "path": "Tut4Powerups",
-            "thumbnail": "Tut3.png"
+            "path": "Tut4Powerups"
+        },
+		{
+            "name": "Underwater Journey",
+            "path": "Tut5Water"
+        },
+		{
+            "name": "Pastel Doors",
+            "path": "Tut6Doors"
+        },
+		{
+            "name": "Grab The Coins",
+            "path": "GrabTheCoins"
+        },
+        {
+            "name": "Rocket Pickup",
+            "path": "RocketPickup"
         },
         {
             "name": "Budget Seesaw",
-            "path": "Seesaw",
-            "thumbnail": "Seesaw.png"
+            "path": "Seesaw"
+        },
+		{
+            "name": "Lava Pool",
+            "path": "LavaPool"
         },
         {
             "name": "Mind The Gap",
-            "path": "MindTheGap",
-            "thumbnail": "MindTheGap.png"
+            "path": "MindTheGap"
         },
         {
             "name": "Evil Platforms",
-            "path": "MovingPlatforms",
-            "thumbnail": "MindTheGap.png"
+            "path": "MovingPlatforms"
         }
         ]
 }
