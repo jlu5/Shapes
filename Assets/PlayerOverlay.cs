@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class PlayerOverlay : ClickableOverlay
 {
     public bool showPlayerID = true;
+    public bool copySprite = true;
     public Player player { get; set; }
     private GameObject label;
 
@@ -16,7 +17,8 @@ public class PlayerOverlay : ClickableOverlay
         base.Start(); // Initialize the base ClickableOverlay class
 
         // Make our sprite match the player's
-        GetComponent<Image>().sprite = player.sprite;
+        if (copySprite)
+            GetComponent<Image>().sprite = player.sprite;
 
         if (showPlayerID)
         {

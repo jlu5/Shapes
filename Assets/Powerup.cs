@@ -77,6 +77,7 @@ public abstract class Powerup : Collidable {
         // Allow clicking on the powerup display to focus on the player.
         PlayerOverlay po = powerupDisplay.AddComponent<PlayerOverlay>();
         po.player = player;
+        po.copySprite = false; // Don't overwrite the powerup sprite.
         po.showPlayerID = false; // The player ID text clashes with the "time remaining" display, so turn it off.
 
         // Disable future collisions.
