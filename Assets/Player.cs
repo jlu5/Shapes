@@ -280,12 +280,6 @@ public class Player : MonoBehaviour {
         // objects at the same angle (e.g. when resting on the crack between two parallel platforms).
         jumpVector.Normalize();
 
-        if (jumpVector == Vector2.zero)
-        {
-            // The jump vector turned out to be zero (e.g. if we're on water), so set a default of jumping upwards.
-            jumpVector = Vector2.up;
-        }
-
         Debug.Log("Jump vector: " + jumpVector.ToString());
 
         // Add a force on the player character to propel it perpendicular to the
