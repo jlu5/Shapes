@@ -13,11 +13,16 @@ public class Coin : Collidable {
         // When a player hits the coin, increment the score and destroy the coin.
         if (other.gameObject.GetComponent<Player>() != null)
         {
+            // Add to the score and coin count
             GameState.Instance.AddScore(value);
             GameState.Instance.coinCount++;
+
+            // Update the display for the amount of coins already taken.
+            Utils.SetText(GameState.Instance.coinCountText, GameState.Instance.coinCount.ToString());
+
             if (GameState.Instance.coinsNeeded > 0 && GameState.Instance.coinCount >= GameState.Instance.coinsNeeded)
             {
-                // End the level if we've reached the amount of coins needed.
+                // End the level when we've reached the amount of coins needed.
                 GameState.Instance.LevelEnd();
             }
 

@@ -78,9 +78,10 @@ public sealed class GameState : MonoBehaviour
     private GameObject levelEndScreenTemplate;
     public GameObject textLabelTemplate;
 
-    // Quick attribute access to the current player list.
-    public PlayerList playerList;
-    public GameObject powerupsPanel;
+    // Access to various game objects
+    public PlayerList playerList {get; protected set; }
+    public GameObject powerupsPanel {get; protected set; }
+    public GameObject coinCountText {get; protected set; }
 
     // Score tracking
     [Tooltip("The current score")]
@@ -130,6 +131,7 @@ public sealed class GameState : MonoBehaviour
         playerList = transform.Find("PlayerListCanvas").GetComponent<PlayerList>();
         scoreText = transform.Find("HUDCanvas/ScoreText").GetComponent<Text>();
         powerupsPanel = transform.Find("HUDCanvas/PowerupsPanel").gameObject;
+        coinCountText = transform.Find("HUDCanvas/CoinCountWrapper/CoinCountText").gameObject;
     }
 
     void Start()
