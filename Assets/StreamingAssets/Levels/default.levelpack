@@ -33,11 +33,15 @@
             "path": "RocketPickup"
         },
         {
+            "name": "Timing Is Everything",
+            "path": "Levers"
+        },
+        {
             "name": "Budget Seesaw",
             "path": "Seesaw"
         },
 		{
-            "name": "Lava Pool",
+            "name": "Lava Jump",
             "path": "LavaPool"
         },
 		{

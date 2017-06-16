@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1558439728
+CRC: 657613938
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 3259cc67f5820faec24ecd930d23b36b
+    Hash: 8645dffa45a7e376dfcb8547d699714a
   TypeTreeHash:
     serializedVersion: 2
     Hash: 31d6cfe0d16ae931b73c59d7e0c089c0
@@ -23,5 +23,6 @@ Assets:
 - Assets/StreamingAssets/Levels/Tut5Water.unity
 - Assets/StreamingAssets/Levels/MovingPlatforms.unity
 - Assets/StreamingAssets/Levels/LavaPool.unity
+- Assets/StreamingAssets/Levels/Levers.unity
 - Assets/StreamingAssets/Levels/RocketPickup.unity
 Dependencies: []
