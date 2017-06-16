@@ -11,6 +11,8 @@ public class AutoMover : MonoBehaviour
     public float endX;
     [Tooltip("Defines the target Y position value for the object.")]
     public float endY;
+    [Tooltip("Sets the wrap mode for the AutoMover animation. See https://docs.unity3d.com/ScriptReference/WrapMode.html for a list of possible definitions.")]
+    public WrapMode wrapmode = WrapMode.PingPong;
 
     [Tooltip("Determines how long the animation should last in one direction.")]
     public float animationLength = 1f;
@@ -54,7 +56,7 @@ public class AutoMover : MonoBehaviour
         clip.legacy = true;
         clip.SetCurve("", typeof(Transform), "localPosition.x", Xcurve);
         clip.SetCurve("", typeof(Transform), "localPosition.y", Ycurve);
-        clip.wrapMode = WrapMode.PingPong; // Make the animation loop forever
+        clip.wrapMode = wrapmode;
 
         // Add the animation clip to the animator and play.
         anim.AddClip(clip, "AutoMover");
