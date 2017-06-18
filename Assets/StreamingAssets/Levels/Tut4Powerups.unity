@@ -74,7 +74,6 @@ LightmapSettings:
     m_MixedBakeMode: 3
     m_BakeBackend: 0
     m_PVRSampling: 1
-    m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 500
     m_PVRBounces: 2
     m_PVRFiltering: 0
@@ -1600,11 +1599,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4217418800145416, guid: f7f7e25341c9c4d6f88b98b3bfee52ed, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 2.29
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4217418800145416, guid: f7f7e25341c9c4d6f88b98b3bfee52ed, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -8.25
+      value: -11
       objectReference: {fileID: 0}
     - target: {fileID: 4217418800145416, guid: f7f7e25341c9c4d6f88b98b3bfee52ed, type: 2}
       propertyPath: m_LocalPosition.z

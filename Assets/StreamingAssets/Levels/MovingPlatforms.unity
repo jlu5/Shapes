@@ -246,7 +246,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endX: -5
   endY: -4
+  wrapmode: 4
   animationLength: 3
+  ID: 0
 --- !u!1001 &153917668
 Prefab:
   m_ObjectHideFlags: 0
@@ -260,7 +262,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4217418800145416, guid: f7f7e25341c9c4d6f88b98b3bfee52ed, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -6.5
       objectReference: {fileID: 0}
     - target: {fileID: 4217418800145416, guid: f7f7e25341c9c4d6f88b98b3bfee52ed, type: 2}
       propertyPath: m_LocalPosition.z
@@ -328,7 +330,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endX: -2
   endY: -2
+  wrapmode: 4
   animationLength: 1
+  ID: 0
 --- !u!4 &394188708
 Transform:
   m_ObjectHideFlags: 0
@@ -484,7 +488,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endX: 2
   endY: 2
+  wrapmode: 4
   animationLength: 1
+  ID: 0
 --- !u!4 &587013853
 Transform:
   m_ObjectHideFlags: 0
@@ -569,7 +575,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endX: -1
   endY: 4
+  wrapmode: 4
   animationLength: 1
+  ID: 0
 --- !u!4 &1029296893 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4655290398413274, guid: 98bd860b733cb0d4e8c42f5babf9c22d,
@@ -604,7 +612,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endX: -2
   endY: 2
+  wrapmode: 4
   animationLength: 1
+  ID: 0
 --- !u!4 &1155096273
 Transform:
   m_ObjectHideFlags: 0
@@ -813,7 +823,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endX: 2
   endY: -2
+  wrapmode: 4
   animationLength: 1
+  ID: 0
 --- !u!4 &1629406601
 Transform:
   m_ObjectHideFlags: 0
@@ -1123,7 +1135,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endX: 3
   endY: 0
+  wrapmode: 4
   animationLength: 2
+  ID: 0
 --- !u!1001 &1988423310
 Prefab:
   m_ObjectHideFlags: 0
