@@ -25,6 +25,10 @@
             "path": "Tut6Doors"
         },
 		{
+            "name": "Joining Forces",
+            "path": "Tut7Binding"
+        },
+		{
             "name": "Grab The Coins",
             "path": "GrabTheCoins"
         },
