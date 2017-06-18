@@ -4,6 +4,10 @@
 
 <img src="shapes1.gif" width="360" height="240"> <img src="shapes2.gif" width="360" height="240">
 
+## Downloads
+
+Prebuilt binaries for Windows, Mac OS X, and Linux can be found on the [releases page](https://github.com/GLolol/Shapes/releases).
+
 ## Compilation
 Shapes That Move is built using Unity 5.6 (Personal) on Windows and Linux. Opening the project it is as simple as cloning the repository and opening it in the Unity Editor.
 
