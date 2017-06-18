@@ -7,7 +7,9 @@ using UnityEngine.UI;
 
 public class PlayerOverlay : ClickableOverlay
 {
+    [Tooltip("Sets whether a textbox showing the player ID should be inscribed on this overlay.")]
     public bool showPlayerID = true;
+    [Tooltip("Sets whether this overlay should match the player's sprite.")]
     public bool copySprite = true;
     public Player player { get; set; }
     private GameObject label;

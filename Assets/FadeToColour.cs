@@ -8,6 +8,7 @@ public class FadeToColour : MonoBehaviour {
     // This is a quick hack because a null UI.Image causes nothing but a solid colour to be drawn...
     Image image;
     Color color;
+    [Tooltip("Sets the fade amount per frame.")]
     public float fadeAmountPerFrame = 0.005F;
 
 	void Start () {

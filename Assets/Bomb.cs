@@ -6,7 +6,9 @@ using UnityEngine;
 
 public class Bomb : Collidable
 {
-    public float explosionRadius = 3.0f;
+    [Tooltip("Sets the explosion radius of this bomb.")]
+    public float explosionRadius = 3f;
+    [Tooltip("Sets the max explosion force of this bomb: the explosion force applied on each object is inversely proportional to the distance between the bomb and the affected object, but capped at this value.")]
     public float explosionForce = 5f;
 
     public override void PlayerHit(Player player)

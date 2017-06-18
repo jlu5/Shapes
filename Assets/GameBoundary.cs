@@ -17,7 +17,6 @@ public class GameBoundary : MonoBehaviour {
         // Note: Only destroy objects that are *actually* leaving the area of the stage.
         // In other words, ignore objects that disable their collider intentionally (e.g. powerups when hit).
         Debug.Log("other position: " + other.transform.position.ToString());
-        Debug.Log("overlap check: " + col.OverlapPoint(other.transform.position).ToString());
         if (other.attachedRigidbody && !col.OverlapPoint(other.transform.position))
         {
             // For most objects, destroy them completely.

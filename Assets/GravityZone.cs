@@ -6,7 +6,7 @@ using UnityEngine;
 using System.Collections.Generic;
 
 public class GravityZone : Collidable {
-    // How much should we multiple objects' gravity by as they enter?
+    [Tooltip("How much should we multiple objects' gravity by as they enter?")]
     public float gravityMultiplier = 0.5f;
 
     void Start() {

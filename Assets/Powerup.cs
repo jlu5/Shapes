@@ -7,7 +7,7 @@ using UnityEngine.UI;
 using System;
 
 public abstract class Powerup : Collidable {
-    // How long does the powerup last?
+    [Tooltip("How long does the powerup last?")]
     public float powerupLength = 5.0F;
 
     // Text colors for the "time remaining" overlay

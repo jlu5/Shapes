@@ -4,7 +4,9 @@
 using UnityEngine;
 
 public class Finish : Collidable {
+    [Tooltip("Sets the amount of players needed for this to complete (and remove) this finish.")]
     public int playersNeeded = 0;
+
     private GameObject text;
     private GameObject finishWrapper;
 

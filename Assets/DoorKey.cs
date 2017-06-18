@@ -4,7 +4,9 @@
 using UnityEngine;
 
 public class DoorKey : Collidable {
+    [Tooltip("ID of the door that this key should open.")]
     public int doorID;
+
     private Door myDoor;
 
     // Note: this start method requires the "Door" script to be executed before it! (Unity Script Execution Order)

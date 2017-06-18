@@ -7,12 +7,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AutoMaterial : MonoBehaviour {
-    // Configurable options: whether the object is bouncy, icy, or sticky. Only one of these should be enabled at a time..
+    [Tooltip("Sets whether this object is icy.")]
     public bool isBouncy;
+    [Tooltip("Sets whether this object is bouncy.")]
     public bool isIce;
+    [Tooltip("Sets whether this object is sticky.")]
     public bool isSticky;
 
-    // Toggles automatic color settings.
+    [Tooltip("Sets whether automatic colour setting based on AutoMaterial attributes should be used on this object.")]
     public bool enableColor = true;
 
     // Misc state tracking

@@ -5,7 +5,7 @@
 using UnityEngine;
 
 public class Coin : Collidable {
-    // How much is this coin worth?
+    [Tooltip("How much is this coin worth?")]
     public int value = 100;
 
     protected override void OnTriggerEnter2D(Collider2D other)
