@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1213029221
+CRC: 1673159207
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 6f231c8ecf5abb527a12c1d28b8bc1f6
+    Hash: cda6dd951fcb1d54b039112beba01ef4
   TypeTreeHash:
     serializedVersion: 2
     Hash: 31d6cfe0d16ae931b73c59d7e0c089c0
@@ -19,6 +19,7 @@ Assets:
 - Assets/StreamingAssets/Levels/Tut3MultiplePlayers.unity
 - Assets/StreamingAssets/Levels/GrabTheCoins.unity
 - Assets/StreamingAssets/Levels/Seesaw.unity
+- Assets/StreamingAssets/Levels/Tut7Binding.unity
 - Assets/StreamingAssets/Levels/MindTheGap.unity
 - Assets/StreamingAssets/Levels/Tut5Water.unity
 - Assets/StreamingAssets/Levels/MovingPlatforms.unity
