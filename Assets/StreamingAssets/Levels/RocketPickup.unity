@@ -1199,7 +1199,11 @@ Prefab:
       propertyPath: m_Text
       value: 'Use the magical rocket powerup with player binding
 
-        to lift the other characters to the finishes!'
+        to lift the other characters to the finishes!
+
+        (Default bindings: E to connect adjacent characters,
+
+        Q to disconnect, R and F to fly forwards & backwards)'
       objectReference: {fileID: 0}
     - target: {fileID: 102590317373944760, guid: 27ecead667d041c439d3beeb3b45b374,
         type: 2}
