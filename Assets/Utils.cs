@@ -21,7 +21,7 @@ public static class Utils {
         Debug.Log(string.Format("sum: {0}, {1}, {2}, {3}", r, g, b, a));
         return new Color(r, g, b, a);
     }
-    
+
     // Returns a normalized difference of two colors.
     public static Color ColorDifference(Color first, Color second)
     {
@@ -66,6 +66,7 @@ public static class Utils {
         } catch (MissingReferenceException) {
         }
 
+        // Set the text accordingly.
         if (uiText != null)
         {
             uiText.text = text;

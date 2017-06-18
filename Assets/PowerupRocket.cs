@@ -5,6 +5,7 @@
 using UnityEngine;
 
 public class PowerupRocket : Powerup {
+    [Tooltip("Sets the speed of this rocket.")]
     public float rocketSpeed = 0.03F;
 
     public override void SetEffect()

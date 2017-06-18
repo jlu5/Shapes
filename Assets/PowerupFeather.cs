@@ -4,6 +4,7 @@
 
 public class PowerupFeather : Powerup
 {
+    [Tooltip("Sets the gravity multiplier for this powerup.")]
     public float gravityMultiplier = 0.5F;
 
     public override void SetEffect()

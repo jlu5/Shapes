@@ -7,7 +7,9 @@ using System.Collections.Generic;
 
 public class PowerupSpeed : Powerup
 {
+    [Tooltip("Sets the speed multiplier for this powerup.")]
     public float speedMultiplier = 1.25F;
+
     private GameObject effectTemplate;
     private List<GameObject> spheres = new List<GameObject>();
 
@@ -15,6 +17,7 @@ public class PowerupSpeed : Powerup
         effectTemplate = Resources.Load<GameObject>("PowerupSpeedEffect");
     }
 
+    // Create a new speed up effect for the target player.
     void AddSphere() {
         spheres.Add(Instantiate(effectTemplate, targetPlayer.spheresContainer.transform));
     }

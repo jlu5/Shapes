@@ -3,7 +3,9 @@
  */
 
 public class PowerupGrow : Powerup {
+    [Tooltip("Sets the size multiplier for this powerup.")]
     public float sizeMultiplier = 1.25F;
+    [Tooltip("Sets the player mass multiplier for this powerup.")]
     public float massMultiplier = 2F;
 
     public override void SetEffect()

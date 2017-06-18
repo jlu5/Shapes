@@ -1,10 +1,14 @@
-﻿using UnityEngine;
+﻿/* Shapes Game (c) 2017 James Lu. All rights reserved.
+ * Water.cs: Implements water with support for player swimming.
+ */
+
+using UnityEngine;
 
 public class Water : Collidable {
-    // What swimming speed should we add to the player when underwater?
+    [Tooltip("What swimming speed should we add to the player when underwater?")]
     public float swimSpeed = 0.02F;
 
-    // Should swimming in water be allowed?
+    [Tooltip("Should swimming in water be allowed?")]
     public bool allowSwim = true;
 
     protected override void OnTriggerEnter2D(Collider2D other)

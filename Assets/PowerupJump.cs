@@ -3,6 +3,7 @@
  */
 
 public class PowerupJump : Powerup {
+    [Tooltip("Sets the jump height multiplier for this powerup.")]
     public float jumpMultiplier = 1.25F;
 
     public override void SetEffect()
