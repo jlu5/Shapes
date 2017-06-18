@@ -20,6 +20,8 @@ Levels are stored in the `Assets/StreamingAssets/Levels` folder. Each level is b
 
 2) The level scene MUST have its asset bundle set to `levels`, or it will fail to import in multi-level mode (i.e. via MainScene).
 
+    * After adding a level to the `levels` asset bundle, you must also rebuild the runtime asset bundle via the `Assets->Build Asset Bundles` menu option. Otherwise, scenes will either be outdated or fail to load!
+
 3) *Safe* objects to add into the world in a level include everything in `WorldItems/` and `Resources/SimpleTextMesh` (for in-game textboxes).
 
     * Script-wise, `AutoMaterial`, `AutoMover`, and `KillOnTouch` are safe to add to most objects. (`BindDisplay` works as well but that currently requires manual tweaking and a dummy gameobject)
