@@ -2,6 +2,8 @@
  * PowerupFeather.cs: Implements the feather (low gravity) powerup.
  */
 
+using UnityEngine;
+
 public class PowerupFeather : Powerup
 {
     [Tooltip("Sets the gravity multiplier for this powerup.")]

@@ -2,6 +2,8 @@
  * PowerupJump.cs: Implements the superjump powerup.
  */
 
+using UnityEngine;
+
 public class PowerupJump : Powerup {
     [Tooltip("Sets the jump height multiplier for this powerup.")]
     public float jumpMultiplier = 1.25F;

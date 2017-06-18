@@ -2,6 +2,8 @@
  * PowerupGrow.cs: Implements the grow (size-up) powerup.
  */
 
+using UnityEngine;
+
 public class PowerupGrow : Powerup {
     [Tooltip("Sets the size multiplier for this powerup.")]
     public float sizeMultiplier = 1.25F;
