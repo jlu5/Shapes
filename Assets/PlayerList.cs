@@ -5,6 +5,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class PlayerList : MonoBehaviour {
     private PlayerOverlay playerOverlay;
@@ -40,12 +41,14 @@ public class PlayerList : MonoBehaviour {
 
         // Sort the player overlays: for each child object with a PlayerOverlay script, set its
         // index in the player list equal to the player ID - 1.
-        foreach (Transform child in transform)
+        // Note: sort the child objects by name first, as Transform iteration doesn't have a
+        // guaranteed order: http://answers.unity3d.com/questions/276230/
+        foreach (Transform child in transform.Cast<Transform>().OrderBy(t=>t.name))
         {
             PlayerOverlay overlay = child.gameObject.GetComponent<PlayerOverlay>();
             if (overlay != null)
             {
-                Debug.Log(string.Format("PlayerList: sorting PlayerOverlay {0} to position {0}", overlay.player.playerID));
+                Debug.Log(string.Format("PlayerList: sorting PlayerOverlay {0} to position {0}", overlay.player.playerID-1));
                 child.SetSiblingIndex(overlay.player.playerID-1);
             }
         }
