@@ -18,7 +18,7 @@ Levels are stored in the `Assets/StreamingAssets/Levels` folder. Each level is b
 
 3) *Safe* objects to add into the world in a level include everything in `WorldItems/` and `Resources/SimpleTextMesh` (for in-game textboxes).
 
-* Script-wise, `AutoMaterial`, `AutoMover`, and `KillOnTouch` are safe to add to most objects. (`BindDisplay` works as well but that currently requires manual tweaking and a dummy gameobject)
+    * Script-wise, `AutoMaterial`, `AutoMover`, and `KillOnTouch` are safe to add to most objects. (`BindDisplay` works as well but that currently requires manual tweaking and a dummy gameobject)
 
 ### Level packs
 
