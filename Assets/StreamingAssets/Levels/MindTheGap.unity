@@ -74,6 +74,7 @@ LightmapSettings:
     m_MixedBakeMode: 3
     m_BakeBackend: 0
     m_PVRSampling: 1
+    m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 500
     m_PVRBounces: 2
     m_PVRFiltering: 0
@@ -751,6 +752,11 @@ Prefab:
       propertyPath: playerID
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114563102548606438, guid: da6bc009983c2734483361e0b08de910,
+        type: 2}
+      propertyPath: moveSpeed
+      value: 0.7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: da6bc009983c2734483361e0b08de910, type: 2}
   m_IsPrefabParent: 0
@@ -806,6 +812,11 @@ Prefab:
     - target: {fileID: 1326100810625570, guid: da6bc009983c2734483361e0b08de910, type: 2}
       propertyPath: m_Name
       value: PlayerObject (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114563102548606438, guid: da6bc009983c2734483361e0b08de910,
+        type: 2}
+      propertyPath: moveSpeed
+      value: 0.7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: da6bc009983c2734483361e0b08de910, type: 2}
@@ -983,6 +994,11 @@ Prefab:
     - target: {fileID: 1326100810625570, guid: da6bc009983c2734483361e0b08de910, type: 2}
       propertyPath: m_Name
       value: PlayerObject (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114563102548606438, guid: da6bc009983c2734483361e0b08de910,
+        type: 2}
+      propertyPath: moveSpeed
+      value: 0.7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: da6bc009983c2734483361e0b08de910, type: 2}
@@ -1210,6 +1226,11 @@ Prefab:
       propertyPath: m_Name
       value: PlayerObject (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 114563102548606438, guid: da6bc009983c2734483361e0b08de910,
+        type: 2}
+      propertyPath: moveSpeed
+      value: 0.7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: da6bc009983c2734483361e0b08de910, type: 2}
   m_IsPrefabParent: 0
@@ -1321,7 +1342,7 @@ Prefab:
     - target: {fileID: 114563102548606438, guid: da6bc009983c2734483361e0b08de910,
         type: 2}
       propertyPath: moveSpeed
-      value: 10
+      value: 0.7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: da6bc009983c2734483361e0b08de910, type: 2}
@@ -1483,6 +1504,11 @@ Prefab:
     - target: {fileID: 1326100810625570, guid: da6bc009983c2734483361e0b08de910, type: 2}
       propertyPath: m_Name
       value: PlayerObject (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114563102548606438, guid: da6bc009983c2734483361e0b08de910,
+        type: 2}
+      propertyPath: moveSpeed
+      value: 0.7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: da6bc009983c2734483361e0b08de910, type: 2}
