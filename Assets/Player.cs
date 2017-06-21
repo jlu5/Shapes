@@ -16,7 +16,7 @@ public class Player : MonoBehaviour {
 
     // Public (editor-exposed) variables
     [Tooltip("Sets the speed of the player's movement.")]
-    public float moveSpeed = 10;
+    public float moveSpeed = 0.5f;
     [Tooltip("Sets the strength of the player's jump, relative to player mass.")]
     public float jumpStrength = 5;
     [Tooltip("Sets the strength of the player's jump recoil; i.e. what force should be applied on the objects the player is jumping off of.")]
@@ -365,13 +365,12 @@ public class Player : MonoBehaviour {
         canJump = true;
     }
 
-    // Update is called once per frame
-    void Update() {
-        if (GameState.Instance && GameState.Instance.currentPlayer == playerID) {
-            // Get horizontal and vertical (rotation) movement
-            float x_move = Input.GetAxis("Horizontal");
-            float r_move = Input.GetAxis("Vertical");
-
+    // Update runs every frame; this works better for handling keys as they are pressed
+    void Update()
+    {
+        if (GameState.Instance && GameState.Instance.currentPlayer == playerID)
+        {
+            // Handle jump, attach, detach, interact:
             if (Input.GetButtonDown("Jump"))
             {
                 Jump();
@@ -388,9 +387,18 @@ public class Player : MonoBehaviour {
             {
                 InteractAll();
             }
+        }
+    }
+
+    // Fixed update is frame rate independent and used to track movement and camera updates
+    void FixedUpdate() {
+        if (GameState.Instance && GameState.Instance.currentPlayer == playerID) {
+            // Get horizontal and vertical (rotation) movement
+            float x_move = Input.GetAxis("Horizontal");
+            float r_move = Input.GetAxis("Vertical");
 
             Vector2 vector_move = new Vector2(x_move, 0.0F);
-            rb.AddForce(vector_move * moveSpeed * rb.mass);
+            rb.AddForce(vector_move * moveSpeed, ForceMode2D.Impulse);
             // Up rotates clockwise, down rotates counterclockwise.
             rb.AddTorque(r_move * rotationSpeed);
 
@@ -398,28 +406,20 @@ public class Player : MonoBehaviour {
             {
                 Fly();
             }
+
+            // Handle camera pans:
+            // Don't mess with the camera's Z axis, or the screen will blank out...
+            Vector3 target = new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z);
+            Vector3 velocity = Vector3.zero;
+
+            // Use Unity's built in damping to make the panning less choppy
+            Camera.main.transform.position = Vector3.SmoothDamp(Camera.main.transform.position,
+                target, ref velocity, GameState.Instance.cameraPanTime);
         }
 
         // Force the player ID label (and other subobjects) to be always upright
         foreach (Transform child in transform) {
             child.transform.rotation = Quaternion.identity;
-        }
-    }
-
-    void FixedUpdate()
-    {
-        if (GameState.Instance && GameState.Instance.currentPlayer == playerID)
-        {
-            // Handle camera pans
-            {
-                // Don't mess with the camera's Z axis, or the screen will blank out...
-                Vector3 target = new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z);
-                Vector3 velocity = Vector3.zero;
-
-                // Use Unity's built in damping to make the panning less choppy
-                Camera.main.transform.position = Vector3.SmoothDamp(Camera.main.transform.position,
-                    target, ref velocity, GameState.Instance.cameraPanTime);
-            }
         }
     }
 
