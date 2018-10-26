@@ -282,9 +282,8 @@ public class Player : MonoBehaviour {
 
         Debug.Log("Jump vector: " + jumpVector.ToString());
 
-        // Add a force on the player character to propel it perpendicular to the
-        // surface(s) it's touching.
-        Vector2 jumpForce = jumpVector * jumpStrength;
+        // Jump perpendicular to the surface(s) the player is touching.
+        Vector2 jumpForce = jumpVector * jumpStrength * rb.mass;
         Debug.Log(string.Format("Player {0} jumps with a force of {1}", playerID, jumpForce));
         rb.AddForce(jumpForce, ForceMode2D.Impulse);
 
@@ -398,7 +397,7 @@ public class Player : MonoBehaviour {
             float r_move = Input.GetAxis("Vertical");
 
             Vector2 vector_move = new Vector2(x_move, 0.0F);
-            rb.AddForce(vector_move * moveSpeed, ForceMode2D.Impulse);
+            rb.AddForce(vector_move * moveSpeed * rb.mass, ForceMode2D.Impulse);
             // Up rotates clockwise, down rotates counterclockwise.
             rb.AddTorque(r_move * rotationSpeed);
 

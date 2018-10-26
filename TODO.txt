@@ -1,6 +1,6 @@
 - [ ] document rotation on rocket/powers tutorial
 - [ ] key bindings for restart/next level
-- [ ] fix movement with size up powerup (maybe add a speed multiplier?)
+- [x] fix movement with size up powerup (maybe add a speed multiplier?)
 - [ ] platform animations should use animate physics?
 - [ ] score should be cumulative between levels
 - [ ] score keeping should stop when the game is over
