@@ -7,7 +7,7 @@ public class CreateAssetBundles : MonoBehaviour
     static void BuildAllAssetBundles()
     {
         // Clear the cache, and then rebuild the asset bundles.
-        Caching.CleanCache();
+        Caching.ClearCache();
         BuildPipeline.BuildAssetBundles("Assets/StreamingAssets/LevelAssetBundles", BuildAssetBundleOptions.None,
                                         BuildTarget.StandaloneWindows);  // XXX: hardcoding for specific OS
     }
