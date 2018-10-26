@@ -3323,7 +3323,7 @@ Prefab:
     - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 13.38
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 224036148693529598, guid: 27ecead667d041c439d3beeb3b45b374,
         type: 2}
@@ -3370,7 +3370,11 @@ Prefab:
       propertyPath: m_Text
       value: 'The rocket powerup allows the player to fly:
 
-        use R to go up and F to go down.'
+        R: move forwards
+
+        F: move backwards
+
+        Up / down: rotate'
       objectReference: {fileID: 0}
     - target: {fileID: 102590317373944760, guid: 27ecead667d041c439d3beeb3b45b374,
         type: 2}
