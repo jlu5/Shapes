@@ -143,6 +143,19 @@ public sealed class GameState : MonoBehaviour
         currentPlayer = initialPlayer;
     }
 
+    public void addCoin(int value) {
+        coinCount++;
+        // Update the display for the amount of coins already taken.
+        Utils.SetText(coinCountText, coinCount.ToString());
+        ScoreSystem.Instance.AddScore(value);
+
+        if (coinsNeeded > 0 && coinCount >= coinsNeeded)
+        {
+            // End the level when we've reached the amount of coins needed.
+            LevelEnd();
+        }
+    }
+
     // Method called to end the current level.
     public void LevelEnd(bool win=true)
     {
