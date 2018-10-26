@@ -14,7 +14,7 @@ public class Coin : Collidable {
         if (other.gameObject.GetComponent<Player>() != null)
         {
             // Add to the score and coin count
-            GameState.Instance.AddScore(value);
+            ScoreSystem.Instance.AddScore(value);
             GameState.Instance.coinCount++;
 
             // Update the display for the amount of coins already taken.

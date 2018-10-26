@@ -13,7 +13,7 @@ OcclusionCullingSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 8
+  serializedVersion: 9
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -39,10 +39,11 @@ RenderSettings:
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
   m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 9
+  serializedVersion: 11
   m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -54,11 +55,10 @@ LightmapSettings:
     m_EnableBakedLightmaps: 0
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
-    serializedVersion: 8
+    serializedVersion: 10
     m_Resolution: 2
     m_BakeResolution: 40
-    m_TextureWidth: 1024
-    m_TextureHeight: 1024
+    m_AtlasSize: 1024
     m_AO: 0
     m_AOMaxDistance: 1
     m_CompAOExponent: 1
@@ -71,22 +71,26 @@ LightmapSettings:
     m_FinalGatherFiltering: 1
     m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
-    m_MixedBakeMode: 3
+    m_MixedBakeMode: 2
     m_BakeBackend: 0
     m_PVRSampling: 1
+    m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 500
     m_PVRBounces: 2
-    m_PVRFiltering: 0
+    m_PVRFilterTypeDirect: 0
+    m_PVRFilterTypeIndirect: 0
+    m_PVRFilterTypeAO: 0
     m_PVRFilteringMode: 1
     m_PVRCulling: 1
     m_PVRFilteringGaussRadiusDirect: 1
     m_PVRFilteringGaussRadiusIndirect: 5
     m_PVRFilteringGaussRadiusAO: 2
-    m_PVRFilteringAtrousColorSigma: 1
-    m_PVRFilteringAtrousNormalSigma: 1
-    m_PVRFilteringAtrousPositionSigma: 1
+    m_PVRFilteringAtrousPositionSigmaDirect: 0.5
+    m_PVRFilteringAtrousPositionSigmaIndirect: 2
+    m_PVRFilteringAtrousPositionSigmaAO: 1
+    m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_ShadowMaskMode: 2
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -106,6 +110,8 @@ NavMeshSettings:
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
+    debug:
+      m_Flags: 0
   m_NavMeshData: {fileID: 0}
 --- !u!1001 &45783561
 Prefab:
@@ -151,8 +157,8 @@ Prefab:
       value: Coin (14)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &202483453
 Prefab:
   m_ObjectHideFlags: 0
@@ -197,8 +203,8 @@ Prefab:
       value: Coin (7)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &405530893
 Prefab:
   m_ObjectHideFlags: 0
@@ -256,8 +262,8 @@ Prefab:
       value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 8a44b38d24c7243dc9aff6a88ca22735, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 8a44b38d24c7243dc9aff6a88ca22735, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &457631629
 Prefab:
   m_ObjectHideFlags: 0
@@ -302,8 +308,8 @@ Prefab:
       value: Coin (17)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &464820815
 Prefab:
   m_ObjectHideFlags: 0
@@ -361,8 +367,8 @@ Prefab:
       value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 8a44b38d24c7243dc9aff6a88ca22735, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 8a44b38d24c7243dc9aff6a88ca22735, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &481608810
 Prefab:
   m_ObjectHideFlags: 0
@@ -407,17 +413,17 @@ Prefab:
       value: Coin (12)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &487282553 stripped
 GameObject:
-  m_PrefabParentObject: {fileID: 1520257693720500, guid: 8a44b38d24c7243dc9aff6a88ca22735,
+  m_CorrespondingSourceObject: {fileID: 1520257693720500, guid: 8a44b38d24c7243dc9aff6a88ca22735,
     type: 2}
   m_PrefabInternal: {fileID: 895447319}
 --- !u!231 &487282554
 SpringJoint2D:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 487282553}
   m_Enabled: 1
@@ -486,14 +492,14 @@ Prefab:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 794043db922474a71803d00d0c3d8d5f, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 794043db922474a71803d00d0c3d8d5f, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &715375258
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 715375261}
   - component: {fileID: 715375260}
@@ -508,7 +514,7 @@ GameObject:
 --- !u!114 &715375259
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 715375258}
   m_Enabled: 1
@@ -526,7 +532,7 @@ MonoBehaviour:
 --- !u!114 &715375260
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 715375258}
   m_Enabled: 1
@@ -540,7 +546,7 @@ MonoBehaviour:
 --- !u!4 &715375261
 Transform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 715375258}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -594,8 +600,8 @@ Prefab:
       value: Coin (11)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &787246940
 Prefab:
   m_ObjectHideFlags: 0
@@ -640,8 +646,8 @@ Prefab:
       value: Coin (13)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &798016894
 Prefab:
   m_ObjectHideFlags: 0
@@ -752,8 +758,8 @@ Prefab:
         Get 10 coins to win!'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 27ecead667d041c439d3beeb3b45b374, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 27ecead667d041c439d3beeb3b45b374, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &891642402
 Prefab:
   m_ObjectHideFlags: 0
@@ -811,8 +817,8 @@ Prefab:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 794043db922474a71803d00d0c3d8d5f, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 794043db922474a71803d00d0c3d8d5f, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &895447319
 Prefab:
   m_ObjectHideFlags: 0
@@ -870,8 +876,8 @@ Prefab:
       value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 8a44b38d24c7243dc9aff6a88ca22735, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 8a44b38d24c7243dc9aff6a88ca22735, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &909947844
 Prefab:
   m_ObjectHideFlags: 0
@@ -916,17 +922,17 @@ Prefab:
       value: Coin (8)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &1019700952 stripped
 GameObject:
-  m_PrefabParentObject: {fileID: 1520257693720500, guid: 8a44b38d24c7243dc9aff6a88ca22735,
+  m_CorrespondingSourceObject: {fileID: 1520257693720500, guid: 8a44b38d24c7243dc9aff6a88ca22735,
     type: 2}
   m_PrefabInternal: {fileID: 464820815}
 --- !u!231 &1019700958
 SpringJoint2D:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1019700952}
   m_Enabled: 1
@@ -986,8 +992,8 @@ Prefab:
       value: Coin (15)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &1064686093
 Prefab:
   m_ObjectHideFlags: 0
@@ -1032,8 +1038,8 @@ Prefab:
       value: Coin (5)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &1157329448
 Prefab:
   m_ObjectHideFlags: 0
@@ -1091,8 +1097,8 @@ Prefab:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 794043db922474a71803d00d0c3d8d5f, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 794043db922474a71803d00d0c3d8d5f, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &1287771280
 Prefab:
   m_ObjectHideFlags: 0
@@ -1133,17 +1139,17 @@ Prefab:
       value: 33
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 4e572d0e25647417e84e495bae3b4aaa, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 4e572d0e25647417e84e495bae3b4aaa, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &1604042697 stripped
 GameObject:
-  m_PrefabParentObject: {fileID: 1520257693720500, guid: 8a44b38d24c7243dc9aff6a88ca22735,
+  m_CorrespondingSourceObject: {fileID: 1520257693720500, guid: 8a44b38d24c7243dc9aff6a88ca22735,
     type: 2}
   m_PrefabInternal: {fileID: 405530893}
 --- !u!231 &1604042703
 SpringJoint2D:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1604042697}
   m_Enabled: 1
@@ -1203,8 +1209,8 @@ Prefab:
       value: Coin (4)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &1831043479
 Prefab:
   m_ObjectHideFlags: 0
@@ -1249,8 +1255,8 @@ Prefab:
       value: Coin (3)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &1871428655
 Prefab:
   m_ObjectHideFlags: 0
@@ -1295,8 +1301,8 @@ Prefab:
       value: Coin (16)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &1874577995
 Prefab:
   m_ObjectHideFlags: 0
@@ -1341,8 +1347,8 @@ Prefab:
       value: Coin (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &1898878659
 Prefab:
   m_ObjectHideFlags: 0
@@ -1387,8 +1393,8 @@ Prefab:
       value: Coin
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &1903212843
 Prefab:
   m_ObjectHideFlags: 0
@@ -1433,8 +1439,8 @@ Prefab:
       value: Coin (20)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &1929646513
 Prefab:
   m_ObjectHideFlags: 0
@@ -1479,8 +1485,8 @@ Prefab:
       value: Coin (19)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &1965232494
 Prefab:
   m_ObjectHideFlags: 0
@@ -1538,8 +1544,8 @@ Prefab:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 794043db922474a71803d00d0c3d8d5f, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 794043db922474a71803d00d0c3d8d5f, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &1981356444
 Prefab:
   m_ObjectHideFlags: 0
@@ -1584,8 +1590,8 @@ Prefab:
       value: Coin (18)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &1995525534
 Prefab:
   m_ObjectHideFlags: 0
@@ -1631,8 +1637,8 @@ Prefab:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: da6bc009983c2734483361e0b08de910, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: da6bc009983c2734483361e0b08de910, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &2007912465
 Prefab:
   m_ObjectHideFlags: 0
@@ -1673,8 +1679,8 @@ Prefab:
       value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: f7f7e25341c9c4d6f88b98b3bfee52ed, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: f7f7e25341c9c4d6f88b98b3bfee52ed, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &2046782644
 Prefab:
   m_ObjectHideFlags: 0
@@ -1719,8 +1725,8 @@ Prefab:
       value: Coin (6)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &2061306957
 Prefab:
   m_ObjectHideFlags: 0
@@ -1787,7 +1793,7 @@ Prefab:
     - target: {fileID: 224997670199588816, guid: a9b54c735d8584914aedfab4a988bc7c,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -16
       objectReference: {fileID: 0}
     - target: {fileID: 224764824682859740, guid: a9b54c735d8584914aedfab4a988bc7c,
         type: 2}
@@ -1807,11 +1813,11 @@ Prefab:
     - target: {fileID: 224764824682859740, guid: a9b54c735d8584914aedfab4a988bc7c,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: a9b54c735d8584914aedfab4a988bc7c, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: a9b54c735d8584914aedfab4a988bc7c, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &2078782827
 Prefab:
   m_ObjectHideFlags: 0
@@ -1856,8 +1862,8 @@ Prefab:
       value: Coin (10)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &2127529995
 Prefab:
   m_ObjectHideFlags: 0
@@ -1915,8 +1921,8 @@ Prefab:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 794043db922474a71803d00d0c3d8d5f, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 794043db922474a71803d00d0c3d8d5f, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &2132951568
 Prefab:
   m_ObjectHideFlags: 0
@@ -1961,5 +1967,5 @@ Prefab:
       value: Coin (9)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 98bd860b733cb0d4e8c42f5babf9c22d, type: 2}
+  m_IsPrefabAsset: 0

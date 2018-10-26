@@ -29,8 +29,6 @@ public sealed class GameState : MonoBehaviour
     // EDITOR OPTIONS
     [Tooltip("Sets the initial score amount")]
     public int initialScore = 1000;
-    [Tooltip("Sets the amount of time to wait before increasing the score based on elapsed time")]
-    public int scoreInterval = 1;
     [Tooltip("Sets whether the game should end when score reaches 0.")]
     public bool gameOverOnZeroScore;
     [Tooltip("Sets the time remaining before we should warn the player that they're about to run out of time (if Death On Zero Score is on)")]
@@ -71,6 +69,7 @@ public sealed class GameState : MonoBehaviour
     public bool gameEnded { get; set; }
     // Track lists of players and game scripts based on their ID.
     public Dictionary<int, Player> players = new Dictionary<int, Player>();
+    // A generic table of object scripts so that they can be looked up.
     private Dictionary<System.Type, Dictionary<int, MonoBehaviour>> gameScripts = new Dictionary<System.Type, Dictionary<int, MonoBehaviour>>();
 
     // Resource templates, used by Instantiate()
@@ -82,12 +81,6 @@ public sealed class GameState : MonoBehaviour
     public PlayerList playerList {get; private set; }
     public GameObject powerupsPanel {get; private set; }
     public GameObject coinCountText {get; private set; }
-
-    // Score tracking
-    [Tooltip("The current score")]
-    public int score;
-    public static Color scoreWarningTextColor = new Color(1f, 0.5f, 0.2f, 1f);
-    // Stores the score text display object
     private Text scoreText;
 
     void Awake()
@@ -132,15 +125,19 @@ public sealed class GameState : MonoBehaviour
         scoreText = transform.Find("HUDCanvas/ScoreText").GetComponent<Text>();
         powerupsPanel = transform.Find("HUDCanvas/PowerupsPanel").gameObject;
         coinCountText = transform.Find("HUDCanvas/CoinCountWrapper/CoinCountText").gameObject;
+
+        if (ScoreSystem.Instance == null) {
+            // Load a new ScoreSystem object if none exists.
+            GameObject scoreSystemObject = Resources.Load<GameObject>("ScoreSystem");
+            Instantiate(scoreSystemObject);
+        }
+        ScoreSystem.Instance.textField = scoreText;
     }
 
     void Start()
     {
         // Set the initial score.
-        AddScore(initialScore);
-
-        // Start the score updater in a loop.
-        InvokeRepeating("AddScoreTime", scoreInterval, scoreInterval);
+        ScoreSystem.Instance.AddScore(initialScore);
 
         // Set the initial player defined in the config.
         currentPlayer = initialPlayer;
@@ -260,31 +257,6 @@ public sealed class GameState : MonoBehaviour
         {
             RestartLevel();
         }
-    }
-
-    // Add the given amount to the current score, and update the score text.
-    public int AddScore(int amount)
-    {
-        score += amount;
-        scoreText.text = "Score: " + score.ToString();
-        if (gameOverOnZeroScore)
-        {
-            if (score <= 0)
-            {
-                // Don't let time flow negative if the level is timed.
-                LevelEnd(false);
-            }
-            else if (score <= scoreWarningThreshold)
-            {   // Warn that the player is running out of time once score gets below a certain amount.
-                scoreText.color = scoreWarningTextColor;
-            }
-        }
-        return score;
-    }
-    // Update the score based on time - this is a simple, parameter free wrapper around AddScore()
-    void AddScoreTime()
-    {
-        AddScore(-scoreInterval);
     }
 
     // Level selector-based methods.
