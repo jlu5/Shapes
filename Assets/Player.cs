@@ -399,7 +399,7 @@ public class Player : MonoBehaviour {
             Vector2 vector_move = new Vector2(x_move, 0.0F);
             rb.AddForce(vector_move * moveSpeed * rb.mass, ForceMode2D.Impulse);
             // Up rotates clockwise, down rotates counterclockwise.
-            rb.AddTorque(r_move * rotationSpeed);
+            rb.AddTorque(r_move * rotationSpeed * rb.mass);
 
             if (canFly >= 1)
             {

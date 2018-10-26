@@ -146,7 +146,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1.6384
   m_LinearDrag: 0
-  m_AngularDrag: 10
+  m_AngularDrag: 1
   m_GravityScale: 2
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -192,7 +192,7 @@ MonoBehaviour:
   moveSpeed: 0.7
   jumpStrength: 12
   jumpRecoilStrength: 0.2
-  rotationSpeed: 10
+  rotationSpeed: 5
   playerID: 0
   flyInCardinalDirections: 0
   idleModeParticlesMultiplier: 0.1
