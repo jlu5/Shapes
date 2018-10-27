@@ -24,6 +24,18 @@ public class LevelDataCollection
     public LevelData[] levels;
 }
 
+// Like a string enum for the available overlay canvases
+public class OverlayCanvas
+{
+    private OverlayCanvas() {}
+
+    public const string NONE = "";
+    public const string WELCOME = "WelcomeCanvas";
+    public const string LEVELSELECT = "LevelSelectCanvas";
+    public const string ESCMENU = "EscMenuCanvas";
+}
+
+
 public class LevelSelector : MonoBehaviour {
     // Make LevelSelector a singleton class - see GameState.cs for more details
     private static LevelSelector instance;
@@ -60,26 +72,30 @@ public class LevelSelector : MonoBehaviour {
         Application.Quit();
     }
 
-    public void SwitchCanvas(int canvasNum) {
-        Debug.Log(string.Format("Running SwitchCanvas({0})", canvasNum));
+    // Disables all overlay canvases and enables the one given by canvasName.
+    // canvasName can be OverlayCanvas.NONE to turn off all canvases.
+    public void SwitchCanvas(string canvasName) {
+        Debug.Log(string.Format("Running SwitchCanvas({0})", canvasName));
 
-        // First, hide/disable all canvas objects.
-        foreach (GameObject canvas in GameObject.FindGameObjectsWithTag("ToggleableCanvas"))
+        // First, hide/disable all children.
+        foreach (Transform child in transform)
         {
-            canvas.SetActive(false);
+            child.gameObject.SetActive(false);
         }
 
-        // Then, enable the one requested.
-        if (canvasNum >= 0) {
-            transform.GetChild(canvasNum).gameObject.SetActive(true);
-            // Reset the time scale if it was previously changed.
-            Time.timeScale = 1.0F;
+        if (canvasName != "") {
+            Transform child = transform.Find(canvasName);
+            if (child) {
+                Debug.Log(string.Format("Found child element {0}", canvasName));
+                child.gameObject.SetActive(true);
+                // Reset the time scale if it was previously changed.
+                Time.timeScale = 1.0F;
+            }
         }
     }
 
     // Loads a level pack and initializes the level choosing screen
-    void InitLevelPack(string packPath)
-    {
+    void InitLevelPack(string packPath) {
         packPath = levelsPath + packPath;
         string jsonData = File.ReadAllText(packPath);
         Debug.Log("Got raw JSON data for " + packPath + " :" + jsonData.Replace("\n", " ").Replace("\r", ""));
@@ -113,7 +129,7 @@ public class LevelSelector : MonoBehaviour {
 
     public void PlayNextLevel() {
         int targetLevel = lastLevel + 1;
-        // Find the button representing the next level, and emulate a click 
+        // Find the button representing the next level, and emulate a click
         // (this is lazy but it means we don't have to track a list of levels manually)
         if (targetLevel < levelSelectPanel.transform.childCount) {
             levelSelectPanel.transform.GetChild(targetLevel).gameObject.GetComponentInChildren<LevelSelectButton>().OnClick();
@@ -134,7 +150,7 @@ public class LevelSelector : MonoBehaviour {
         {
             // A level selector instance already exists, so remove the duplicate.
             Destroy(gameObject);
-            Instance.SwitchCanvas(1);  // Go to the level list.
+            Instance.SwitchCanvas(OverlayCanvas.LEVELSELECT);  // Go to the level list.
             return;
         }
 
@@ -155,7 +171,7 @@ public class LevelSelector : MonoBehaviour {
 
         // Load all available level packs and add them into the dropdown menu.
         levelsPath = Application.streamingAssetsPath + "/Levels/";
-        
+
         // Add the default level pack first.
         levelPacks.Add(defaultLevelPack);
         foreach (string fullpath in Directory.GetFiles(levelsPath, "*.levelpack", SearchOption.AllDirectories)) {
@@ -184,7 +200,7 @@ public class LevelSelector : MonoBehaviour {
         InitLevelPack(defaultLevelPack);
 
         // Enable the welcome canvas and disable the rest. Note: we can't leave the object pre-disabled in the scene because GameObject.Find() doesn't work on inactive objects.
-        SwitchCanvas(0);
+        SwitchCanvas(OverlayCanvas.WELCOME);
     }
 
     void Update()
@@ -195,13 +211,13 @@ public class LevelSelector : MonoBehaviour {
             if (!transform.GetChild(2).gameObject.activeInHierarchy)
             {
                 // Enable the canvas and pause the game if not already.
-                SwitchCanvas(2);
+                SwitchCanvas(OverlayCanvas.ESCMENU);
                 Time.timeScale = 0;
             }
             else
             {
                 // Otherwise, do the reverse.
-                SwitchCanvas(-1);
+                SwitchCanvas(OverlayCanvas.NONE);
                 Time.timeScale = GameState.Instance.timeScale;
             }
         }

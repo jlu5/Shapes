@@ -9,6 +9,6 @@ public class ResumeGameButton : ClickableOverlay
     public override void OnClick()
     {
         Time.timeScale = GameState.Instance.timeScale;
-        LevelSelector.Instance.SwitchCanvas(-1);  // Hide the navigation menu
+        LevelSelector.Instance.SwitchCanvas(OverlayCanvas.NONE);  // Hide the navigation menu
     }
 }

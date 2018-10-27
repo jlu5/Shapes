@@ -15,7 +15,7 @@ public class LevelSelectButton : ClickableOverlay
         if (!string.IsNullOrEmpty(levelName))
         {
             // Hide all the level selection canvases.
-            LevelSelector.Instance.SwitchCanvas(-1);
+            LevelSelector.Instance.SwitchCanvas(OverlayCanvas.NONE);
 
             // Set the level position.
             LevelSelector.Instance.lastLevel = levelNum;
