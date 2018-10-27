@@ -62,6 +62,9 @@ public class ScoreSystem : MonoBehaviour {
     // Update the score based on time
     void AddScoreTime()
     {
-        AddScore(-scoreInterval);
+        // Skip if there is no level running.
+        if (!GameState.Instance.gameEnded) {
+            AddScore(-scoreInterval);
+        }
     }
 }
