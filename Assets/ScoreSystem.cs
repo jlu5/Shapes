@@ -10,12 +10,17 @@ public class ScoreSystem : MonoBehaviour {
     private ScoreSystem() { }
     public static ScoreSystem Instance { get { return instance; } }
 
+    // Tracks whether this level was accessed sequentially from the last one. If this is false
+    // when a level loads, it should reset the score instead of incrementing it.
+    public bool sequentialPlaying { get; set; }
+
     public static Color scoreWarningTextColor = new Color(1f, 0.5f, 0.2f, 1f);
 
     // The textbox to write into
     public Text textField;
 
-    // Score tracking
+    // Score tracking: This is only public s.t. you can edit it in Unity Editor; AddScore
+    // and ResetScore should be used instead.
     [Tooltip("The current score")]
     public int score;
 
@@ -44,6 +49,7 @@ public class ScoreSystem : MonoBehaviour {
     {
         score += amount;
         textField.text = "Score: " + score.ToString();
+
         if (GameState.Instance.gameOverOnZeroScore)
         {
             if (score <= 0)
@@ -59,8 +65,15 @@ public class ScoreSystem : MonoBehaviour {
         return score;
     }
 
+    public int ResetScore(int amount=0)
+    {
+        score = amount;
+        textField.text = "Score: " + score.ToString();
+        return score;
+    }
+
     // Update the score based on time
-    void AddScoreTime()
+    private void AddScoreTime()
     {
         // Skip if there is no level running.
         if (!GameState.Instance.gameEnded) {

@@ -136,8 +136,14 @@ public sealed class GameState : MonoBehaviour
 
     void Start()
     {
-        // Set the initial score.
-        ScoreSystem.Instance.AddScore(initialScore);
+        // Set the initial score if this is the first level loaded in sequence.
+        if (!ScoreSystem.Instance.sequentialPlaying) {
+            ScoreSystem.Instance.ResetScore(initialScore);
+        }
+
+        // Unset sequentialPlaying; it will be set again in LevelSelector.PlayNextLevel()
+        // if applicable.
+        ScoreSystem.Instance.sequentialPlaying = false;
 
         // Set the initial player defined in the config.
         currentPlayer = initialPlayer;

@@ -132,11 +132,15 @@ public class LevelSelector : MonoBehaviour {
         // Find the button representing the next level, and emulate a click
         // (this is lazy but it means we don't have to track a list of levels manually)
         if (targetLevel < levelSelectPanel.transform.childCount) {
+            if (ScoreSystem.Instance) {
+                ScoreSystem.Instance.sequentialPlaying = true;
+            }
             levelSelectPanel.transform.GetChild(targetLevel).gameObject.GetComponentInChildren<LevelSelectButton>().OnClick();
         }
         else
         {
             Debug.Log("No level left, returning to level selector screen");
+            // TODO: make a win screen with the total score
             SceneManager.LoadScene(mainSceneName);
         }
     }
