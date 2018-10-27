@@ -1,15 +1,15 @@
 # Shapes That Move
 
-**Shapes That Move** is a simple platformer game written in half a year with the [Unity3D](https://unity3d.com/) engine. It employs realistic™ physics, moddable level loading, and extensive level objects.
+**Shapes That Move** is a simple platformer game written with the [Unity3D](https://unity3d.com/) engine. It includes realistic physics™, easy level creation, and a variety of objects to make your levels fun.
 
 <img src="shapes1.gif" width="360" height="240"> <img src="shapes2.gif" width="360" height="240">
 
 ## Downloads
 
-Prebuilt binaries for Windows, Mac OS X, and Linux can be found on the [releases page](https://github.com/GLolol/Shapes/releases).
+Prebuilt binaries for Windows, Mac OS X, and Linux can be found on the [releases page](https://github.com/jlu5/Shapes/releases).
 
 ## Compilation
-Shapes That Move is built using Unity 5.6 (Personal) on Windows and Linux. Opening the project it is as simple as cloning the repository and opening it in the Unity Editor.
+Shapes That Move is built using Unity 2018.2 (Personal) on Windows and Linux. Opening the project it is as simple as cloning the repository and opening it in the Unity Editor.
 
 Single-level builds are supported using the level scene in the build - multi-level builds use the `MainScene.unity` scene in `Assets/`.
 

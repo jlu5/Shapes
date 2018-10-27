@@ -1,33 +1,39 @@
 <h1 id="shapes-that-move">Shapes That Move</h1>
-<p><strong>Shapes That Move</strong> is a simple platformer game written in half a year with the <a href="https://unity3d.com/">Unity3D</a> engine. It employs realistic™ physics, moddable level loading, and extensive level objects.</p>
+<p><strong>Shapes That Move</strong> is a simple platformer game written with the <a href="https://unity3d.com/">Unity3D</a> engine. It includes realistic physics™, easy level creation, and a variety of objects to make your levels fun.</p>
 <p><img src="shapes1.gif" width="360" height="240"> <img src="shapes2.gif" width="360" height="240"></p>
 <h2 id="downloads">Downloads</h2>
-<p>Prebuilt binaries for Windows, Mac OS X, and Linux can be found on the <a href="https://github.com/GLolol/Shapes/releases">releases page</a>.</p>
+<p>Prebuilt binaries for Windows, Mac OS X, and Linux can be found on the <a href="https://github.com/jlu5/Shapes/releases">releases page</a>.</p>
 <h2 id="compilation">Compilation</h2>
-<p>Shapes That Move is built using Unity 5.6 (Personal) on Windows and Linux. Opening the project it is as simple as cloning the repository and opening it in the Unity Editor.</p>
+<p>Shapes That Move is built using Unity 2018.2 (Personal) on Windows and Linux. Opening the project it is as simple as cloning the repository and opening it in the Unity Editor.</p>
 <p>Single-level builds are supported using the level scene in the build - multi-level builds use the <code>MainScene.unity</code> scene in <code>Assets/</code>.</p>
 <h2 id="levels">Levels</h2>
 <p>Levels are stored in the <code>Assets/StreamingAssets/Levels</code> folder. Each level is basically a Unity scene file, but some considerations must be kept in mind:</p>
-<p>1) The level should include the <code>GameState</code> prefab, and preferably the <code>ShapesDefaultCamera</code> and <code>GameBoundary</code> prefabs for consistency. It is therefore a good idea to copy <code>Assets/LevelTemplate.unity</code> to the levels folder and begin work there.</p>
-<p>2) The level scene MUST have its asset bundle set to <code>levels</code>, or it will fail to import in multi-level mode (i.e. via MainScene).</p>
-<pre><code>* After adding a level to the `levels` asset bundle, you must also rebuild the runtime asset bundle via the `Assets-&gt;Build Asset Bundles` menu option. Otherwise, scenes will either be outdated or fail to load!</code></pre>
-<p>3) <em>Safe</em> objects to add into the world in a level include everything in <code>WorldItems/</code> and <code>Resources/SimpleTextMesh</code> (for in-game textboxes).</p>
-<pre><code>* Script-wise, `AutoMaterial`, `AutoMover`, and `KillOnTouch` are safe to add to most objects. (`BindDisplay` works as well but that currently requires manual tweaking and a dummy gameobject)</code></pre>
+<ol type="1">
+<li><p>The level should include the <code>GameState</code> prefab, and preferably the <code>ShapesDefaultCamera</code> and <code>GameBoundary</code> prefabs for consistency. It is therefore a good idea to copy <code>Assets/LevelTemplate.unity</code> to the levels folder and begin work there.</p></li>
+<li><p>The level scene MUST have its asset bundle set to <code>levels</code>, or it will fail to import in multi-level mode (i.e. via MainScene).</p>
+<ul>
+<li>After adding a level to the <code>levels</code> asset bundle, you must also rebuild the runtime asset bundle via the <code>Assets-&gt;Build Asset Bundles</code> menu option. Otherwise, scenes will either be outdated or fail to load!</li>
+</ul></li>
+<li><p><em>Safe</em> objects to add into the world in a level include everything in <code>WorldItems/</code> and <code>Resources/SimpleTextMesh</code> (for in-game textboxes).</p>
+<ul>
+<li>Script-wise, <code>AutoMaterial</code>, <code>AutoMover</code>, and <code>KillOnTouch</code> are safe to add to most objects. (<code>BindDisplay</code> works as well but that currently requires manual tweaking and a dummy gameobject)</li>
+</ul></li>
+</ol>
 <h3 id="level-packs">Level packs</h3>
-<p>Level packs are simple JSON files that tell Shapes' level selector which scenes to expose and in which order. All level packs named <code>Assets/StreamingAssets/Levels/*.levelpack</code> are automatically discovered on runtime, so there is no configuration needed to explicitly load them. For level creators, you will likely want to create a new <code>.levelpack</code> file or add your work to an existing one.</p>
-<p>The level pack format is as follows: an object with a &quot;levels&quot; key pointing to a list of objects with a &quot;name&quot; and &quot;path&quot; key each. <em>Omit</em> file extensions when specifying the scene path.</p>
-<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
-    <span class="dt">&quot;levels&quot;</span><span class="fu">:</span>
-        <span class="ot">[</span><span class="fu">{</span>
-            <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;How to Move&quot;</span><span class="fu">,</span>
-            <span class="dt">&quot;path&quot;</span><span class="fu">:</span> <span class="st">&quot;Tut1Movement&quot;</span>
-        <span class="fu">}</span><span class="ot">,</span>
-    <span class="fu">{</span>
-            <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;How to Hop&quot;</span><span class="fu">,</span>
-            <span class="dt">&quot;path&quot;</span><span class="fu">:</span> <span class="st">&quot;Tut2Jump&quot;</span>
-        <span class="fu">}</span><span class="ot">,</span>
-        <span class="st">&quot;...&quot;</span>
-        <span class="ot">]</span>
-<span class="fu">}</span></code></pre></div>
+<p>Level packs are simple JSON files that tell Shapes’ level selector which scenes to expose and in which order. All level packs named <code>Assets/StreamingAssets/Levels/*.levelpack</code> are automatically discovered on runtime, so there is no configuration needed to explicitly load them. For level creators, you will likely want to create a new <code>.levelpack</code> file or add your work to an existing one.</p>
+<p>The level pack format is as follows: an object with a “levels” key pointing to a list of objects with a “name” and “path” key each. <em>Omit</em> file extensions when specifying the scene path.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode json"><code class="sourceCode json"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="fu">{</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">    <span class="dt">&quot;levels&quot;</span><span class="fu">:</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">        <span class="ot">[</span><span class="fu">{</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">            <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;How to Move&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">            <span class="dt">&quot;path&quot;</span><span class="fu">:</span> <span class="st">&quot;Tut1Movement&quot;</span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">        <span class="fu">}</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">    <span class="fu">{</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">            <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;How to Hop&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">            <span class="dt">&quot;path&quot;</span><span class="fu">:</span> <span class="st">&quot;Tut2Jump&quot;</span></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10">        <span class="fu">}</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb1-11" data-line-number="11">        <span class="st">&quot;...&quot;</span></a>
+<a class="sourceLine" id="cb1-12" data-line-number="12">        <span class="ot">]</span></a>
+<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="fu">}</span></a></code></pre></div>
 <h2 id="license">License</h2>
 <p>GPLv2</p>
