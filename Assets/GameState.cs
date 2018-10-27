@@ -132,6 +132,7 @@ public sealed class GameState : MonoBehaviour
             Instantiate(scoreSystemObject);
         }
         ScoreSystem.Instance.textField = scoreText;
+        ScoreSystem.Instance.drawScoreText();
     }
 
     void Start()

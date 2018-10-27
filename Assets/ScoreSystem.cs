@@ -44,11 +44,15 @@ public class ScoreSystem : MonoBehaviour {
         InvokeRepeating("AddScoreTime", scoreInterval, scoreInterval);
     }
 
+    public void drawScoreText() {
+        textField.text = "Score: " + score.ToString();
+    }
+
     // Add the given amount to the current score, and update the score text.
     public int AddScore(int amount)
     {
         score += amount;
-        textField.text = "Score: " + score.ToString();
+        drawScoreText();
 
         if (GameState.Instance.gameOverOnZeroScore)
         {
@@ -68,7 +72,7 @@ public class ScoreSystem : MonoBehaviour {
     public int ResetScore(int amount=0)
     {
         score = amount;
-        textField.text = "Score: " + score.ToString();
+        drawScoreText();
         return score;
     }
 
