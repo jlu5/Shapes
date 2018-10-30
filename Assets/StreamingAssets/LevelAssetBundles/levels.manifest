@@ -1,14 +1,144 @@
 ManifestFileVersion: 0
-CRC: 2757740158
+CRC: 3575028200
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 107e07606d7d85b449ee60efe59a2454
+    Hash: 8a1b3742a93d943996bc6d9687a4f236
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 31d6cfe0d16ae931b73c59d7e0c089c0
+    Hash: 9cd589c609551f54bed2ae57797d3620
 HashAppended: 0
-ClassTypes: []
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 20
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 50
+  Script: {instanceID: 0}
+- Class: 58
+  Script: {instanceID: 0}
+- Class: 60
+  Script: {instanceID: 0}
+- Class: 61
+  Script: {instanceID: 0}
+- Class: 62
+  Script: {instanceID: 0}
+- Class: 68
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 81
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 102
+  Script: {instanceID: 0}
+- Class: 104
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: -619905303, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: -405508275, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 1077351063, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: -405508275, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 42f6901090d66f24fae3496581df98a8, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: fb786a30166d9dd47b3ac9061006ddfc, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 602f8112e46b16246a86accbefb177da, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 41be86126931a4208b0b0ac5161c9056, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: d1867e626ddbd0c4ba51393b2eb2484a, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: c6ce07d2db1478341a341758e9cfafb1, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: f7365124848b147d9a7a9089923750ea, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 19c24826d5f564f47954fc2cf426ab8b, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 03cb31b7190480847a8faecf01b3be4d, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 94d0d498db8d00042b22337da138c9a2, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 21aa05e802fcd724d84c53e5de01638e, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 723c46198ffebc54882bad21442540f8, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 13124259d46794a94b6f1814f7065764, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 5d988d7dcfdb7cb45b152c2d11799290, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 41e0c3ada04cd0949955c978065f8a7d, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: db193eadd631a4d69ad9353baba2d199, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 84d45cddf5d1e4af988855ee37ac9015, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: c7f7cefd49dd543bc9fcdac886382169, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 2002410e0cf533a4aab9ffe232613c2b, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 9e31c65e3f34eaf438c76fa32da905cf, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: ecd2045faf0ad475bbe9ca4d48c373a3, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 120
+  Script: {instanceID: 0}
+- Class: 124
+  Script: {instanceID: 0}
+- Class: 128
+  Script: {instanceID: 0}
+- Class: 157
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+- Class: 212
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 223
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+- Class: 231
+  Script: {instanceID: 0}
+- Class: 233
+  Script: {instanceID: 0}
+- Class: 253
+  Script: {instanceID: 0}
+- Class: 254
+  Script: {instanceID: 0}
 Assets:
 - Assets/StreamingAssets/Levels/Gravity.unity
 - Assets/StreamingAssets/Levels/Tut2Jump.unity
