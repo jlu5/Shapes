@@ -13,13 +13,13 @@ public class PowerupJump : Powerup {
         // TODO: consider changing jumpRecoilStrength as well?
         targetPlayer.jumpStrength *= jumpMultiplier;
         // Show the "feet" graphic on the player.
-        targetPlayer.feet.SetActive(true);
+        targetPlayer.gfx.SetJumpGraphic(true);
     }
 
     public override void RemoveEffect()
     {
         base.RemoveEffect();
         targetPlayer.jumpStrength /= jumpMultiplier;
-        targetPlayer.feet.SetActive(false);
+        targetPlayer.gfx.SetJumpGraphic(false);
     }
 }

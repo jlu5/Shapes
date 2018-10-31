@@ -1,5 +1,5 @@
-﻿/* Shapes Game (c) 2017 James Lu. All rights reserved.
- * Player.cs: Implements the player character.
+﻿/* Shapes Game (c) 2017-2018 James Lu. All rights reserved.
+ * Player.cs: Implements the base of the player character.
  */
 
 using System.Collections.Generic;
@@ -30,14 +30,13 @@ public class Player : MonoBehaviour {
 
     // Quick access to components & resources
     public Rigidbody2D rb {get; protected set;} // "rb" for RigidBody
-    public ParticleSystem ps {get; protected set;}
     private GameObject simpleTextMesh;
     private GameObject playerIDLabel;
-    public GameObject feet {get; protected set;}
-    public GameObject spheresContainer {get; protected set;}
     public Color color { get; protected set; }
     public Sprite sprite {get; protected set; }
+
     private BindEngine bindEngine;
+    public PlayerGFX gfx {get; protected set; }
 
     /* Track whether jumping and flying / swimming (these share the same code) are allowed.
      * Jump is disabled in mid-air, and enabled when the player hits the ground or any solid object.
@@ -50,19 +49,11 @@ public class Player : MonoBehaviour {
     // Sets the flying/swimming speed: Water and rockets add to this so speed for e.g. having a rocket underwater stacks
     public float flySpeed { get; set; }
 
-    // Tracking for the rocket powerup's graphical effects.
-    public float idleModeParticlesMultiplier = 0.1F;
-    private bool idleMode;
-
     // Track whether this player has entered a finish prior to being removed.
     public bool finished {get; set;}
 
-    // Track the triggers we're interacting with. This list is updated by Collidable class instances.
+    // Track the triggers we're interacting with. This list is updated by the Collidable class.
     public List<GameObject> activeTriggers {get; set;}
-
-    // Tracks which player GameObject is leading the current player attachment (i.e. which player
-    // has the RelativeJoint2D component).
-    protected List<GameObject> masterPlayers = new List<GameObject>();
 
     // Track whether the player is visible on camera (used for quick switching between players off screen)
     public bool visible { get; protected set; }
@@ -74,7 +65,6 @@ public class Player : MonoBehaviour {
     void Awake () {
         // Find our Rigidbody2D and ParticleSystem components
         rb = GetComponent<Rigidbody2D>();
-        ps = GetComponentInChildren<ParticleSystem>();
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
 
         if (playerID == 0) // Player ID should never be zero (this is the prefab default)
@@ -108,13 +98,16 @@ public class Player : MonoBehaviour {
         renderer.sortingOrder = -1;
 
         bindEngine = gameObject.AddComponent<BindEngine>();
+        gfx = gameObject.AddComponent<PlayerGFX>();
+        gfx.color = color;
     }
 
     void OnDestroy() {
-        if (GameState.Instance && GameState.Instance.playerDeathFatal && !GameState.Instance.gameEnded && !finished)
+        if (GameState.Instance && GameState.Instance.playerDeathFatal && !GameState.Instance.gameEnded && !finished) {
             // The player never reached a finish before being destroyed, so end the game.
             GameState.Instance.LevelEnd(false);
             GameState.Instance.players.Remove(playerID);
+        }
     }
 
     void Start()
@@ -130,20 +123,6 @@ public class Player : MonoBehaviour {
         }
 
         activeTriggers = new List<GameObject>();
-
-        // Set the particle system to match the player color.
-        ParticleSystem.MainModule psmain = ps.main;
-        // Use a gradient that slowly fades from the player color to emptiness.
-        psmain.startColor = new ParticleSystem.MinMaxGradient(color, new Color(color.r, color.g, color.b, 0));
-
-        // The "feet" graphic is used to show the superjump powerup.
-        feet = transform.Find("PlayerFeet").gameObject;
-        // Make it also match the player color.
-        feet.GetComponent<SpriteRenderer>().color = color;
-        feet.SetActive(false);
-
-        // The "spheres" graphic is used to show the speed powerup - its code is in PowerupSpeed.cs
-        spheresContainer = transform.Find("PlayerSpinningSpheres").gameObject;
     }
 
 
@@ -213,21 +192,7 @@ public class Player : MonoBehaviour {
         Debug.Log("Player: flying by " + (movement * force).ToString());
         rb.AddForce(force*movement, ForceMode2D.Impulse);
 
-        // Set the player's particle system to emit fewer or more particles based on whether
-        // the rocket is enabled.
-        ParticleSystem.EmissionModule emission = ps.emission;
-        if (movement == 0 && !idleMode)
-        {
-            emission.rateOverTimeMultiplier *= idleModeParticlesMultiplier;
-            Debug.Log("emission.rateOverTimeMultiplier after idleMode enable: " + emission.rateOverTimeMultiplier.ToString());
-            idleMode = true;
-        }
-        else if (idleMode)
-        {
-            emission.rateOverTimeMultiplier /= idleModeParticlesMultiplier;
-            Debug.Log("emission.rateOverTimeMultiplier after idleMode disable: " + emission.rateOverTimeMultiplier.ToString());
-            idleMode = false;
-        }
+        gfx.SetRocketEmission(movement);
     }
 
 

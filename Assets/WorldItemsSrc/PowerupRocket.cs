@@ -12,7 +12,7 @@ public class PowerupRocket : Powerup {
     {
         targetPlayer.canFly += 1;
         // Turn on the player object's particle system.
-        targetPlayer.ps.Play();
+        targetPlayer.gfx.SetRocketGraphic(true);
         targetPlayer.flySpeed += rocketSpeed;
     }
 
@@ -20,7 +20,7 @@ public class PowerupRocket : Powerup {
     {
         base.RemoveEffect();
         targetPlayer.canFly -= 1;
-        targetPlayer.ps.Stop();
+        targetPlayer.gfx.SetRocketGraphic(false);
         targetPlayer.flySpeed -= rocketSpeed;
     }
 }
