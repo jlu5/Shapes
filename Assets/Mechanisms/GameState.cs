@@ -82,6 +82,7 @@ public sealed class GameState : MonoBehaviour
     public GameObject powerupsPanel {get; private set; }
     public GameObject coinCountText {get; private set; }
     private Text scoreText;
+    private GameObject playerListOverlay;
 
     void Awake()
     {
@@ -121,7 +122,8 @@ public sealed class GameState : MonoBehaviour
         stretchedTextLabelTemplate = Resources.Load<GameObject>("StretchedTextLabel");
         levelEndScreenTemplate = Resources.Load<GameObject>("LevelEndScreen");
         textLabelTemplate = Resources.Load<GameObject>("CanvasTextLabel");
-        playerList = transform.Find("PlayerListCanvas").GetComponent<PlayerList>();
+        playerListOverlay = transform.Find("PlayerListCanvas").gameObject;
+        playerList = playerListOverlay.GetComponent<PlayerList>();
         scoreText = transform.Find("HUDCanvas/ScoreText").GetComponent<Text>();
         powerupsPanel = transform.Find("HUDCanvas/PowerupsPanel").gameObject;
         coinCountText = transform.Find("HUDCanvas/CoinCountWrapper/CoinCountText").gameObject;
@@ -172,6 +174,8 @@ public sealed class GameState : MonoBehaviour
         Text text = levelEndText.GetComponent<Text>();
         text.text = win ? winText : loseText;
         text.fontSize *= 4;  // Make the text bigger
+
+        playerListOverlay.SetActive(false); // Deactivate the "Select character" overlay
 
         // Add a fade out image.
         GameObject levelEndScreen = Instantiate(levelEndScreenTemplate);
