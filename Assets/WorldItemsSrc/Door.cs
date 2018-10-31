@@ -36,8 +36,8 @@ public class Door : Collidable {
         }
 
         GameState.Instance.RegisterGameScript(ID, this);
-	spriteRenderer = GetComponent<SpriteRenderer>();
-	color = spriteRenderer.color;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        color = spriteRenderer.color;
 
         if (isLocked)
         {
@@ -136,7 +136,7 @@ public class Door : Collidable {
             Debug.Log("This door is locked!");
         }
 
-        // Unbind all players. XXX: maybe teleport attached players instead?
+        // Unbind all players.
         player.Detach();
 
         // Teleport the player to the target door!
