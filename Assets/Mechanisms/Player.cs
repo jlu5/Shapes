@@ -198,7 +198,7 @@ public class Player : MonoBehaviour {
 
     // Interact with all triggered Collidables (for collidables that have trigger-based rigid bodies
     // instead of physical collisions)
-    public void InteractAll()
+    void InteractAll()
     {
         foreach (GameObject otherObject in activeTriggers)
         {
