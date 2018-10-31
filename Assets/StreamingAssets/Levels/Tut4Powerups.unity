@@ -4417,7 +4417,7 @@ Prefab:
     - target: {fileID: 114264158928404904, guid: 794043db922474a71803d00d0c3d8d5f,
         type: 2}
       propertyPath: isIce
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 794043db922474a71803d00d0c3d8d5f, type: 2}

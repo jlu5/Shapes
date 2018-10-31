@@ -17,6 +17,9 @@ public class AutoMaterial : MonoBehaviour {
     [Tooltip("Sets whether automatic colour setting based on AutoMaterial attributes should be used on this object.")]
     public bool enableColor = true;
 
+    [Tooltip("Sets the gravity scale of this object if it's to become movable")]
+    public float gravityScale = 4.0F;
+
     // Misc state tracking
     private bool movable;
     private Color color;
@@ -26,7 +29,7 @@ public class AutoMaterial : MonoBehaviour {
     private PhysicsMaterial2D materialIce;
     private PhysicsMaterial2D materialSticky;
 
-    // Color definitions. 
+    // Color definitions.
     public Color staticColor { get; set; }
     public Color dynamicColor { get; set; }
     public Color staticBouncyColor { get; set; }
@@ -107,6 +110,9 @@ public class AutoMaterial : MonoBehaviour {
         {
             GetComponent<SpriteRenderer>().color = color;
         }
+
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        rb.gravityScale = gravityScale;
     }
 
 	// Use this for initialization
