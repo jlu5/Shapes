@@ -283,7 +283,7 @@ public class Player : MonoBehaviour {
         Debug.Log("Jump vector: " + jumpVector.ToString());
 
         // Jump perpendicular to the surface(s) the player is touching.
-        Vector2 jumpForce = jumpVector * jumpStrength * rb.mass;
+        Vector2 jumpForce = jumpVector * jumpStrength * Mathf.Abs(rb.gravityScale) * rb.mass;
         Debug.Log(string.Format("Player {0} jumps with a force of {1}", playerID, jumpForce));
         rb.AddForce(jumpForce, ForceMode2D.Impulse);
 
