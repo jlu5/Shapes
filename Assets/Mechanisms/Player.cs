@@ -59,9 +59,22 @@ public class Player : MonoBehaviour {
     public bool visible { get; protected set; }
     public bool triedPanning { get; set; }
 
-    // Initialization is done in two steps here: Awake, which runs first, and Start, which runs second.
-    // This is so that variables other scripts depend on are always created (step 1) before any
-    // cross-script communication is done (step 2).
+    private void createIDLabel() {
+        // Create a small text label to denote which player is which
+        playerIDLabel = Instantiate(simpleTextMesh);
+        playerIDLabel.transform.SetParent(gameObject.transform, false);
+        TextMesh playerIDText = playerIDLabel.GetComponent<TextMesh>();
+        playerIDText.text = playerID.ToString();
+        // Use a smaller font size
+        playerIDText.fontSize /= 3;
+        playerIDText.color = textLabelColor;
+
+        // Sort the label so that it shows over the player sprite.
+        Renderer renderer = playerIDLabel.GetComponent<Renderer>();
+        renderer.sortingLayerName = "PlayerForeground";
+        renderer.sortingOrder = -1;
+    }
+
     void Awake () {
         // Find our Rigidbody2D and ParticleSystem components
         rb = GetComponent<Rigidbody2D>();
@@ -82,20 +95,7 @@ public class Player : MonoBehaviour {
         sprite = spriteRenderer.sprite;  // Ditto for our current sprite
 
         simpleTextMesh = Resources.Load<GameObject>("SimpleTextMesh");
-
-        // Create a small text label to denote which player is which
-        playerIDLabel = Instantiate(simpleTextMesh);
-        playerIDLabel.transform.SetParent(gameObject.transform, false);
-        TextMesh playerIDText = playerIDLabel.GetComponent<TextMesh>();
-        playerIDText.text = playerID.ToString();
-        // Use a smaller font size
-        playerIDText.fontSize /= 3;
-        playerIDText.color = textLabelColor;
-
-        // Sort the label so that it shows over the player sprite.
-        Renderer renderer = playerIDLabel.GetComponent<Renderer>();
-        renderer.sortingLayerName = "PlayerForeground";
-        renderer.sortingOrder = -1;
+        createIDLabel();
 
         bindEngine = gameObject.AddComponent<BindEngine>();
         gfx = gameObject.AddComponent<PlayerGFX>();
