@@ -256,11 +256,6 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: 1.5
       objectReference: {fileID: 0}
-    - target: {fileID: 114758405656523504, guid: 8a44b38d24c7243dc9aff6a88ca22735,
-        type: 2}
-      propertyPath: explosionForce
-      value: 50
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a44b38d24c7243dc9aff6a88ca22735, type: 2}
   m_IsPrefabAsset: 0
@@ -360,11 +355,6 @@ Prefab:
     - target: {fileID: 4035452701683582, guid: 8a44b38d24c7243dc9aff6a88ca22735, type: 2}
       propertyPath: m_LocalScale.y
       value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114758405656523504, guid: 8a44b38d24c7243dc9aff6a88ca22735,
-        type: 2}
-      propertyPath: explosionForce
-      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a44b38d24c7243dc9aff6a88ca22735, type: 2}
@@ -755,7 +745,9 @@ Prefab:
       propertyPath: m_Text
       value: 'Bombs don''t kill but are great for propulsion :)
 
-        Get 10 coins to win!'
+        Get 10 coins to win!
+
+        If you''re stuck, press Esc to reset.'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27ecead667d041c439d3beeb3b45b374, type: 2}
@@ -869,11 +861,6 @@ Prefab:
     - target: {fileID: 4035452701683582, guid: 8a44b38d24c7243dc9aff6a88ca22735, type: 2}
       propertyPath: m_LocalScale.y
       value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114758405656523504, guid: 8a44b38d24c7243dc9aff6a88ca22735,
-        type: 2}
-      propertyPath: explosionForce
-      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a44b38d24c7243dc9aff6a88ca22735, type: 2}
