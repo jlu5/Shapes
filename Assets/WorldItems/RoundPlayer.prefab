@@ -204,7 +204,7 @@ MonoBehaviour:
   jumpRecoilStrength: 0.2
   rotationSpeed: 5
   playerID: 0
-  flyInCardinalDirections: 0
+  flyInCardinalDirections: 1
 --- !u!198 &198224548190216998
 ParticleSystem:
   m_ObjectHideFlags: 1
