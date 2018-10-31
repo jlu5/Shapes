@@ -23,7 +23,7 @@ public class BindEngine : MonoBehaviour {
         Collider2D[] collisions = new Collider2D[Player.MaxCollisionCount];
         rb.GetContacts(collisions);
 
-		// Check each colliding collider
+        // Check each colliding collider
         foreach (Collider2D collider in collisions)
         {
             if (collider == null)
@@ -31,7 +31,7 @@ public class BindEngine : MonoBehaviour {
                 continue;
             }
 
-			// If it has a BindEngine instance, try to bind!
+            // If it has a BindEngine instance, try to bind!
             GameObject otherObject = collider.gameObject;
             BindEngine target = otherObject.GetComponent<BindEngine>();
             if (target != null)
@@ -48,14 +48,14 @@ public class BindEngine : MonoBehaviour {
     // Detaches from currently attached players.
     public void Detach()
     {
-		// Remove associations to other BindEngine instances
+        // Remove associations to other BindEngine instances
         if (boundObjects.Any()) {
-			for (int i = boundObjects.Count-1; i >= 0; i--) {
-				BindEngine other = boundObjects[i];
-				Debug.Log(string.Format("BindEngine: unbinding objects {0} and {1}", gameObject.name, other.gameObject.name));
-				other.boundObjects.Remove(this);
-				boundObjects.RemoveAt(i);
-			}
+            for (int i = boundObjects.Count-1; i >= 0; i--) {
+                BindEngine other = boundObjects[i];
+                Debug.Log(string.Format("BindEngine: unbinding objects {0} and {1}", gameObject.name, other.gameObject.name));
+                other.boundObjects.Remove(this);
+                boundObjects.RemoveAt(i);
+            }
         }
 
         // Remove all bind displays and joints. This assumes that bindJoints and bindDisplays always
