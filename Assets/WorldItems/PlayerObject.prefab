@@ -215,6 +215,7 @@ MonoBehaviour:
   rotationSpeed: 5
   playerID: 0
   flyInCardinalDirections: 1
+  bindingSpeedModifier: 0.8
 --- !u!198 &198116874734126188
 ParticleSystem:
   m_ObjectHideFlags: 1

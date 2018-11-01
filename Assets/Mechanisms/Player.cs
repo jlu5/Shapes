@@ -27,6 +27,8 @@ public class Player : MonoBehaviour {
     public int playerID = 0;
     [Tooltip("Sets whether the player should swim or fly in the cardinal up/down directions if this is set to false, the player flies in the direction it is facing based on its current rotation.")]
     public bool flyInCardinalDirections = false;
+    [Tooltip("How much should movement forces increase with each joined character?")]
+    public float bindingSpeedModifier = 0.5F;
 
     // Quick access to components & resources
     public Rigidbody2D rb {get; protected set;} // "rb" for RigidBody
@@ -125,6 +127,14 @@ public class Player : MonoBehaviour {
         activeTriggers = new List<GameObject>();
     }
 
+    private float GetBindModifier() {
+        // If there are binds, the speed is bindSpeedModifier * # of binds
+        if (bindEngine.GetNumBinds() > 0) {
+            return 1 + (bindEngine.GetNumBinds() * bindingSpeedModifier);
+        } else {
+            return 1;  // Otherwise, no change.
+        }
+    }
 
     void Jump(bool skipJumpCheck=false) {
         if (!canJump && !skipJumpCheck)
@@ -158,7 +168,9 @@ public class Player : MonoBehaviour {
 
         // Jump perpendicular to the surface(s) the player is touching.
         Vector2 jumpForce = jumpVector * jumpStrength * Mathf.Abs(rb.gravityScale) * rb.mass;
+        jumpForce *= GetBindModifier();
         Debug.Log(string.Format("Player {0} jumps with a force of {1}", playerID, jumpForce));
+        // Increase the jump force if other players are bound
         rb.AddForce(jumpForce, ForceMode2D.Impulse);
 
         foreach (ContactPoint2D contactPoint in collisions)
@@ -186,11 +198,16 @@ public class Player : MonoBehaviour {
          * 4) The player's mass
          */
         // Note: we must put the base force first because "Quaternion (rotation) * Vector2/3" is defined, but the opposite is not.
-        Vector3 baseForce = flyInCardinalDirections ? Vector3.up : transform.localRotation * Vector3.up;
-        Vector2 force = (Vector2) baseForce * flySpeed * -Physics2D.gravity.y * Mathf.Abs(Mathf.Max(rb.gravityScale, 1)) * rb.mass;
+        Vector3 direction = flyInCardinalDirections ? Vector3.up : transform.localRotation * Vector3.up;
+        Vector2 force = (Vector2) direction * flySpeed * rb.mass * movement;
+        force *= -Physics2D.gravity.y; // Fly AGAINST the direction of gravity
+        force *= Mathf.Abs(Mathf.Max(rb.gravityScale, 1));  // Flight speed is limited if gravityScale < 1
 
-        Debug.Log("Player: flying by " + (movement * force).ToString());
-        rb.AddForce(force*movement, ForceMode2D.Impulse);
+        // Increase the force if other players are bound
+        force *= GetBindModifier();
+
+        Debug.Log("Player: flying by " + force.ToString());
+        rb.AddForce(force, ForceMode2D.Impulse);
 
         gfx.SetRocketEmission(movement);
     }
@@ -265,7 +282,7 @@ public class Player : MonoBehaviour {
             float r_move = Input.GetAxis("Vertical");
 
             Vector2 vector_move = new Vector2(x_move, 0.0F);
-            rb.AddForce(vector_move * moveSpeed * rb.mass, ForceMode2D.Impulse);
+            rb.AddForce(vector_move * moveSpeed * rb.mass * GetBindModifier(), ForceMode2D.Impulse);
             // Up rotates clockwise, down rotates counterclockwise.
             rb.AddTorque(r_move * rotationSpeed * rb.mass);
 

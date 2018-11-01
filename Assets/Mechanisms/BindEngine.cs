@@ -45,6 +45,10 @@ public class BindEngine : MonoBehaviour {
         bindDisplayTemplate = Resources.Load<GameObject>("BindDisplayObject");
     }
 
+    public int GetNumBinds() {
+        return boundObjects.Count;
+    }
+
     // Detaches from currently attached players.
     public void Detach()
     {
